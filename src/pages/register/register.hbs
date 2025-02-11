@@ -1,8 +1,11 @@
 <div class="register-page container h-100">
     <form class="register-form">
-        {{> Input id="register" label="Register" class="mb-10"}}
+        {{> Input id="first-name" label="First Name" class="mb-10" name="first_name"}}
+        {{> Input id="second-name" label="Second name" class="mb-10" name="second_name"}}
+        {{> Input id="login" label="Login" class="mb-10" name="login"}}
+        {{> Input id="phone" label="Phone" class="mb-10" name="phone" type="tel"}}
+        {{> Input id="email" label="Email" class="mb-10" name="email" type="email"}}
         {{> Input id="password" label="Password" class="mb-10" type="password"}}
-        {{> Button label="Sign in" type="primary" }}
-        {{> Button label="Sign up" type="link" }}
+        {{> Button label="Sign up" type="primary" size="lg" }}
     </form>
 </div>
