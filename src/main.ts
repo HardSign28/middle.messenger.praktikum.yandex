@@ -9,6 +9,7 @@ import cat3 from './assets/03.jpg'
 
 const pages = {
   'login': [ Pages.LoginPage ],
+  'register': [ Pages.RegisterPage ],
   'list': [ Pages.ListPage, {
     cats: [
       {name: 'cat-1', avatar: cat1},
@@ -33,7 +34,7 @@ function navigate(page: string) {
   container.innerHTML = temlpatingFunction(context);
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('login'));
+document.addEventListener('DOMContentLoaded', () => navigate('nav'));
 
 document.addEventListener('click', e => {
   //@ts-ignore
