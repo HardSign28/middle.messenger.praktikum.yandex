@@ -1,4 +1,4 @@
-import './list-cat.css';
+import './list-cat.scss';
 
 
 export { default as ListCat } from './list-cat.hbs?raw';

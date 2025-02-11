@@ -1,6 +1,7 @@
 import Handlebars from 'handlebars';
 import * as Components from './components';
 import * as Pages from './pages';
+import './style.scss';
 
 import cat1 from './assets/01.jpg'
 import cat2 from './assets/02.jpg'
