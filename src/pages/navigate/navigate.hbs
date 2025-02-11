@@ -1,5 +1,7 @@
 <ul>
-    <li><a href="#" page="login">Login</a></li>
-    <li><a href="#" page="register">Register</a></li>
-    <li><a href="#" page="list">List</a></li>
+    {{#each pages}}
+        {{#unless (eq @key "nav")}}
+            <li><a href="#" page="{{@key}}">{{@key}}</a></li>
+        {{/unless}}
+    {{/each}}
 </ul>

@@ -7,9 +7,12 @@ import cat1 from './assets/01.jpg'
 import cat2 from './assets/02.jpg'
 import cat3 from './assets/03.jpg'
 
+Handlebars.registerHelper('eq', (a, b) => a === b);
+
 const pages = {
   'login': [ Pages.LoginPage ],
   'register': [ Pages.RegisterPage ],
+  'profile': [ Pages.ProfilePage ],
   'list': [ Pages.ListPage, {
     cats: [
       {name: 'cat-1', avatar: cat1},
@@ -30,8 +33,11 @@ function navigate(page: string) {
   const [ source, context ] = pages[page];
   const container = document.getElementById('app')!;
 
-  const temlpatingFunction = Handlebars.compile(source);
-  container.innerHTML = temlpatingFunction(context);
+  // Добавляем список страниц в контекст
+  const fullContext = { ...context, pages };
+
+  const templatingFunction = Handlebars.compile(source);
+  container.innerHTML = templatingFunction(fullContext);
 }
 
 document.addEventListener('DOMContentLoaded', () => navigate('nav'));
