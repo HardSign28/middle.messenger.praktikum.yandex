@@ -1,58 +1,113 @@
-.input {
-    padding: 10px;
+.float-input {
+  position: relative;
+
+  &__element {
+    display: block;
+    width: 100%;
+    height: calc(3.1rem + 2px);
+    font-size: 1rem;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    appearance: none;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    line-height: 1.25;
+    padding: 1rem .75rem;
+    border: 1px solid #d2d6da;
+    border-radius: .5rem;
+
+    &:not(:placeholder-shown) + label,
+    &:focus + label {
+      opacity: .65;
+      transform: scale(.85) translateY(-.5rem) translateX(.15rem);
+    }
+
+    &:focus {
+      color: #212529;
+      background-color: #fff;
+      border-color: #86b7fe;
+      outline: 0;
+      box-shadow: 0 0 0 .15rem rgba(13,110,253,.25);
+    }
+
+    &:not(:placeholder-shown),
+    &:focus {
+      padding-top: 1.625rem;
+      padding-bottom: .625rem;
+
+    }
   }
-  
-  .input__container {
+
+  label {
+    color: var(--text-secondary-color);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 1rem .75rem;
+    pointer-events: none;
+    border: 1px solid transparent;
+    transform-origin: 0 0;
+    transition: opacity .1s ease-in-out, transform .1s ease-in-out;
+  }
+}
+
+
+.input {
+  padding: 5px 10px;
+
+  &__container {
     display: flex;
     height: 38px;
     flex-direction: column;
     align-content: flex-end;
   }
-  
-  .input__label {
+
+  &__label {
     transform: translateY(-21px);
     color: var(--text-secondary-color);
     font-size: 13px;
     font-weight: 500;
     user-select: none;
-    transition:
-      font-size 0.5s,
-      transform 0.5s;
+    transition: font-size .5s,
+    transform .5s;
   }
-  
-  .input__element {
+
+  &__element {
     border: none;
-    padding: 0%;
+    padding: 0;
     border-bottom: 1px solid var(--main-color);
     font-size: 13px;
     font-weight: 500;
     color: var(--text-color);
     padding-bottom: 7px;
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:not(:placeholder-shown) + .input__label,
+    &:focus + .input__label {
+      transform: translateY(-36px);
+      font-size: 9px;
+    }
   }
-  
-  .input__element:focus-visible {
-    outline: none;
-  }
-  
-  .input__text-error {
+
+  &__text-error {
     transform: translateY(-7px);
     color: var(--error-color);
     font-size: 8px;
     font-weight: 400;
     display: none;
   }
-  
-  .input__element:not(:placeholder-shown) + .input__label,
-  .input__element:focus + .input__label {
-    transform: translateY(-36px);
-    font-size: 9px;
+
+  &__error {
+    .input__text-error {
+      display: block;
+    }
+
+    .input__element {
+      color: var(--error-color);
+    }
   }
-  
-  .input__error .input__text-error {
-    display: block;
-  }
-  
-  .input__error .input__element {
-    color: var(--error-color);
-  }
-  
+}
