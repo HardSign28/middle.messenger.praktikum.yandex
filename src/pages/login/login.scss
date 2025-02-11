@@ -1,13 +1,22 @@
 .container {
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
-.login-form {
-    display: flex;
-    flex-direction: column;
-    padding: 50px 30px 30px;
-    width: 340px;
-    box-shadow: 0 0 6px 0 #00000024;
-    border-radius: 12px;
+.login {
+    &-page {
+        background: 50%/ calc(50vh - 200px) no-repeat, linear-gradient(to right bottom, #ea51bc, #ff4197, #ff426e, #ff5543, #fd6f01);
+    }
+
+    &-form {
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        padding: 50px 30px 30px;
+        width: 340px;
+        border-radius: 16px;
+        box-shadow: 0 0 32px #8898aa26;
+    }
 }
