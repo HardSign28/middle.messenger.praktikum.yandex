@@ -1,6 +1,20 @@
 .float-input {
   position: relative;
 
+  &_readonly {
+    &:after {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 15px;
+      background: #000;
+    }
+  }
+
   &__element {
     display: block;
     width: 100%;
@@ -15,6 +29,12 @@
     padding: 1rem .75rem;
     border: 1px solid #d2d6da;
     border-radius: .5rem;
+
+    &[readonly] {
+      background-color: #f3f3f3;
+      cursor: default;
+      pointer-events: none;
+    }
 
     &:not(:placeholder-shown) + label,
     &:focus + label {

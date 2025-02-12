@@ -40,7 +40,7 @@ function navigate(page: string) {
   container.innerHTML = templatingFunction(fullContext);
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('nav'));
+document.addEventListener('DOMContentLoaded', () => navigate('profile'));
 
 document.addEventListener('click', e => {
   //@ts-ignore

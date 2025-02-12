@@ -1,4 +1,11 @@
-<div class="float-input {{class}}">
-	<input type="{{type}}" class="float-input__element" placeholder=" " id="{{id}}">
+<div class="float-input {{class}} {{#if readonly}}float-input_readonly{{/if}}">
+	<input
+		type="{{type}}"
+		class="float-input__element"
+		placeholder=" "
+		id="{{id}}"
+			{{#if readonly}}readonly{{/if}}
+		value="{{value}}"
+	>
 	<label for="{{id}}">{{label}}</label>
 </div>
