@@ -1,19 +1,17 @@
-.not-found {
-    &-page {
-        height: auto;
-        min-height: 100vh;
-        background: radial-gradient(circle, rgba(139,84,193,1) 0%, rgba(252,70,107,1) 100%);
-        background-size: 400% 400%;
-        animation: gradient 10s ease infinite;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        text-align: center;
+.page-not-found {
+    height: auto;
+    min-height: 100vh;
+    background: radial-gradient(circle, rgba(139,84,193,1) 0%, rgba(252,70,107,1) 100%);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
 
-        .title {
-            font-size: 100px;
-        }
+    .title {
+        font-size: 100px;
     }
 
     @keyframes gradient {
@@ -28,15 +26,5 @@
         100% {
             background-position: 0 50%;
         }
-    }
-
-    &-form {
-        background: #fff;
-        display: flex;
-        flex-direction: column;
-        padding: 50px 30px 30px;
-        width: 340px;
-        border-radius: 16px;
-        box-shadow: 0 0 32px #8898aa26;
     }
 }
