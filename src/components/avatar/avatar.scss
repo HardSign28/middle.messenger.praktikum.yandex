@@ -1,4 +1,4 @@
-.profile {
+.avatar {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,8 +27,8 @@
       width: 60%;
     }
 
-    &:hover .profile__overlay,
-    &:focus-within .profile__overlay {
+    &:hover .avatar__overlay,
+    &:focus-within .avatar__overlay {
       opacity: 1;
     }
 
@@ -38,6 +38,10 @@
 
     &_md {
       max-width: 200px;
+    }
+
+    &_sm {
+      max-width: 50px;
     }
   }
 

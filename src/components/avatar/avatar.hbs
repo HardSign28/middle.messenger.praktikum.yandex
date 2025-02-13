@@ -1,17 +1,21 @@
 <div
-	class="profile__image {{ class }} {{#if size}} profile__image_{{size}}{{/if}}"
+	class="avatar__image {{ class }} {{#if size}} avatar__image_{{size}}{{/if}}"
+	{{#if edit}}
 	role="button"
 	tabindex="0"
 	aria-label="Изменить фото профиля"
+	{{/if}}
 	itemscope
 	itemtype="https://schema.org/ImageObject"
 >
 	{{#if imgUrl}}
-	<img src="{{imgUrl}}" alt="Аватар пользователя" itemprop="contentUrl" class="profile__photo">
+	<img src="{{imgUrl}}" alt="Аватар пользователя" itemprop="contentUrl" class="avatar__photo">
 	{{else}}
 	{{{ defaultAvatar }}}
 	{{/if}}
-	<div class="profile__overlay">
-		<span class="profile__text">Поменять аватар</span>
+	{{#if edit}}
+	<div class="avatar__overlay">
+		<span class="avatar__text">Поменять аватар</span>
 	</div>
+	{{/if}}
 </div>

@@ -1,15 +1,18 @@
 <div class="page-navigate">
 	<div class="container">
 		<div class="card">
-			<h1>Навигация</h1>
-			<ul>
-				{{#each pages}}
-					{{#unless (eq @key "nav")}}
-						<li><a href="#" page="{{@key}}">{{@key}}</a></li>
-					{{/unless}}
-				{{/each}}
-			</ul>
+			<h1 class="mb-20 text-center">Навигация</h1>
+			<nav>
+				<ul class="navigate-list">
+					{{#each pages}}
+						{{#unless (eq @key "nav")}}
+							<li class="navigate-list__item">
+								<a class="navigate-list__item-link" href="#" page="{{@key}}">{{this.name}}</a>
+							</li>
+						{{/unless}}
+					{{/each}}
+				</ul>
+			</nav>
 		</div>
 	</div>
 </div>
-

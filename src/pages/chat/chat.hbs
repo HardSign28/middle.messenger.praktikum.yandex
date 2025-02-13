@@ -1,0 +1,49 @@
+<div class="page-chat">
+	<div class="chat">
+		<div class="chat__list">
+			{{> Button label="go to home" type="link" }}
+			{{> ListCat cats=cats }}
+		</div>
+		<div class="chat__content">
+			<div class="chat__header">
+				<div class="left">
+					{{> Avatar size="sm" class="" imgUrl=avatar}}
+					<div>Вадим</div>
+				</div>
+				<div class="right">
+					<div class="chat__menu">
+						dsfds
+					</div>
+				</div>
+
+			</div>
+			<div class="chat__messages">
+				Выберите чат чтобы отправить сообщение
+				<div class="mb-20">Сообщение</div>
+				<div class="mb-20">Сообщение</div>
+				<div class="mb-20">Сообщение</div>
+				<div class="mb-20">Сообщение</div>
+				<div class="mb-20">Сообщение</div>
+				<div class="mb-20">Сообщение</div>
+				<div class="mb-20">Сообщение</div>
+				<div class="mb-20">Сообщение</div>
+				<div class="mb-20">Сообщение</div>
+				<div class="mb-20">Сообщение</div>
+				<div class="mb-20">Сообщение</div>
+				<div class="mb-20">Сообщение</div>
+				<div class="mb-20">Сообщение</div>
+				<div class="mb-20">Сообщение</div>
+				<div class="mb-20">Сообщение</div>
+				<div class="mb-20">Сообщение</div>
+			</div>
+			<div class="chat__footer">
+				Сообщение
+			</div>
+		</div>
+	</div>
+
+
+    {{#if showDialog}}
+        {{> RemoveCatDialog }}
+    {{/if}}
+</div>
