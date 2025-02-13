@@ -103,6 +103,35 @@
       padding: 10px;
     }
 
+    /** DRAFT **/
+    .chat__message-group {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .chat__message-group--me {
+      justify-content: flex-end; /* Свои сообщения справа */
+    }
+
+    .chat__message {
+      max-width: 60%;
+      padding: 10px;
+      border-radius: 10px;
+      word-wrap: break-word;
+    }
+
+    .chat__message--me {
+      background: #dcf8c6; /* Цвет для своих сообщений */
+      text-align: right;
+    }
+
+    .chat__message--other {
+      background: #fff;
+      text-align: left;
+    }
+    /** #DRAFT **/
+
     &__menu {
       width: 3px;
       padding: 10px;
