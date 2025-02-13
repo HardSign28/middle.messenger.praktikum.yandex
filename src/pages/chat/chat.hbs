@@ -6,16 +6,13 @@
 		</div>
 		<div class="chat__content">
 			<div class="chat__header">
-				<div class="left">
-					{{> Avatar size="sm" class="" imgUrl=avatar}}
+				<div class="chat__header-left-side">
+					{{> Avatar class="chat__header-avatar" imgUrl=avatar}}
 					<div>Вадим</div>
 				</div>
-				<div class="right">
-					<div class="chat__menu">
-						dsfds
-					</div>
+				<div class="chat__header-right-side">
+					<div class="chat__menu"></div>
 				</div>
-
 			</div>
 			<div class="chat__messages">
 				Выберите чат чтобы отправить сообщение
@@ -37,7 +34,11 @@
 				<div class="mb-20">Сообщение</div>
 			</div>
 			<div class="chat__footer">
-				Сообщение
+				<div class="chat__footer-attach"></div>
+				<div class="chat__footer-message-box">
+					<input class="chat__footer-message-input" placeholder="Сообщение">
+				</div>
+				<div class="chat__footer-send"></div>
 			</div>
 		</div>
 	</div>

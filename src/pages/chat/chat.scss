@@ -4,51 +4,112 @@
     height: 100vh;
 
     &__list {
-      width: 30%;
-      background: #f4f4f4;
+      width: 20%;
+      background: #fff;
       padding: 10px;
       overflow-y: auto;
+      min-width: 300px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+      border-right: 1px solid #ddd;
     }
 
     &__content {
-      flex-grow: 1; /* Автоматическая ширина */
+      flex-grow: 1;
       display: flex;
       flex-direction: column;
       height: 100vh;
       position: relative;
+      background: url("@/assets/chat-bg-white.png"), linear-gradient(to right bottom, #d7dcbb, #8eb991, #ced58d) ;
+      background-size: 23% auto, 300%;
     }
 
     &__header {
+      background: #fff;
       position: sticky;
       display: flex;
       justify-content: space-between;
-      background: #ddd;
-      padding: 10px;
-      text-align: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+      padding: 5px 10px;
+
+      &::after {
+        content: "";
+        display: block;
+        height: 1px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+      }
+
+      &-left-side {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      &-right-side {
+        display: flex;
+        align-items: center;
+      }
+
+      &-avatar {
+        width: 40px;
+        height: 40px;
+      }
     }
 
     &__footer {
       position: sticky;
       bottom: 0;
-      background: #ddd;
+      background: #fff;
       padding: 10px;
       display: flex;
       gap: 10px;
-    }
+      align-items: center;
+      border-top: 1px solid #ddd;
 
-    &__header,
-    &__footer {
-      flex-shrink: 0;
-      width: 100%;
-      background: #ddd;
-      padding: 10px;
+      &-message-box {
+        flex: 1;
+      }
+
+      &-message-input {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #eee;
+        padding: 10px;
+        width: 100%;
+      }
+
+      &-attach {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        background: url("@/assets/icons/attach2.svg") center no-repeat, #eee;
+        background-size: 50%;
+      }
+
+      &-send {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        background: url("@/assets/icons/send.svg") center no-repeat, #eee;
+        background-size: 50%;
+      }
     }
 
     &__messages {
       flex-grow: 1;
       overflow-y: auto;
       padding: 10px;
+    }
+
+    &__menu {
+      width: 3px;
+      padding: 10px;
+      height: 20px;
+      background: url("@/assets/icons/menu-dots.svg") 50% no-repeat;
+      background-size: auto;
+      cursor: pointer;
     }
   }
 }
