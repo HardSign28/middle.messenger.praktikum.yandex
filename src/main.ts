@@ -23,6 +23,7 @@ const pages: Record<string, [string, Record<string, unknown>?]> = {
     showDialog: true
   }],
   404: [Pages.NotFoundPage],
+  500: [Pages.ServerErrorPage],
   nav: [Pages.NavigatePage]
 };
 
