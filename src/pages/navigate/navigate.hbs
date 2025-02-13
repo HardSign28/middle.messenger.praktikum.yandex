@@ -1,7 +1,14 @@
-<ul>
-    {{#each pages}}
-        {{#unless (eq @key "nav")}}
-            <li><a href="#" page="{{@key}}">{{@key}}</a></li>
-        {{/unless}}
-    {{/each}}
-</ul>
+<div class="page-navigate">
+	<div class="container">
+		<div class="card">
+			<ul>
+				{{#each pages}}
+					{{#unless (eq @key "nav")}}
+						<li><a href="#" page="{{@key}}">{{@key}}</a></li>
+					{{/unless}}
+				{{/each}}
+			</ul>
+		</div>
+	</div>
+</div>
+
