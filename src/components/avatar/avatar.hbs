@@ -1,14 +1,17 @@
 <div
-	class="profile__image {{#if size}} profile__image_{{size}}{{/if}}"
+	class="profile__image {{ class }} {{#if size}} profile__image_{{size}}{{/if}}"
 	role="button"
 	tabindex="0"
 	aria-label="Изменить фото профиля"
 	itemscope
 	itemtype="https://schema.org/ImageObject"
 >
-	<img src="https://via.placeholder.com/120" alt="Аватар пользователя" itemprop="contentUrl" class="profile__photo">
+	{{#if imgUrl}}
+	<img src="{{imgUrl}}" alt="Аватар пользователя" itemprop="contentUrl" class="profile__photo">
+	{{else}}
+	{{{ defaultAvatar }}}
+	{{/if}}
 	<div class="profile__overlay">
-		<i class="fas fa-camera profile__icon" aria-hidden="true"></i>
 		<span class="profile__text">Поменять аватар</span>
 	</div>
 </div>

@@ -6,4 +6,24 @@
   position: fixed;
   top: 0;
   bottom: 0;
+  border-right: 1px solid #ddd;
+  box-shadow: 0 0 10px 0 rgba(34, 60, 80, .2);
+  z-index: 1;
+
+  &__icon {
+    width: 40px;
+    height: 40px;
+
+    path {
+      fill: #ddd;
+    }
+  }
+
+  &:hover {
+    .back-button__icon {
+      path {
+        fill: var(--main-color);
+      }
+    }
+  }
 }

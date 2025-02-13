@@ -22,13 +22,22 @@
       border-radius: 50%;
     }
 
+    svg {
+      fill: #eee;
+      width: 60%;
+    }
+
     &:hover .profile__overlay,
     &:focus-within .profile__overlay {
       opacity: 1;
     }
 
     &_lg {
-      width: 300px;
+      max-width: 300px;
+    }
+
+    &_md {
+      max-width: 200px;
     }
   }
 

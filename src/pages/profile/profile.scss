@@ -8,6 +8,17 @@
 .profile {
     flex-grow: 1;
 
+    &__avatar {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+    }
+
+    .user-name {
+        text-align: center;
+    }
+
     &-page {
         width: 100%;
         height: auto;

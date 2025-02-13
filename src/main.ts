@@ -6,13 +6,14 @@ import './style.scss';
 import cat1 from './assets/01.jpg'
 import cat2 from './assets/02.jpg'
 import cat3 from './assets/03.jpg'
+import avatar from './assets/icons/avatar.svg?raw';
 
 Handlebars.registerHelper('eq', (a, b) => a === b);
-
+Handlebars.registerHelper('defaultAvatar', () => avatar);
 const pages = {
   'login': [ Pages.LoginPage ],
   'register': [ Pages.RegisterPage ],
-  'profile': [ Pages.ProfilePage ],
+  'profile': [ Pages.ProfilePage, { img: avatar, cat1 }],
   'list': [ Pages.ListPage, {
     cats: [
       {name: 'cat-1', avatar: cat1},
