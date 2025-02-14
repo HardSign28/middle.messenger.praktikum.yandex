@@ -106,12 +106,18 @@
     /** DRAFT **/
     .chat__message-group {
       display: flex;
-      align-items: flex-start;
+      flex-direction: column;
       margin-bottom: 10px;
     }
 
     .chat__message-group--me {
+      align-items: flex-end;
       justify-content: flex-end; /* Свои сообщения справа */
+    }
+
+    .chat__message-group--other {
+      align-items: flex-start;
+      justify-content: flex-start; /* Свои сообщения справа */
     }
 
     .chat__message {
@@ -119,16 +125,54 @@
       padding: 10px;
       border-radius: 10px;
       word-wrap: break-word;
+      position: relative;
+      box-shadow: 0 1px 2px var(--color-default-shadow);
+
+      &:not(:last-of-type) {
+        margin-bottom: 7px;
+      }
+
+
     }
 
     .chat__message--me {
-      background: #dcf8c6; /* Цвет для своих сообщений */
+      background: #EEFFDE; /* Цвет для своих сообщений */
       text-align: right;
+
+      &:last-of-type {
+        border-bottom-right-radius: 0;
+
+        &:after {
+          content: "";
+          display: flex;
+          position: absolute;
+          width: 9px;
+          height: 20px;
+          bottom: -3px;
+          right: -9px;
+          background: url("@/assets/icons/chat-appendix-r.svg");
+        }
+      }
     }
 
     .chat__message--other {
       background: #fff;
       text-align: left;
+
+      &:last-of-type {
+        border-bottom-left-radius: 0;
+
+        &:after {
+          content: "";
+          display: flex;
+          position: absolute;
+          width: 9px;
+          height: 20px;
+          bottom: -3px;
+          left: -9px;
+          background: url("@/assets/icons/chat-appendix-l.svg");
+        }
+      }
     }
     /** #DRAFT **/
 

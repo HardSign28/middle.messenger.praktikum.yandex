@@ -6,12 +6,19 @@
     --error-color: #ff2f2f;
     --text-color: #1e1e1e;
     --text-secondary-color: #999;
+    --color-default-shadow: rgb(114,114,114,.251);
   }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+p {
+    &:not(:last-of-type) {
+        margin-bottom: 10px;
+    }
 }
 
 html,
