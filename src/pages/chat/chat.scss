@@ -113,11 +113,19 @@
           flex-direction: column;
           flex-shrink: 0;
           box-shadow: 0 0 6px 0 rgba(0, 0, 0, .14);
-          gap: 16px;
+          // gap: 16px;
 
           &-item {
             display: flex;
+            align-items: center;
             gap: 15px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            padding: 10px;
+
+            &:hover {
+              border: 1px solid #ddd;
+            }
           }
         }
 
@@ -141,8 +149,7 @@
 
         &__container {
           position: absolute;
-          top: -50px;
-          transform: translateY(-50%);
+          bottom: 0;
           display: none;
 
           &:hover {
