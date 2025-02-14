@@ -171,9 +171,28 @@
       flex-grow: 1;
       overflow-y: auto;
       padding: 10px;
+      display: flex;
+      flex-direction: column;
+
+      &-date {
+        display: flex;
+        margin: 10px auto;
+        background: rgba(0, 0, 0, .2);
+        border-radius: 999999px;
+        padding: 2px 8px;
+        font-size: 14px;
+        color: #fff;
+      }
     }
 
     /** DRAFT **/
+
+
+    .chat__attach-img {
+      max-width: 100%;
+      height: auto;
+    }
+
     .chat__message-group {
       display: flex;
       flex-direction: column;
