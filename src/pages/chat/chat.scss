@@ -166,12 +166,24 @@
         align-self: end;
         margin-bottom: 6px;
         margin-right: 6px;
+        display: flex;
+        // flex-direction: row;
+        gap: 5px;
+        align-items: center;
+        line-height: 1;
+        color: #3369F3;
       }
+    }
+
+    .double-check {
+      background: url("@/assets/icons/double-check.svg") center no-repeat;
+      width: 10px;
+      height: 5px;
     }
 
     .chat__message--me {
       background: #EEFFDE; /* Цвет для своих сообщений */
-      text-align: right;
+      // text-align: right;
 
       &:last-of-type {
         border-bottom-right-radius: 0;
