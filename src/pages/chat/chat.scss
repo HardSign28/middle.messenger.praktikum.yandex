@@ -288,12 +288,83 @@
     /** #DRAFT **/
 
     &__menu {
-      width: 3px;
+      width: 24px;
       padding: 10px;
-      height: 20px;
+      height: 24px;
       background: url("@/assets/icons/menu-dots.svg") 50% no-repeat;
-      background-size: auto;
+      background-size: auto 16px;
       cursor: pointer;
+      position: relative;
+
+      &:hover {
+        border-radius: 50%;
+        background: url("@/assets/icons/menu-dots.svg") 50% no-repeat, #ddd;
+        background-size: auto 16px;
+      }
+
+      // хак без JS
+      &:hover:has(.chat__menu__container) {
+        .chat__menu__container {
+          display: flex;
+        }
+      }
+
+      &__list {
+        transform: translateX(-100%);
+        position: relative;
+        left: 100%;
+        list-style: none;
+        border-radius: 10px;
+        background: #fff;
+        margin-top: 40px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        box-shadow: 0 0 6px 0 rgba(0, 0, 0, .14);
+
+        &-item {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          border: 1px solid transparent;
+          border-radius: 8px;
+          padding: 10px;
+
+          &:hover {
+            border: 1px solid #ddd;
+          }
+        }
+      }
+
+      &__icon {
+        display: block;
+        width: 22px;
+        height: 22px;
+
+        &._add {
+          background: url("@/assets/icons/chat-add-user.svg") center no-repeat;
+        }
+
+        &._delete {
+          background: url("@/assets/icons/chat-delete-user.svg") center no-repeat;
+        }
+      }
+
+      &__container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        // transform: translateX(-50%);
+        display: none;
+        z-index: 1;
+
+        &:hover {
+          display: flex;
+          z-index: 1;
+          position: absolute;
+        }
+      }
     }
   }
 
