@@ -91,6 +91,64 @@
         height: 40px;
         background: url("@/assets/icons/attach2.svg") center no-repeat, #eee;
         background-size: 50%;
+        cursor: pointer;
+        /** Для всплывахи **/
+        position: relative;
+        /** #Для всплывахи **/
+
+        // хак без JS
+        &:hover:has(.chat__footer-attach__container) {
+          .chat__footer-attach__container {
+            display: flex;
+          }
+        }
+
+        .chat__footer-attach__list {
+          list-style: none;
+          border-radius: 10px;
+          background: #fff;
+          margin-bottom: 60px;
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+          flex-shrink: 0;
+          box-shadow: 0 0 6px 0 rgba(0, 0, 0, .14);
+          gap: 16px;
+
+          &-item {
+            display: flex;
+            gap: 15px;
+          }
+        }
+
+        &__icon {
+          display: block;
+          width: 22px;
+          height: 22px;
+
+          &._media {
+            background: url("@/assets/icons/chat-media-icon.svg") center no-repeat;
+          }
+
+          &._file {
+            background: url("@/assets/icons/chat-file-icon.svg") center no-repeat;
+          }
+
+          &._geo {
+            background: url("@/assets/icons/chat-geo-icon.svg") center no-repeat;
+          }
+        }
+
+        &__container {
+          position: absolute;
+          top: -50px;
+          transform: translateY(-50%);
+          display: none;
+
+          &:hover {
+            display: flex;
+          }
+        }
       }
 
       &-send {
