@@ -25,21 +25,26 @@
 
     &__header {
       background: #fff;
+      border-bottom: 1px solid #ddd;
       position: sticky;
       display: flex;
       justify-content: space-between;
       padding: 5px 10px;
+      z-index: 1;
+      box-shadow: 4px 1px 5px 1px rgba(0, 0, 0, 0.2);
 
+      /*
       &::after {
         content: "";
         display: block;
         height: 1px;
         position: absolute;
-        bottom: 0;
+        bottom: -1px;
         left: 0;
         right: 0;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, .4);
       }
+      */
 
       &-left-side {
         display: flex;
