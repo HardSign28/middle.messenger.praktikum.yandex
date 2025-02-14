@@ -31,7 +31,7 @@
       justify-content: space-between;
       padding: 5px 10px;
       z-index: 1;
-      box-shadow: 4px 1px 5px 1px rgba(0, 0, 0, 0.2);
+      box-shadow: 4px 1px 5px 1px rgba(0, 0, 0, .2);
 
       /*
       &::after {
@@ -132,12 +132,28 @@
       word-wrap: break-word;
       position: relative;
       box-shadow: 0 1px 2px var(--color-default-shadow);
+      display: flex;
+      gap: 10px;
 
       &:not(:last-of-type) {
         margin-bottom: 7px;
       }
 
+      &_img {
+        .chat__message-time {
+          position: absolute;
+          background: rgba(0, 0, 0, .1);
+          padding: 2px 6px;
+          border-radius: 9999999px;
+          bottom: 10px;
+          right: 10px;
+        }
+      }
 
+      &-time {
+        font-size: 11px;
+        align-self: end;
+      }
     }
 
     .chat__message--me {
