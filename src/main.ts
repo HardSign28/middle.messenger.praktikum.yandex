@@ -20,9 +20,65 @@ const pages: Record<string, { name: string; template: string; context?: Record<s
     template: Pages.ChatPage,
     context: {
       cats: [
-        { name: "cat-1", avatar: cat1 },
-        { name: "cat-2", avatar: cat2, active: true },
-        { name: "cat-3", avatar: cat3 },
+        {
+          name: "Андрей",
+          avatar: cat1,
+          date: '10:49',
+          unread: 2,
+          text: 'изображение'
+        },
+        {
+          name: "Киноклуб",
+          avatar: cat2,
+          date: '12:00',
+          you: true,
+          text: 'стикер'
+        },
+        {
+          name: "Илья",
+          avatar: cat3,
+          date: '15:12',
+          unread: 4,
+          text: 'В своём стремлении улучшить пользовательский опыт мы упускаем, что представители современных социальных резервов являются только методом политического участия и объективно рассмотрены соответствующими инстанциями.'
+        },
+        {
+          name: "Вадим",
+          avatar: cat2,
+          date: 'Пт',
+          you: true,
+          active: true,
+          text: 'Круто!'
+        },
+        {
+          name: "тет-а-теты",
+          avatar: cat2,
+          date: 'Ср',
+          text: 'И Human Interface Guidelines и Material Design рекомендуют...'
+        },
+        {
+          name: "1, 2, 3",
+          avatar: cat2,
+          date: 'Пн',
+          text: 'Миллионы россиян ежедневно проводят десятки часов свое...'
+        },
+        {
+          name: "Design Destroyer",
+          avatar: cat2,
+          date: 'Пн',
+          text: 'В 2008 году художник Jon Rafman начал собирать...'
+        },
+        {
+          name: "Day.",
+          avatar: cat2,
+          date: '1 Мая 2020',
+          text: 'Так увлёкся работой по курсу, что совсем забыл его анонсир...'
+        },
+        {
+          name: "Стас Рогозин",
+          avatar: cat2,
+          date: '12 Апр 2020',
+          text: 'Можно или сегодня или завтра вечером.'
+        },
       ],
       showDialog: false
     }

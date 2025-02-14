@@ -1,4 +1,20 @@
 <div class="cat-card {{#if active}}cat-card_active{{/if}}">
-    <p>Hi. I'm {{ name }} </p>
-	{{> Avatar size="sm" class="" imgUrl=avatar}}
+	{{> Avatar size="sm" class="chat__avatar" imgUrl=avatar}}
+	<div class="cat-card-content">
+		<div class="cat-card-head">
+			<div class="cat-card-head__name">{{ name }}</div>
+			<div class="cat-card-head__meta">{{ date }}</div>
+		</div>
+		<div class="cat-card-body">
+			<div class="cat-card-text">
+				{{#if you}}
+					<strong class="cat-card-text-highlight">Вы:</strong>
+				{{/if}}
+				{{{ text }}}
+			</div>
+			{{#if unread}}
+				<div class="cat-card-unread">{{ unread }}</div>
+			{{/if}}
+		</div>
+	</div>
 </div>
