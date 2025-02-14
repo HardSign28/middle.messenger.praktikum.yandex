@@ -2,6 +2,12 @@
 	<div class="chat">
 		<div class="chat__list">
 			{{> Button label="go to home" type="link" }}
+
+			<div>Профиль ></div>
+			<div class="chat__search">
+				<input class="chat__search-input" placeholder="Поиск">
+				<span class="icon">🔍</span>
+			</div>
 			{{> ListCat cats=cats }}
 		</div>
 		<div class="chat__content">
