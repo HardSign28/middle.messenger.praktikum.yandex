@@ -4,16 +4,19 @@
 			{{> ChatSearch }}
 			{{> ListContacts contacts=contacts }}
 		</aside>
-		<section class="chat__content">
-			{{> ChatHeader }}
-			<section class="chat__messages">
-				<!-- Выберите чат чтобы отправить сообщение -->
-				<time class="chat__messages-date">
-					{{ conversationDate }}
-				</time>
-				{{> ChatMessages }}
-			</section>
-			{{> ChatFooter }}
+		<section class="chat__content {{#if chatGroups }}chat__content_bg{{/if}}">
+			{{#if chatGroups }}
+				{{> ChatHeader }}
+				<section class="chat__messages">
+					<time class="chat__messages-date">
+						{{ conversationDate }}
+					</time>
+					{{> ChatMessages }}
+				</section>
+				{{> ChatFooter }}
+			{{ else }}
+				<div class="chat__content-empty">Выберите чат чтобы отправить сообщение</div>
+			{{/if}}
 		</section>
 	</section>
 
