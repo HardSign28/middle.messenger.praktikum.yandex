@@ -38,9 +38,16 @@
     // text-transform: uppercase;
     color: #fff;
     background-size: 200% auto;
-    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
-    background-image: linear-gradient(to right, #8D45D0 0%, #6773df 50%, #6773df 100%);
-    transition: .2s;
+    box-shadow:
+      0 4px 6px rgba(50, 50, 93, 0.11),
+      0 1px 3px rgba(0, 0, 0, 0.08);
+    background-image: linear-gradient(
+      to right,
+      #8d45d0 0%,
+      #6773df 50%,
+      #6773df 100%
+    );
+    transition: 0.2s;
     // background: linear-gradient(90deg, #8D45D0 -105.62%, #12D9FF 208.91%);
     &:hover {
       background-position: right center;

@@ -1,98 +1,116 @@
 @use "assets/fonts/fonts.scss";
+
 @use "assets/styles/_vars.scss";
+
 @use "assets/styles/_globals.scss";
 
 .card {
-    background: #fff;
-    display: flex;
-    flex-direction: column;
-    padding: 1.25rem 1.5rem;
-    border-radius: .6rem;
-    box-shadow: 0 6px 15px 0 rgba(0, 0, 0, .14);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1.5rem;
+  border-radius: 0.6rem;
+  box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.14);
 
-    &__title {
-        color: #31374d;
-        font-weight: 500;
-        font-size: 24px;
-        margin-bottom: 15px;
-    }
+  &__title {
+    color: #31374d;
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
 }
 
 .bg-gradient {
-    background: url("@/assets/chat-bg-white.webp"), radial-gradient(circle, #61bdbb 0%, #a9dbda 100%) ;
-    background-size: 23% auto, 400%;
-    animation: gradient 60s linear infinite;
+  background:
+    url("@/assets/chat-bg-white.webp"),
+    radial-gradient(circle, #61bdbb 0%, #a9dbda 100%);
+  background-size:
+    23% auto,
+    400%;
+  animation: gradient 60s linear infinite;
 }
 
 @keyframes gradient {
-    0% {
-        background-position: 0 0, 0 50%;
-    }
+  0% {
+    background-position:
+      0 0,
+      0 50%;
+  }
 
-    50% {
-        background-position: 268px 60%, 0 50%;
-    }
+  50% {
+    background-position:
+      268px 60%,
+      0 50%;
+  }
 
-    100% {
-        background-position: 536px 0, 0 50%;
-    }
+  100% {
+    background-position:
+      536px 0,
+      0 50%;
+  }
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    margin-left: auto;
-    margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
 
-    // Small devices (landscape phones, 576px and up)
-    @media (min-width: 576px) {
-        max-width: 540px;
-    }
+  // Small devices (landscape phones, 576px and up)
+  @media (min-width: 576px) {
+    max-width: 540px;
+  }
 
-    // Medium devices (tablets, 768px and up)
-    @media (min-width: 768px) {
-        max-width: 720px;
-    }
+  // Medium devices (tablets, 768px and up)
+  @media (min-width: 768px) {
+    max-width: 720px;
+  }
 
-    // Large devices (desktops, 992px and up)
-    @media (min-width: 992px) {
-        max-width: 960px;
-    }
+  // Large devices (desktops, 992px and up)
+  @media (min-width: 992px) {
+    max-width: 960px;
+  }
 
-    // Extra large devices (large desktops, 1200px and up)
-    @media (min-width: 1200px) {
-        max-width: 1140px;
-    }
+  // Extra large devices (large desktops, 1200px and up)
+  @media (min-width: 1200px) {
+    max-width: 1140px;
+  }
 
-    @media (min-width: 1400px) {
-        max-width: 1320px;
-    }
+  @media (min-width: 1400px) {
+    max-width: 1320px;
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) {
-
 }
 
 // Medium devices (tablets, 768px and up)
-@media (min-width: 768px) {  }
+@media (min-width: 768px) {
+}
 
 // Large devices (desktops, 992px and up)
-@media (min-width: 992px) {  }
+@media (min-width: 992px) {
+}
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {  }
+@media (min-width: 1200px) {
+}
 
 // Extra small devices (portrait phones, less than 576px)
-@media (max-width: 575.98px) {  }
+@media (max-width: 575.98px) {
+}
 
 // Small devices (landscape phones, less than 768px)
-@media (max-width: 767.98px) {  }
+@media (max-width: 767.98px) {
+}
 
 // Medium devices (tablets, less than 992px)
-@media (max-width: 991.98px) { }
+@media (max-width: 991.98px) {
+}
 
 // Large devices (desktops, less than 1200px)
-@media (max-width: 1199.98px) {  }
+@media (max-width: 1199.98px) {
+}

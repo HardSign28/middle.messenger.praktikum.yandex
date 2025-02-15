@@ -1,13 +1,14 @@
 .back-button {
   display: flex;
   align-items: center;
-  justify-content: center;padding: 10px;
+  justify-content: center;
+  padding: 10px;
   background: #fff;
   position: fixed;
   top: 0;
   bottom: 0;
   border-right: 1px solid #ddd;
-  box-shadow: 0 0 10px 0 rgba(34, 60, 80, .2);
+  box-shadow: 0 0 10px 0 rgba(34, 60, 80, 0.2);
   z-index: 1;
 
   &__icon {

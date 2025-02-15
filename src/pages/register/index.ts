@@ -1,2 +1,2 @@
-import './register.scss'
+import './register.scss';
 export { default as RegisterPage } from './register.hbs?raw';

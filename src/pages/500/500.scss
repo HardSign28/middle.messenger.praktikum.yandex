@@ -1,22 +1,22 @@
 .page-error {
-    color: #fff;
-    text-align: center;
-    text-shadow: var(--secondary-text-shadow);
+  color: #fff;
+  text-align: center;
+  text-shadow: var(--secondary-text-shadow);
 
-    .button {
-        box-shadow: var(--secondary-text-shadow);
+  .button {
+    box-shadow: var(--secondary-text-shadow);
+  }
+
+  .error {
+    &__image {
+      max-width: 300px;
+      height: auto;
+      filter: drop-shadow(var(--secondary-image-shadow));
     }
 
-    .error {
-        &__image {
-            max-width: 300px;
-            height: auto;
-            filter: drop-shadow( var(--secondary-image-shadow));
-        }
-
-        &__title {
-            font-size: 100px;
-            text-shadow: var(--secondary-image-shadow);
-        }
+    &__title {
+      font-size: 100px;
+      text-shadow: var(--secondary-image-shadow);
     }
+  }
 }
