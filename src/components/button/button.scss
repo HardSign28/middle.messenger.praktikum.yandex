@@ -15,18 +15,17 @@
   }
 
   &__primary {
-    // background-color: var(--main-color);
-    background-color: #2787f5;
+    background-color: var(--main-color);
     color: #fff;
 
     &:hover,
     &:active {
-      background-color: var(--main-color);
+      background-color: var(--main-color-darken);
     }
   }
 
   &__link {
-    color: var(--main-color);
+    color: var(--main-color-darken);
     font-size: 11px;
     text-align: center;
   }

@@ -1,23 +1,22 @@
 .page-not-found {
     color: #fff;
     text-align: center;
-    text-shadow: 3px 3px 3px #4FB5B5;
+    text-shadow: var(--secondary-text-shadow);
 
     .button {
-        // background: #344767;
-        box-shadow: 3px 3px 3px #4FB5B5;
+        box-shadow: var(--secondary-text-shadow);
     }
 
     .not-found {
         &__image {
             max-width: 300px;
             height: auto;
-            filter: drop-shadow( 5px 5px 5px #4FB5B5);
+            filter: drop-shadow(var(--secondary-image-shadow));
         }
 
         &__title {
             font-size: 100px;
-            text-shadow: 5px 5px 5px #4FB5B5;
+            text-shadow: var(--secondary-image-shadow);
         }
     }
 }
