@@ -9,95 +9,9 @@
 			<div class="chat__messages">
 				<!-- Выберите чат чтобы отправить сообщение -->
 				<div class="chat__messages-date">
-					19 июня
+					{{ conversationDate }}
 				</div>
-				<div class="chat__message-group chat__message-group--other">
-					<div class="chat__message chat__message--other">
-						<p>Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.</p>
-						<p>Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.</p>
-						<div class="chat__message-meta">
-							11:56
-						</div>
-					</div>
-					<div class="chat__message chat__message_img chat__message--other">
-						<img class="chat__attach-img" src="/chat-attach.png" width="316" height="211">
-						<div class="chat__message-meta">
-							11:56
-						</div>
-					</div>
-				</div>
-
-				<div class="chat__message-group chat__message-group--me">
-					<div class="chat__message chat__message--me">
-						Салам!
-						<div class="chat__message-meta">
-							<div class="double-check"></div>
-							11:59
-						</div>
-
-					</div>
-					<div class="chat__message chat__message--me">
-						Круто!
-						<div class="chat__message-meta">
-							<div class="double-check"></div>
-							12:00
-						</div>
-					</div>
-				</div>
-
-				<div class="chat__message-group chat__message-group--other">
-					<div class="chat__message chat__message--other">
-						Я знал, что ты оценишь!
-						<div class="chat__message-meta">
-							12:00
-						</div>
-					</div>
-				</div>
-
-				<div class="chat__message-group chat__message-group--me">
-					<div class="chat__message chat__message--me">
-						Еще время надо добавить
-						<div class="chat__message-meta">
-							<div class="double-check"></div>
-							12:01
-						</div>
-					</div>
-					<div class="chat__message chat__message--me">
-						И дату
-						<div class="chat__message-meta">
-							<div class="double-check"></div>
-							12:01
-						</div>
-					</div>
-				</div>
-
-				<div class="chat__message-group chat__message-group--other">
-					<div class="chat__message chat__message--other">
-						И всплывахи
-						<div class="chat__message-meta">
-							12:03
-						</div>
-					</div>
-				</div>
-
-				<div class="chat__message-group chat__message-group--me">
-					<div class="chat__message chat__message--me">
-						Поездато!
-						<div class="chat__message-meta">
-							<div class="double-check"></div>
-							12:03
-						</div>
-					</div>
-				</div>
-				<div class="chat__message-group chat__message-group--me">
-					<div class="chat__message chat__message--me">
-						Предварительные выводы неутешительны: семантический разбор внешних противодействий говорит о возможностях первоочередных требований. Внезапно, ключевые особенности структуры проекта представлены в исключительно положительном свете. Противоположная точка зрения подразумевает, что сделанные на базе интернет-аналитики выводы ограничены исключительно образом мышления!
-						<div class="chat__message-meta">
-							<div class="double-check"></div>
-							13:04
-						</div>
-					</div>
-				</div>
+				{{> ChatMessages }}
 			</div>
 			{{> ChatFooter }}
 		</div>
