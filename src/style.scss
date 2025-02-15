@@ -38,6 +38,12 @@ body {
     min-height: 100vh;
 }
 
+.page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
 .w-100 {
     width: 100%;
 }
