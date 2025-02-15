@@ -19,7 +19,7 @@
 }
 
 .bg-gradient {
-    background: url("@/assets/chat-bg-white.png"), radial-gradient(circle, #61BDBB 0%, #A9DBDA 100%) ;
+    background: url("@/assets/chat-bg-white.webp"), radial-gradient(circle, #61bdbb 0%, #a9dbda 100%) ;
     background-size: 23% auto, 400%;
     animation: gradient 60s linear infinite;
 }

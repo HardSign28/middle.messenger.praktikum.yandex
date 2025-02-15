@@ -3,13 +3,13 @@ import * as Components from './components';
 import * as Pages from './pages';
 import './style.scss';
 
-import cat1 from './assets/01.jpg'
-import cat2 from './assets/02.jpg'
-import cat3 from './assets/03.jpg'
-import avatar from './assets/icons/avatar.svg?raw';
+import cat1 from '@/assets/01.jpg'
+import cat2 from '@/assets/02.jpg'
+import cat3 from '@/assets/03.jpg'
+import avatar from '@/assets/icons/avatar.svg?raw';
 
-import img404 from '@/assets/icons/404.png';
-import img500 from '@/assets/icons/500.png';
+import img404 from '@/assets/icons/404.webp';
+import img500 from '@/assets/icons/500.webp';
 
 Handlebars.registerHelper('eq', (a, b) => a === b);
 Handlebars.registerHelper('defaultAvatar', () => avatar);
@@ -132,6 +132,3 @@ document.addEventListener('click', e => {
     e.stopImmediatePropagation();
   }
 });
-
-
-
