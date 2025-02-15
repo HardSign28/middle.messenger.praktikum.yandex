@@ -17,23 +17,7 @@
     }
   }
 
-  .chat__message-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-  }
-
-  .chat__message-group--me {
-    align-items: flex-end;
-    justify-content: flex-end; /* Свои сообщения справа */
-  }
-
-  .chat__message-group--other {
-    align-items: flex-start;
-    justify-content: flex-start; /* Свои сообщения справа */
-  }
-
-  .chat__message {
+  &__message {
     max-width: 60%;
     padding: 10px;
     border-radius: 10px;
@@ -77,51 +61,71 @@
       line-height: 1;
       color: var(--main-color-darken);
     }
+
+    &--me {
+      background: #eeffde;
+
+      &:last-of-type {
+        border-bottom-right-radius: 0;
+
+        &::after {
+          content: "";
+          display: flex;
+          position: absolute;
+          width: 9px;
+          height: 20px;
+          bottom: -3px;
+          right: -9px;
+          background: url("@/assets/icons/chat-appendix-r.svg");
+        }
+      }
+    }
+
+    &--other {
+      background: var(--color-white);
+      text-align: left;
+
+      .chat__message-meta {
+        color: var(--color-dark-gray);
+      }
+
+      &:last-of-type {
+        border-bottom-left-radius: 0;
+
+        &::after {
+          content: "";
+          display: flex;
+          position: absolute;
+          width: 9px;
+          height: 20px;
+          bottom: -3px;
+          left: -9px;
+          background: url("@/assets/icons/chat-appendix-l.svg");
+        }
+      }
+    }
+
+    &-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+
+      &--me {
+        align-items: flex-end;
+        justify-content: flex-end; /* Свои сообщения справа */
+      }
+
+      &--other {
+        align-items: flex-start;
+        justify-content: flex-start; /* Свои сообщения справа */
+      }
+    }
   }
 
   .double-check {
     background: url("@/assets/icons/double-check.svg") center no-repeat;
     width: 10px;
     height: 5px;
-  }
-
-  .chat__message--me {
-    background: #eeffde;
-
-    &:last-of-type {
-      border-bottom-right-radius: 0;
-
-      &::after {
-        content: "";
-        display: flex;
-        position: absolute;
-        width: 9px;
-        height: 20px;
-        bottom: -3px;
-        right: -9px;
-        background: url("@/assets/icons/chat-appendix-r.svg");
-      }
-    }
-  }
-
-  .chat__message--other {
-    background: var(--color-white);
-    text-align: left;
-
-    &:last-of-type {
-      border-bottom-left-radius: 0;
-
-      &::after {
-        content: "";
-        display: flex;
-        position: absolute;
-        width: 9px;
-        height: 20px;
-        bottom: -3px;
-        left: -9px;
-        background: url("@/assets/icons/chat-appendix-l.svg");
-      }
-    }
   }
 
   .chat__attach-img {
