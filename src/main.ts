@@ -29,7 +29,7 @@ const pages: Record<
 		name: 'Чат',
 		template: Pages.ChatPage,
 		context: {
-			cats: [
+			contacts: [
 				{
 					name: 'Андрей',
 					avatar: cat1,
@@ -91,18 +91,6 @@ const pages: Record<
 				},
 			],
 			showDialog: false,
-		},
-	},
-	list: {
-		name: 'Список',
-		template: Pages.ListPage,
-		context: {
-			cats: [
-				{ name: 'cat-1', avatar: cat1 },
-				{ name: 'cat-2', avatar: cat2, active: true },
-				{ name: 'cat-3', avatar: cat3 },
-			],
-			showDialog: true,
 		},
 	},
 	404: {
