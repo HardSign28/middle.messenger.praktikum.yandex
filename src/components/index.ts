@@ -2,7 +2,7 @@ export { Button } from './button';
 export { BackButton } from './back-button';
 export { Input } from './input';
 export { ListContacts } from './list-contacts';
-export { CatCard } from './cat-card';
+export { ContactCard } from './cat-card';
 export { FormWrapper } from './form-wrapper';
 export { FormElement } from './form-element';
 export { Dialog } from './dialog';
