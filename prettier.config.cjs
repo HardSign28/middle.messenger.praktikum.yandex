@@ -23,6 +23,8 @@ module.exports = {
 			files: ['*.hbs', '*.html'],
 			options: {
 				singleQuote: false,
+				bracketSpacing: true,
+				parser: 'glimmer',
 			},
 		},
 		{
