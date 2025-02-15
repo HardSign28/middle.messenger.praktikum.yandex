@@ -8,6 +8,9 @@ import cat2 from './assets/02.jpg'
 import cat3 from './assets/03.jpg'
 import avatar from './assets/icons/avatar.svg?raw';
 
+import img404 from '@/assets/icons/404.png';
+import img500 from '@/assets/icons/500.png';
+
 Handlebars.registerHelper('eq', (a, b) => a === b);
 Handlebars.registerHelper('defaultAvatar', () => avatar);
 
@@ -95,8 +98,8 @@ const pages: Record<string, { name: string; template: string; context?: Record<s
       showDialog: true
     }
   },
-  404: { name: "404 Страница не найдена", template: Pages.NotFoundPage },
-  500: { name: "500 Ошибка сервера", template: Pages.ServerErrorPage },
+  404: { name: "404 Страница не найдена", context: { img404 }, template: Pages.NotFoundPage },
+  500: { name: "500 Ошибка сервера", context: { img500 }, template: Pages.ServerErrorPage },
   nav: { name: "Навигация", template: Pages.NavigatePage }
 };
 
