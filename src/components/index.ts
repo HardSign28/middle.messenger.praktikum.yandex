@@ -6,5 +6,6 @@ export { ContactCard } from './contact-card';
 export { FormWrapper } from './form-wrapper';
 export { FormElement } from './form-element';
 export { Dialog } from './dialog';
-export { RemoveDialog } from './remove-dialog';
+export { DialogRemove } from './dialog-remove';
+export { DialogUpload } from './dialog-upload';
 export { Avatar } from './avatar';

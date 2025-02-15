@@ -154,7 +154,10 @@
 	</div>
 
 
-    {{#if showDialog}}
-        {{> RemoveDialog }}
+    {{#if (eq showDialog "remove")}}
+        {{> DialogRemove }}
     {{/if}}
+	{{#if (eq showDialog "add")}}
+		{{> AddDialog }}
+	{{/if}}
 </div>
