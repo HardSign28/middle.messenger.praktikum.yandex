@@ -3,11 +3,11 @@
     position: relative;
 
     &-input {
-      background: #efefef;
+      background: var(--chat-input-bg);
       padding: 10px 10px 10px 40px;
       border-radius: 5px;
-      border: 1px solid #d2d6da;
-      color: #000;
+      border: 1px solid var(--color-border);
+      color: var(--color-black);
       font-size: 14px;
       line-height: 12px;
       width: 100%;

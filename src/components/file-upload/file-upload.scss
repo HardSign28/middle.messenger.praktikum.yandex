@@ -1,6 +1,6 @@
 .file-upload {
-  border: 1px dashed #000;
-  background: #f6f9fb;
+  border: 1px dashed var(--color-black);
+  background: var(--color-light-gray);
   border-radius: 10px;
   padding: 20px;
   display: flex;

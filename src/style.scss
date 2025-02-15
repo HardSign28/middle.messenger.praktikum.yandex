@@ -11,7 +11,7 @@
   box-shadow: 0 6px 15px 0 rgba(0, 0, 0, .14);
 
   &__title {
-    color: #31374d;
+    color: var(--text-color);
     font-weight: 500;
     font-size: 24px;
     margin-bottom: 15px;
