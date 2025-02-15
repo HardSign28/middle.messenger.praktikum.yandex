@@ -1,0 +1,110 @@
+.chat {
+  &__footer {
+    position: sticky;
+    bottom: 0;
+    background: var(--color-white);
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border-top: 1px solid #ddd;
+
+    &-message-box {
+      flex: 1;
+    }
+
+    &-message-input {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #eee;
+      padding: 10px;
+      width: 100%;
+    }
+
+    &-attach {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      background:
+              url("@/assets/icons/attach2.svg") center no-repeat,
+              #eee;
+      background-size: 50%;
+      cursor: pointer;
+      position: relative;
+
+      // Хак показ без JS
+      &:hover:has(.chat__footer-attach__container) {
+        .chat__footer-attach__container {
+          display: flex;
+        }
+      }
+      // #Хак показ без JS
+
+      .chat__footer-attach__list {
+        list-style: none;
+        border-radius: 10px;
+        background: var(--color-white);
+        margin-bottom: 60px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        box-shadow: 0 0 6px 0 rgba(0, 0, 0, .14);
+        // gap: 16px;
+
+        &-item {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          border: 1px solid transparent;
+          border-radius: 8px;
+          padding: 10px;
+
+          &:hover {
+            border: 1px solid #ddd;
+          }
+        }
+      }
+
+      &__icon {
+        display: block;
+        width: 22px;
+        height: 22px;
+
+        &._media {
+          background: url("@/assets/icons/chat-media-icon.svg") center
+          no-repeat;
+        }
+
+        &._file {
+          background: url("@/assets/icons/chat-file-icon.svg") center
+          no-repeat;
+        }
+
+        &._geo {
+          background: url("@/assets/icons/chat-geo-icon.svg") center no-repeat;
+        }
+      }
+
+      &__container {
+        position: absolute;
+        bottom: 0;
+        display: none;
+
+        &:hover {
+          display: flex;
+        }
+      }
+    }
+
+    &-send {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      background:
+              url("@/assets/icons/send.svg") center no-repeat,
+              #eee;
+      background-size: 50%;
+    }
+  }
+}

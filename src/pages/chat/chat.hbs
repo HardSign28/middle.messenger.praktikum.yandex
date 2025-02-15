@@ -1,38 +1,11 @@
 <div class="page-chat">
 	<div class="chat">
 		<div class="chat__list">
-			{{> Button label="go to home" type="link" }}
-
-			<div>Профиль ></div>
-			<div class="chat__search">
-				<input class="chat__search-input" placeholder="Поиск">
-				<span class="icon">🔍</span>
-			</div>
+			{{> ChatSearch }}
 			{{> ListContacts contacts=contacts }}
 		</div>
 		<div class="chat__content">
-			<div class="chat__header">
-				<div class="chat__header-left-side">
-					{{> Avatar class="chat__header-avatar" imgUrl=avatar}}
-					<div>Вадим</div>
-				</div>
-				<div class="chat__header-right-side">
-					<div class="chat__menu">
-						<div class="chat__menu__container">
-							<ul class="chat__menu__list">
-								<li class="chat__menu__list-item">
-									<i class="chat__menu__icon _add"></i>
-									Добавить пользователя
-								</li>
-								<li class="chat__menu__list-item">
-									<i class="chat__menu__icon _delete"></i>
-									Удалить пользователя
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
+			{{> ChatHeader }}
 			<div class="chat__messages">
 				<!-- Выберите чат чтобы отправить сообщение -->
 				<div class="chat__messages-date">
@@ -126,33 +99,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="chat__footer">
-				<div class="chat__footer-attach">
-					<div class="chat__footer-attach__container">
-						<ul class="chat__footer-attach__list">
-							<li class="chat__footer-attach__list-item">
-								<i class="chat__footer-attach__icon _media"></i>
-								Фото или Видео
-							</li>
-							<li class="chat__footer-attach__list-item">
-								<i class="chat__footer-attach__icon _file"></i>
-								Файл
-							</li>
-							<li class="chat__footer-attach__list-item">
-								<i class="chat__footer-attach__icon _geo"></i>
-								Локация
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="chat__footer-message-box">
-					<input class="chat__footer-message-input" placeholder="Сообщение">
-				</div>
-				<div class="chat__footer-send"></div>
-			</div>
+			{{> ChatFooter }}
 		</div>
 	</div>
-
 
     {{#if (eq showDialog "remove")}}
         {{> DialogRemove userName="Вадим" }}

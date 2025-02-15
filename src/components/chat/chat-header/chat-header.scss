@@ -1,0 +1,27 @@
+.chat {
+  &__header {
+    background: var(--color-white);
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    box-shadow: 4px 1px 5px 1px rgba(0, 0, 0, .2);
+
+    &-left-side {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    &-right-side {
+      display: flex;
+      align-items: center;
+    }
+
+    &-avatar {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

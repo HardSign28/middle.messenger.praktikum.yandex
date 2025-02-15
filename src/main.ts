@@ -90,7 +90,7 @@ const pages: Record<
 					text: 'Можно или сегодня или завтра вечером.',
 				},
 			],
-			showDialog: "add",
+			showDialog: "false",
 		},
 	},
 	404: {
@@ -121,7 +121,7 @@ function navigate(page: keyof typeof pages) {
 	container.innerHTML = templatingFunction(fullContext);
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('nav'));
+document.addEventListener('DOMContentLoaded', () => navigate('chat'));
 
 document.addEventListener('click', (e) => {
 	const target = e.target as HTMLElement | null;
