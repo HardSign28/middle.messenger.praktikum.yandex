@@ -15,7 +15,8 @@
   top: 50%;
   transform: translate(-50%, -50%);
   min-width: 340px;
-  padding: 40px;
+  padding: 30px;
+  max-width: 450px;
 }
 
 .dialog__title {
@@ -24,10 +25,10 @@
 }
 
 .dialog__body {
-  padding: 45px 0;
+  padding: 20px 0;
 }
 
 .dialog__footer {
   display: flex;
-  flex-direction: column;
+  gap: 10px
 }

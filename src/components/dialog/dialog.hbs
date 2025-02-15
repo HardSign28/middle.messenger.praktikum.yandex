@@ -5,10 +5,10 @@
             {{> @partial-block }}
         </div>
         <div class="dialog__footer">
-            {{> Button label=labelOk type="primary" }}
             {{#if labelCancel}}
-                {{> Button label=labelCancel type="link" }}
+                {{> Button label=labelCancel type="outline-primary" }}
             {{/if}}
+			{{> Button label=labelOk type="primary"}}
         </div>
     </div>
 </div>

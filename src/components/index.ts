@@ -9,3 +9,4 @@ export { Dialog } from './dialog';
 export { DialogRemove } from './dialog-remove';
 export { DialogUpload } from './dialog-upload';
 export { Avatar } from './avatar';
+export { FileUpload } from './file-upload';
