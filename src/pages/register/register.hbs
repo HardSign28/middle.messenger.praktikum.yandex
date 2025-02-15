@@ -1,13 +1,19 @@
-<div class="page-register">
-	<div class="container">
-		<form class="card">
-			{{> Input id="first-name" label="First Name" class="mb-10" name="first_name"}}
-			{{> Input id="second-name" label="Second name" class="mb-10" name="second_name"}}
-			{{> Input id="login" label="Login" class="mb-10" name="login"}}
-			{{> Input id="phone" label="Phone" class="mb-10" name="phone" type="tel"}}
-			{{> Input id="email" label="Email" class="mb-10" name="email" type="email"}}
-			{{> Input id="password" label="Password" class="mb-10" type="password"}}
-			{{> Button label="Sign up" type="primary" size="lg" }}
-		</form>
+<div class="page-register bg-gradient">
+	<div class="container w-100">
+		<div class="card">
+			<h1 class="card__title text-center">Регистрация</h1>
+			<form>
+				{{> Input id="first-name" label="Имя" class="mb-20" name="first_name"}}
+				{{> Input id="second-name" label="Фамилия" class="mb-20" name="second_name"}}
+				{{> Input id="login" label="Логин" class="mb-20" name="login"}}
+				{{> Input id="phone" label="Телефон" class="mb-20" name="phone" type="tel"}}
+				{{> Input id="email" label="Email" class="mb-20" name="email" type="email"}}
+				{{> Input id="password" label="Пароль" class="mb-20" type="password"}}
+				<div class="mt-20">
+					{{> Button label="Зарегистрироваться" type="primary" class="mb-20" size="lg" }}
+					{{> Button label="Войти" type="primary" size="lg" }}
+				</div>
+			</form>
+		</div>
 	</div>
 </div>

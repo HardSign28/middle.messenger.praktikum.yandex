@@ -115,7 +115,7 @@ function navigate(page: keyof typeof pages) {
   container.innerHTML = templatingFunction(fullContext);
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('chat'));
+document.addEventListener('DOMContentLoaded', () => navigate('nav'));
 
 document.addEventListener('click', e => {
   const target = e.target as HTMLElement | null;

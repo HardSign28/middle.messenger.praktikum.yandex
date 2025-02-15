@@ -66,9 +66,37 @@ body {
     background: #fff;
     display: flex;
     flex-direction: column;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 0 32px #8898aa26;
+    padding: 1.25rem 1.5rem;
+    border-radius: .6rem;
+    box-shadow: 0px 6px 15px 0px rgba(0,0,0,0.14);
+
+    &__title {
+        color: #31374d;
+        font-weight: 500;
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+}
+
+.bg-gradient {
+    // background: url("@/assets/chat-bg-white.png"), radial-gradient(circle, #30AADC 0%, #87CEEB 100%) ;
+    background: url("@/assets/chat-bg-white.png"), radial-gradient(circle, #61BDBB 0%, #A9DBDA 100%) ;
+    background-size: 23% auto, 400% 400%;
+    animation: gradient 60s linear infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0 0, 0 50%;
+    }
+
+    50% {
+        background-position: 268px 20%, 0 50%;
+    }
+
+    100% {
+        background-position: 536px 0, 0 50%;
+    }
 }
 
 .container {

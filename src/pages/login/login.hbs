@@ -1,10 +1,13 @@
-<div class="page-login">
-	<div class="container">
-		<form class="card">
-			{{> Input id="login" label="Login" class="mb-10"}}
-			{{> Input id="password" label="Password" class="mb-10" type="password"}}
-			{{> Button label="Sign in" type="gradient" size="lg" }}
-			{{> Button label="Sign up" type="link" }}
-		</form>
+<div class="page-login bg-gradient">
+	<div class="container w-100">
+		<div class="card">
+			<h1 class="card__title text-center">Авторизация</h1>
+			<form>
+				{{> Input id="login" label="Логин" class="mb-20"}}
+				{{> Input id="password" label="Пароль" class="mb-20" type="password"}}
+				{{> Button label="Войти" type="primary" size="lg" }}
+				{{> Button label="Зарегистрироваться" type="link" }}
+			</form>
+		</div>
 	</div>
 </div>

@@ -1,24 +1,11 @@
 .page-login {
-    background: radial-gradient(circle, rgba(139,84,193,1) 0%, rgba(252,70,107,1) 100%);
-    background-size: 400% 400%;
-    animation: gradient 10s ease infinite;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    @keyframes gradient {
-        0% {
-            background-position: 0 50%;
-        }
-
-        50% {
-            background-position: 100% 50%;
-        }
-
-        100% {
-            background-position: 0 50%;
-        }
+    .card {
+        flex-basis: 350px;
     }
 }
 
