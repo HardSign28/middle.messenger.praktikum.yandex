@@ -1,6 +1,6 @@
 .button {
   background-color: initial;
-  border: none;
+  border: 1px solid transparent;
   font-weight: 500;
   font-size: 13px;
   display: block;
@@ -16,7 +16,7 @@
 
   &__primary {
     background-color: var(--main-color);
-    color: #fff;
+    color: var(--color-white);
 
     &:hover,
     &:active {
@@ -24,33 +24,21 @@
     }
   }
 
+  &__outline-primary {
+    color: var(--main-color);
+    border: 1px solid var(--main-color);
+
+    &:hover,
+    &:active {
+      color: var(--color-white);
+      border: 1px solid var(--main-color);
+      background-color: var(--main-color);
+    }
+  }
+
   &__link {
     color: var(--main-color-darken);
     font-size: 11px;
     text-align: center;
-  }
-
-  &__gradient {
-    text-align: center;
-    text-decoration: none;
-    font-weight: 500;
-    // font-size: 1em;
-    // text-transform: uppercase;
-    color: #fff;
-    background-size: 200% auto;
-    box-shadow:
-      0 4px 6px rgba(50, 50, 93, .11),
-      0 1px 3px rgba(0, 0, 0, .08);
-    background-image: linear-gradient(
-      to right,
-      #8d45d0 0%,
-      #6773df 50%,
-      #6773df 100%
-    );
-    transition: .2s;
-    // background: linear-gradient(90deg, #8D45D0 -105.62%, #12D9FF 208.91%);
-    &:hover {
-      background-position: right center;
-    }
   }
 }
