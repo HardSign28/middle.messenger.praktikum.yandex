@@ -1,5 +1,5 @@
 {{#each chatGroups}}
-	<div class="chat__message-group chat__message-group--{{sender}}">
+	<article class="chat__message-group chat__message-group--{{sender}}">
 		{{#each messages}}
 			<div class="chat__message chat__message--{{../sender}} {{#if img}}chat__message_img{{/if}}">
 				{{{ text }}}
@@ -9,5 +9,5 @@
 				</div>
 			</div>
 		{{/each}}
-	</div>
+	</article>
 {{/each}}

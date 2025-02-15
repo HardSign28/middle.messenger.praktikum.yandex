@@ -10,7 +10,7 @@ export const messages: Message[] = [
 	{
 		sender: 'other',
 		img: true,
-		text: `<img class="chat__attach-img" src="/chat-attach.png" width="316" height="211">`,
+		text: `<img class="chat__attach-img" src="/chat-attach.png" width="316" height="211" alt="Вложенное изображение">`,
 		time: '11:56',
 	},
 	{ sender: 'me', text: 'Салам!', time: '11:59', seen: true },

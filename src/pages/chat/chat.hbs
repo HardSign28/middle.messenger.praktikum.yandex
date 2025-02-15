@@ -1,21 +1,21 @@
-<div class="page-chat">
-	<div class="chat">
-		<div class="chat__list">
+<main class="page-chat">
+	<section class="chat">
+		<aside class="chat__list">
 			{{> ChatSearch }}
 			{{> ListContacts contacts=contacts }}
-		</div>
-		<div class="chat__content">
+		</aside>
+		<section class="chat__content">
 			{{> ChatHeader }}
-			<div class="chat__messages">
+			<section class="chat__messages">
 				<!-- Выберите чат чтобы отправить сообщение -->
-				<div class="chat__messages-date">
+				<time class="chat__messages-date">
 					{{ conversationDate }}
-				</div>
+				</time>
 				{{> ChatMessages }}
-			</div>
+			</section>
 			{{> ChatFooter }}
-		</div>
-	</div>
+		</section>
+	</section>
 
     {{#if (eq showDialog "remove")}}
         {{> DialogRemove userName="Вадим" }}
@@ -23,4 +23,4 @@
 	{{#if (eq showDialog "add")}}
 		{{> DialogAdd }}
 	{{/if}}
-</div>
+</main>
