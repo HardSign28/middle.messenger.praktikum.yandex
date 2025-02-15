@@ -23,7 +23,7 @@ const pages: Record<
 	profile: {
 		name: 'Профиль',
 		template: Pages.ProfilePage,
-		context: { img: avatar, cat1, showDialog: "upload" },
+		context: { img: avatar, cat1, showDialog: "false" },
 	},
 	chat: {
 		name: 'Чат',
@@ -90,7 +90,7 @@ const pages: Record<
 					text: 'Можно или сегодня или завтра вечером.',
 				},
 			],
-			showDialog: "remove",
+			showDialog: "add",
 		},
 	},
 	404: {
