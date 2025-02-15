@@ -1,13 +1,13 @@
-import { Pages } from "@/types/pages";
-import * as PagesTemplates from "@/pages";
-import avatar from "@/assets/icons/avatar.svg?raw";
-import cat1 from "@/assets/01.jpg";
+import { Pages } from '@/types/pages';
+import * as PagesTemplates from '@/pages';
+import avatar from '@/assets/icons/avatar.svg?raw';
+import cat1 from '@/assets/01.jpg';
 import cat2 from '@/assets/02.jpg';
 import cat3 from '@/assets/03.jpg';
 import img404 from '@/assets/icons/404.webp';
 import img500 from '@/assets/icons/500.webp';
-import { messages } from "@/data/messages";
-import { groupMessages } from "@/utils/groupMessages";
+import { messages } from '@/data/messages';
+import { groupMessages } from '@/utils/groupMessages';
 
 const chatGroups = groupMessages(messages);
 export const pages: Pages = {
@@ -16,7 +16,7 @@ export const pages: Pages = {
 	profile: {
 		name: 'Профиль',
 		template: PagesTemplates.ProfilePage,
-		context: { img: avatar, cat1, showDialog: "false" },
+		context: { img: avatar, cat1, showDialog: 'false' },
 	},
 	chat: {
 		name: 'Чат',
@@ -85,7 +85,7 @@ export const pages: Pages = {
 				},
 			],
 			chatGroups,
-			showDialog: "false",
+			showDialog: 'false',
 		},
 	},
 	404: {

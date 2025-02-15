@@ -15,13 +15,14 @@
 
       &:hover,
       &:active,
-      &:focus{
+      &:focus {
         border-color: var(--main-color);
       }
     }
 
     .icon {
-      background: url("@/assets/icons/search.svg") no-repeat;background-size: 20px 20px;
+      background: url("@/assets/icons/search.svg") no-repeat;
+      background-size: 20px 20px;
       display: block;
       width: 20px;
       height: 20px;

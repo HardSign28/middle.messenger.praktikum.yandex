@@ -26,8 +26,8 @@
       width: 40px;
       height: 40px;
       background:
-              url("@/assets/icons/attach2.svg") center no-repeat,
-              #eee;
+        url("@/assets/icons/attach2.svg") center no-repeat,
+        #eee;
       background-size: 50%;
       cursor: pointer;
       position: relative;
@@ -72,13 +72,11 @@
         height: 22px;
 
         &._media {
-          background: url("@/assets/icons/chat-media-icon.svg") center
-          no-repeat;
+          background: url("@/assets/icons/chat-media-icon.svg") center no-repeat;
         }
 
         &._file {
-          background: url("@/assets/icons/chat-file-icon.svg") center
-          no-repeat;
+          background: url("@/assets/icons/chat-file-icon.svg") center no-repeat;
         }
 
         &._geo {
@@ -102,8 +100,8 @@
       width: 40px;
       height: 40px;
       background:
-              url("@/assets/icons/send.svg") center no-repeat,
-              #eee;
+        url("@/assets/icons/send.svg") center no-repeat,
+        #eee;
       background-size: 50%;
     }
   }
