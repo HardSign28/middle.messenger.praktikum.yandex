@@ -4,7 +4,7 @@
 			{{> ChatSearch }}
 			{{> ListContacts contacts=contacts }}
 		</aside>
-		<section class="chat__content {{#if chatGroups }}chat__content_bg{{/if}}">
+		<section class="chat__content {{#if chatGroups }}chat__content_bg{{/if }}">
 			{{#if chatGroups }}
 				{{> ChatHeader }}
 				<section class="chat__messages">
@@ -19,11 +19,10 @@
 			{{/if}}
 		</section>
 	</section>
-
-    {{#if (eq showDialog "remove")}}
-        {{> DialogRemove userName="Вадим" }}
-    {{/if}}
-	{{#if (eq showDialog "add")}}
+	{{#if (eq showDialog "remove") }}
+		{{> DialogRemove userName="Вадим" }}
+	{{/if}}
+	{{#if (eq showDialog "add") }}
 		{{> DialogAdd }}
 	{{/if}}
 </main>

@@ -5,11 +5,8 @@
 			<form class="card w-100">
 				<div class="profile__avatar mb-20">
 					{{> Avatar size="md" class="mb-20" name="Иван" edit="true" imgUrl=""}}
-					<div class="user-name mb-20">
-						Иван
-					</div>
+					<div class="user-name mb-20">Иван</div>
 				</div>
-
 				{{> Input id="email" class="mb-10" name="email" type="email" label="Почта" value="pochta@yandex.kz" readonly="true" }}
 				{{> Input id="login" class="mb-10" name="login" label="Логин" value="ivanivanov" readonly="true" }}
 				{{> Input id="first-name" class="mb-10" name="first_name" label="Имя" value="Иван" readonly="true" }}
@@ -24,7 +21,7 @@
 			</form>
 		</section>
 	</div>
-	{{#if (eq showDialog "upload")}}
+	{{#if (eq showDialog "upload") }}
 		{{> DialogUpload }}
 	{{/if}}
 </main>

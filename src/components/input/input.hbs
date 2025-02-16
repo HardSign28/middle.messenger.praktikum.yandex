@@ -1,12 +1,12 @@
-<div class="float-input {{ class }} {{#if readonly }}float-input_readonly{{/if}} {{#if error }}float-input_error{{/if}}">
-	<input
-		type="{{ type }}"
+<div class="float-input {{ class }} {{#if readonly }}float-input_readonly{{/if }} {{#if error }}float-input_error{{/if }}">
+	<input type="{{ type }}"
 		class="float-input__element"
 		placeholder=" "
 		id="{{ id }}"
-			{{#if readonly }}readonly{{/if}}
-		value="{{ value }}"
-	>
-	<label class="float-input__label" for="{{ id }}">{{label}}</label>
+		{{#if readonly }}
+		readonly
+		{{/if }}
+		value="{{ value }}">
+	<label class="float-input__label" for="{{ id }}">{{ label }}</label>
 	<div class="float-input__error">{{ error }}</div>
 </div>
