@@ -27,12 +27,12 @@
     background-clip: padding-box;
     appearance: none;
     transition:
-      border-color 0.15s ease-in-out,
-      box-shadow 0.15s ease-in-out;
+      border-color .15s ease-in-out,
+      box-shadow .15s ease-in-out;
     line-height: 1.25;
-    padding: 1rem 0.75rem;
+    padding: 1rem .75rem;
     border: 1px solid var(--color-border);
-    border-radius: 0.5rem;
+    border-radius: .5rem;
 
     &[readonly] {
       background-color: var(--color-light-gray);
@@ -42,8 +42,8 @@
 
     &:not(:placeholder-shown) + label,
     &:focus + label {
-      opacity: 0.65;
-      transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+      opacity: .65;
+      transform: scale(.85) translateY(-.5rem) translateX(.15rem);
     }
 
     &:focus {
@@ -51,13 +51,13 @@
       background-color: var(--color-white);
       border-color: var(--main-color);
       outline: 0;
-      box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+      box-shadow: 0 0 0 .15rem rgba(13, 110, 253, .25);
     }
 
     &:not(:placeholder-shown),
     &:focus {
       padding-top: 1.625rem;
-      padding-bottom: 0.625rem;
+      padding-bottom: .625rem;
     }
   }
 
@@ -67,13 +67,13 @@
     top: 0;
     left: 0;
     height: 100%;
-    padding: 1rem 0.75rem;
+    padding: 1rem .75rem;
     pointer-events: none;
     border: 1px solid transparent;
     transform-origin: 0 0;
     transition:
-      opacity 0.1s ease-in-out,
-      transform 0.1s ease-in-out;
+      opacity .1s ease-in-out,
+      transform .1s ease-in-out;
   }
 
   &__error {
