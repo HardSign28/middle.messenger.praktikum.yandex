@@ -24,7 +24,7 @@ module.exports = {
 			options: {
 				singleQuote: false,
 				bracketSpacing: true,
-				parser: 'glimmer',
+				// parser: 'glimmer',
 			},
 		},
 		{

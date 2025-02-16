@@ -1,8 +1,10 @@
 # Yandex Practicum Chat
+
 ## Описание
 
-
-**Yandex Practicum Chat** — проектная работа в рамках **sprint\_1**. Это чат-приложение, созданное с использованием **TypeScript** и **Handlebars**, со сборкой на **Vite**.
+**Yandex Practicum Chat** — проектная работа в рамках **sprint_1**. Это
+чат-приложение, созданное с использованием **TypeScript** и **Handlebars**, со
+сборкой на **Vite**.
 
 ## 🚀 Запуск проекта
 
@@ -40,4 +42,5 @@ npm run start
 
 ## 🌐 Демо на Netlify
 
-Проект доступен по ссылке: [https://hardsign-yandex-practicum-chat.netlify.app](https://hardsign-yandex-practicum-chat.netlify.app)
+Проект доступен по ссылке:
+[https://hardsign-yandex-practicum-chat.netlify.app](https://hardsign-yandex-practicum-chat.netlify.app)
