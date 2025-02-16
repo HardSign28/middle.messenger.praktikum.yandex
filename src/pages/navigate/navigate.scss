@@ -23,11 +23,11 @@
           background-color: var(--color-white);
           padding: 1rem;
           border: 1px solid var(--color-border);
-          border-radius: .5rem;
+          border-radius: 0.5rem;
 
           &:hover,
           &:active {
-            box-shadow: 0 0 8px 0 rgba(34, 60, 80, .2);
+            box-shadow: 0 0 8px 0 rgba(34, 60, 80, 0.2);
           }
         }
       }

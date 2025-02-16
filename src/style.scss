@@ -7,8 +7,8 @@
   display: flex;
   flex-direction: column;
   padding: 1.25rem 1.5rem;
-  border-radius: .6rem;
-  box-shadow: 0 6px 15px 0 rgba(0, 0, 0, .14);
+  border-radius: 0.6rem;
+  box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.14);
 
   &__title {
     color: var(--text-color);
@@ -23,9 +23,9 @@
     url("@/assets/chat-bg-white.webp"),
     radial-gradient(circle, #61bdbb 0%, #a9dbda 100%);
   background-size:
-    23% auto,
+    500px auto,
     400%;
-  animation: gradient 60s linear infinite;
+  animation: gradient 20s linear infinite;
 }
 
 @keyframes gradient {
@@ -37,13 +37,13 @@
 
   50% {
     background-position:
-      268px 60%,
+      250px 60%,
       0 50%;
   }
 
   100% {
     background-position:
-      536px 0,
+      500px 0,
       0 50%;
   }
 }
@@ -55,6 +55,7 @@
   height: 100%;
   margin-left: auto;
   margin-right: auto;
+  padding: 0 20px;
 
   // Small devices (landscape phones, 576px and up)
   @media (min-width: 576px) {

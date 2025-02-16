@@ -9,7 +9,7 @@
       padding: 10px;
       overflow-y: auto;
       min-width: 300px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       border-right: 1px solid var(--color-gray);
     }
 
@@ -22,15 +22,18 @@
 
       &_bg {
         background:
-                url("@/assets/chat-bg-white.webp"),
-                linear-gradient(to right bottom, #d7dcbb, #8eb991, #ced58d);
+          url("@/assets/chat-bg-white.webp"),
+          linear-gradient(to right bottom, #d7dcbb, #8eb991, #ced58d);
         background-size:
-                23% auto,
-                300%;
+          500px auto,
+          300%;
       }
 
       &-empty {
-        display: flex; justify-content: center; align-items: center; margin: auto
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
       }
     }
   }

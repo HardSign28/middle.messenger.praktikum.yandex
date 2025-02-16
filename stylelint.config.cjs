@@ -25,12 +25,18 @@ module.exports = {
 		'at-rule-no-unknown': [
 			true,
 			{
-				ignoreAtRules: ['function', 'if', 'each', 'include', 'mixin', 'use'],
+				ignoreAtRules: [
+					'function',
+					'if',
+					'each',
+					'include',
+					'mixin',
+					'use',
+				],
 			},
 		],
 
 		// Пустая строка перед @import, @media
-
 
 		//(Отключено) Запретить селекторам с более низкой специфичностью появляться после переопределения селекторов с более высокой специфичностью.
 		'no-descending-specificity': [
