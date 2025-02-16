@@ -112,12 +112,12 @@
 
       &--me {
         align-items: flex-end;
-        justify-content: flex-end; /* Свои сообщения справа */
+        justify-content: flex-end;
       }
 
       &--other {
         align-items: flex-start;
-        justify-content: flex-start; /* Свои сообщения справа */
+        justify-content: flex-start;
       }
     }
   }
