@@ -56,7 +56,7 @@
       margin-bottom: 6px;
       margin-right: 6px;
       display: flex;
-      gap: 5px;
+      gap: 2px;
       align-items: center;
       line-height: 1;
       color: var(--main-color-darken);
@@ -124,8 +124,8 @@
 
   .double-check {
     background: url("@/assets/icons/double-check.svg") center no-repeat;
-    width: 10px;
-    height: 5px;
+    width: 15px;
+    height: 14px;
   }
 
   .chat__attach-img {
