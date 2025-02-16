@@ -40,5 +40,5 @@ npm run start
 
 ## 🌐 Демо на Netlify
 
-Проект доступен по ссылке: [Netlify Deployment](#)
+Проект доступен по ссылке: [https://hardsign-yandex-practicum-chat.netlify.app](https://hardsign-yandex-practicum-chat.netlify.app)
 
