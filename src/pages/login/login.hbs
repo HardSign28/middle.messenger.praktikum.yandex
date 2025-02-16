@@ -3,8 +3,8 @@
 		<section class="card">
 			<h1 id="login-title" class="card__title text-center">Авторизация</h1>
 			<form action="/login" method="POST" aria-labelledby="login-title">
-				{{> Input id="login" label="Логин" class="mb-20"}}
-				{{> Input id="password" label="Пароль" class="mb-20" type="password"}}
+				{{> Input id="login" label="Логин" class="mb-20" error=loginError }}
+				{{> Input id="password" label="Пароль" class="mb-20" type="password" error=passwordError }}
 				<div class="actions">
 					{{> Button label="Войти" type="primary" size="lg" class="mb-10" }}
 					{{> Button label="Зарегистрироваться" type="outline-primary" }}
