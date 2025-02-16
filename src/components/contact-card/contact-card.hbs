@@ -1,19 +1,19 @@
-<article class="cat-card {{#if active}}cat-card_active{{/if}}">
+<article class="contact-card {{#if active}}contact-card_active{{/if}}">
 	{{> Avatar size="sm" class="chat__avatar" imgUrl=avatar}}
-	<div class="cat-card-content">
-		<div class="cat-card-head">
-			<div class="cat-card-head__name">{{ name }}</div>
-			<div class="cat-card-head__meta">{{ date }}</div>
+	<div class="contact-card-content">
+		<div class="contact-card-head">
+			<div class="contact-card-head__name">{{ name }}</div>
+			<div class="contact-card-head__meta">{{ date }}</div>
 		</div>
-		<div class="cat-card-body">
-			<div class="cat-card-text">
+		<div class="contact-card-body">
+			<div class="contact-card-text">
 				{{#if you}}
-					<strong class="cat-card-text-highlight">Вы:</strong>
+					<strong class="contact-card-text-highlight">Вы:</strong>
 				{{/if}}
 				{{{ text }}}
 			</div>
 			{{#if unread}}
-				<div class="cat-card-unread">{{ unread }}</div>
+				<div class="contact-card-unread">{{ unread }}</div>
 			{{/if}}
 		</div>
 	</div>

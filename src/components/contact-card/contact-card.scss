@@ -1,11 +1,16 @@
-.cat-card {
+.contact-card {
   display: flex;
   flex-wrap: nowrap;
   align-items: flex-start;
   padding: 12px 10px;
   position: relative;
-  margin: 2px 0;
   gap: 10px;
+  border-bottom: 1px solid var(--chat-input-bg);
+
+  &:hover {
+    cursor: pointer;
+    background: var(--chat-input-bg);
+  }
 
   .chat__avatar {
     flex-shrink: 0;
