@@ -8,6 +8,8 @@ type InputProps = {
   events?: object,
   type?: string;
   id?: string;
+  readonly?: boolean;
+  value?: string;
 };
 export default class Input extends Block {
   constructor(props: InputProps) {
@@ -17,6 +19,8 @@ export default class Input extends Block {
         placeholder: '',
         ...(props.id ? { id: props.id } : {}),
         ...(props.type ? { type: props.type } : {}),
+        ...(props.readonly ? { readonly: props.readonly } : {}),
+        ...(props.value ? { value: props.value } : {}),
       },
     });
   }

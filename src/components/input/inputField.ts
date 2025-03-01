@@ -10,6 +10,7 @@ type InputFieldProps = {
   onBlur?: () => void;
   id?: string;
   type?: string;
+  value?: string;
 };
 export default class InputField extends Block {
   constructor(props: InputFieldProps) {
