@@ -6,6 +6,8 @@ type InputProps = {
   onChange?: () => void;
   onBlur?: () => void;
   events?: object,
+  type?: string;
+  id?: string;
 };
 export default class Input extends Block {
   constructor(props: InputProps) {
@@ -13,6 +15,8 @@ export default class Input extends Block {
       ...props,
       attrs: {
         placeholder: '',
+        ...(props.id ? { id: props.id } : {}),
+        ...(props.type ? { type: props.type } : {}),
       },
     });
   }

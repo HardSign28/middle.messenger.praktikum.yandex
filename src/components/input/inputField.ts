@@ -8,13 +8,17 @@ type InputFieldProps = {
   readonly?: boolean;
   onChange?: () => void;
   onBlur?: () => void;
+  id?: string;
+  type?: string;
 };
 export default class InputField extends Block {
   constructor(props: InputFieldProps) {
     super('div', {
       ...props,
       Input: new Input({
+        ...props,
         className: 'float-input__element',
+        // id: props.id,
         events: {
           blur: props.onChange,
         },
