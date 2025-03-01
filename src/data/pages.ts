@@ -11,8 +11,8 @@ import chatImg7 from '@/assets/07.webp';
 import chatImg8 from '@/assets/08.webp';
 import chatImg9 from '@/assets/09.webp';
 
-import img404 from '@/assets/icons/404.webp';
-import img500 from '@/assets/icons/500.webp';
+// import img404 from '@/assets/icons/404.webp';
+// import img500 from '@/assets/icons/500.webp';
 import { messages } from '@/data/messages';
 import { groupMessages } from '@/utils/groupMessages';
 
@@ -98,12 +98,12 @@ export const pages: Pages = {
 	},
 	404: {
 		name: '404 Страница не найдена',
-		context: { img404 },
+		// context: { img404 },
 		template: PagesTemplates.NotFoundPage,
 	},
 	500: {
 		name: '500 Ошибка сервера',
-		context: { img500 },
+		// context: { img500 },
 		template: PagesTemplates.ServerErrorPage,
 	},
 	nav: { name: 'Навигация', template: PagesTemplates.NavigatePage },
