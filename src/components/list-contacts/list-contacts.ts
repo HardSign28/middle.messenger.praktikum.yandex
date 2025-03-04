@@ -7,7 +7,7 @@ export default class ListContacts extends Block {
 			...props,
 			className: 'page-chat',
 			activeContactIndex: -1,
-			contactComponents: props.contacts.map((contact, index) =>
+			contactComponents: (props.contacts ?? []).map((contact, index) =>
 				new ContactCard({
 					...contact,
 					onClick: () => {
