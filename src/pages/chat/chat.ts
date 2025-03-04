@@ -1,4 +1,4 @@
-import {ChatSearch, ListContacts} from '@/components';
+import {ChatFooter, ChatHeader, ChatSearch, ListContacts} from '@/components';
 import Block from '@/core/block';
 import chatImg1 from '@/assets/01.webp';
 import chatImg2 from '@/assets/02.webp';
@@ -27,7 +27,19 @@ export default class ChatPage extends Block {
 				label: 'Зарегистрироваться',
 				type: 'outline-primary',
 			}),
+			activeContactIndex: -1,
+			ChatHeader: new ChatHeader({
+
+			}),
+			ChatFooter: new ChatFooter({
+
+			}),
+			hasActiveContact: false,
 			ListContacts: new ListContacts({
+				onSelectContact: (index) => this.setProps({
+					activeContactIndex: index, //TODO: Можно удалить
+					hasActiveContact: index >= 0,
+				}),
 				contacts: [
 					{
 						name: 'Андрей',
@@ -100,16 +112,16 @@ export default class ChatPage extends Block {
 				{{{ ChatSearch }}}
 				{{{ ListContacts }}}
 			</aside>
-			<section class="chat__content {{#if chatGroups }}chat__content_bg{{/if }}">
-				{{#if chatGroups }}
-				{{> ChatHeader }}
+			<section class="chat__content {{#if hasActiveContact }}chat__content_bg{{/if }}">
+				{{#if hasActiveContact }}
+				{{{ ChatHeader }}}
 			<section class="chat__messages">
 			<time class="chat__messages-date">
 				{{ conversationDate }}
 			</time>
 				{{> ChatMessages }}
 			</section>
-				{{> ChatFooter }}
+				{{{ ChatFooter }}}
 				{{ else }}
 			<div class="chat__content-empty">Выберите чат чтобы отправить сообщение</div>
 				{{/if}}

@@ -2,42 +2,37 @@ import Block from '@/core/block';
 
 export default class ContactCard extends Block {
 	constructor(props) {
-		super('main', {
+		super('div', {
 			...props,
-			formState: {
-				login: '',
-				password: '',
+			// className: ContactCard.getClassName(props),
+			events: {
+				click: props.onClick,
 			},
-			errors: {
-				login: '',
-				password: '',
-			},
-			className: 'page-chat',
 		});
 	}
 
 	public render(): string {
 		return `
-		<article class="contact-card {{#if active }}contact-card_active{{/if}}">
-			{{> Avatar size="sm" class="chat__avatar" imgUrl=avatar}}
-			<div class="contact-card-content">
-				<div class="contact-card-head">
-					<div class="contact-card-head__name">{{ name }}</div>
-					<div class="contact-card-head__meta">{{ date }}</div>
-				</div>
-				<div class="contact-card-body">
-					<div class="contact-card-text">
-						{{#if you }}
-							<strong class="contact-card-text-highlight">Вы:</strong>
-						{{/if}}
-						{{{ text }}}
+			<article class="contact-card {{#if active }}contact-card_active{{/if}}">
+				{{> Avatar size="sm" class="chat__avatar" imgUrl=avatar}}
+				<div class="contact-card-content">
+					<div class="contact-card-head">
+						<div class="contact-card-head__name">{{ name }}</div>
+						<div class="contact-card-head__meta">{{ date }}</div>
 					</div>
-					{{#if unread }}
-						<div class="contact-card-unread">{{ unread }}</div>
-					{{/if}}
+					<div class="contact-card-body">
+						<div class="contact-card-text">
+							{{#if you }}
+								<strong class="contact-card-text-highlight">Вы:</strong>
+							{{/if}}
+							{{{ text }}}
+						</div>
+						{{#if unread }}
+							<div class="contact-card-unread">{{ unread }}</div>
+						{{/if}}
+					</div>
 				</div>
-			</div>
-		</article>
+			</article>
     	`;
 	}
 }
