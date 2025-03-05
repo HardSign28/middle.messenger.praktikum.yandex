@@ -1,8 +1,8 @@
+import './style.scss';
 import Handlebars from 'handlebars';
 import '@/helpers/handlebars';
-import * as Components from './components';
-import './style.scss';
 import { pages } from '@/data/pages';
+import * as Components from './components';
 import renderDOM from './core/renderDom';
 
 Object.entries(Components).forEach(([name, template]) => {
@@ -17,7 +17,7 @@ Object.entries(Components).forEach(([name, template]) => {
  * @param page
  */
 const navigate = (page: keyof typeof pages) => {
-	const { name, template, context} = pages[page];
+	const { name, template, context } = pages[page];
 	if (typeof template === 'function') {
 		renderDOM(new template({}));
 		return;

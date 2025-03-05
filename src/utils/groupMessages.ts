@@ -17,16 +17,16 @@ export const groupMessages = (
 		const msgTime = new Date(`2000-01-01T${msg.time}:00`);
 		const prevTime = currentGroup
 			? new Date(
-					`2000-01-01T${currentGroup.messages[currentGroup.messages.length - 1].time}:00`,
-				)
+				`2000-01-01T${currentGroup.messages[currentGroup.messages.length - 1].time}:00`,
+			)
 			: null;
 
 		if (
-			!currentGroup ||
-			currentGroup.sender !== msg.sender ||
-			(prevTime &&
-				(msgTime.getTime() - prevTime.getTime()) / 60000 >
-					timeThreshold)
+			!currentGroup
+			|| currentGroup.sender !== msg.sender
+			|| (prevTime
+				&& (msgTime.getTime() - prevTime.getTime()) / 60000
+					> timeThreshold)
 		) {
 			currentGroup = { sender: msg.sender, messages: [] };
 			grouped.push(currentGroup);

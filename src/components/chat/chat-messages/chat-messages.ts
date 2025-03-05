@@ -16,8 +16,10 @@ export default class ChatMessages extends Block {
 						<div class="chat__message chat__message--{{../sender}} {{#if img }}chat__message_img{{/if}}">
 							{{{ text }}}
 							<div class="chat__message-meta">
-								{{#if seen }}
-									<div class="double-check"></div>
+								{{#if (eq sender 'me') }}
+									{{#if seen }}
+										<div class="double-check"></div>
+									{{/if}}
 								{{/if}}
 								{{ time }}
 							</div>

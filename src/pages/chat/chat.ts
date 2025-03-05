@@ -1,8 +1,14 @@
-import {ChatFooter, ChatHeader, ChatMessages, ChatSearch, ListContacts} from '@/components';
+import {
+	ChatFooter,
+	ChatHeader,
+	ChatMessages,
+	ChatSearch,
+	ListContacts,
+} from '@/components';
 import { groupMessages } from '@/utils/groupMessages';
 import Block from '@/core/block';
-import {messages} from '@/data/messages.ts';
-import {contacts} from '@/data/contacts.ts';
+import { messages } from '@/data/messages';
+import { generateContacts } from '@/utils/generateContacts';
 
 export default class ChatPage extends Block {
 	constructor(props) {
@@ -28,21 +34,18 @@ export default class ChatPage extends Block {
 			ChatFooter: new ChatFooter({
 
 			}),
-			contacts,
+			contacts: generateContacts(),
 			hasActiveContact: false,
 			ChatMessages: new ChatMessages({
-				chatGroups: []
+				chatGroups: [],
 			}),
 			ListContacts: new ListContacts({
-				contacts,
+				contacts: generateContacts(),
 				onSelectContact: (index) => {
 					const selectedContact = this.props.contacts[index]?.name;
-					console.log('selectedContact', selectedContact);
-					const filteredMessages = messages.filter((msg) =>
-						msg.contact === selectedContact
-					);
+					const filteredMessages = messages.filter((msg) => msg.name === selectedContact);
 					this.setProps({
-						activeContactIndex: index, //TODO: Можно удалить
+						activeContactIndex: index, // TODO: Можно удалить
 						hasActiveContact: index >= 0,
 						activeContactMessages: groupMessages(filteredMessages),
 					});
@@ -72,7 +75,7 @@ export default class ChatPage extends Block {
 			</section>
 				{{{ ChatFooter }}}
 				{{ else }}
-			<div class="chat__content-empty">Выберите чат чтобы отправить сообщение</div>
+			<div class="chat__content-empty">Выберите чат, чтобы отправить сообщение</div>
 				{{/if}}
 			</section>
 		</section>

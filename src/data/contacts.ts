@@ -1,12 +1,13 @@
-import chatImg1 from '@/assets/01.webp';
-import chatImg2 from '@/assets/02.webp';
-import chatImg3 from '@/assets/03.webp';
-import chatImg4 from '@/assets/04.webp';
-import chatImg5 from '@/assets/05.webp';
-import chatImg6 from '@/assets/06.webp';
-import chatImg7 from '@/assets/07.webp';
-import chatImg8 from '@/assets/08.webp';
-import chatImg9 from '@/assets/09.webp';
+// TODO: не используется
+import chatImg1 from '../../public/avatars/01.webp';
+import chatImg2 from '../../public/avatars/02.webp';
+import chatImg3 from '../../public/avatars/03.webp';
+import chatImg4 from '../../public/avatars/04.webp';
+import chatImg5 from '../../public/avatars/05.webp';
+import chatImg6 from '../../public/avatars/06.webp';
+import chatImg7 from '../../public/avatars/07.webp';
+import chatImg8 from '../../public/avatars/08.webp';
+import chatImg9 from '../../public/avatars/09.webp';
 
 export const contacts = [
 	{

@@ -15,7 +15,6 @@ export default class ListContacts extends Block {
 						this.props.onSelectContact(index);
 					}
 				},
-
 			})),
 		});
 	}
