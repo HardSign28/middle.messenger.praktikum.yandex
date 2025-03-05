@@ -14,9 +14,9 @@ export default class BackButton extends Block {
 				click: props.onClick,
 			},
 			attrs: {
-				href: props.href || '#'
+				href: props.href || '#',
 				/// ...(props.href ? { href: props.href } : {}),
-			}
+			},
 		});
 	}
 

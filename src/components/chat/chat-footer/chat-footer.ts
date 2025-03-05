@@ -1,4 +1,5 @@
 import Block from '@/core/block';
+
 export default class ChatFooter extends Block {
 	constructor(props) {
 		super('footer', {

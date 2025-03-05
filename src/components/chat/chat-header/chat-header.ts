@@ -1,4 +1,5 @@
 import Block from '@/core/block';
+
 export default class ChatHeader extends Block {
 	constructor(props) {
 		super('header', {

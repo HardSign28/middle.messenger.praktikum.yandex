@@ -16,6 +16,20 @@ module.exports = {
 		'no-tabs': ['error', { allowIndentationTabs: true }],
 		indent: ['error', 'tab'],
 		'import/prefer-default-export': 'off',
+		'class-methods-use-this': 'off',
+		'import/extensions': [
+			'error',
+			'ignorePackages',
+			{ ts: 'never', tsx: 'never' },
+		],
 	},
 	ignorePatterns: ['node_modules/', 'dist/', 'build/', 'coverage/'],
+	settings: {
+		'import/resolver': {
+			alias: {
+				map: [['@', './src']],
+				extensions: ['.js', '.ts', '.tsx'],
+			},
+		},
+	},
 };

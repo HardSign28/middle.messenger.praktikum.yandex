@@ -7,6 +7,7 @@ export default class ChatMessages extends Block {
 			chatGroups: props.chatGroups || [],
 		});
 	}
+
 	public render(): string {
 		return `
 			{{#each chatGroups }}

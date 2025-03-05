@@ -7,20 +7,19 @@ export default class ListContacts extends Block {
 			...props,
 			className: 'page-chat',
 			activeContactIndex: -1,
-			contactComponents: (props.contacts ?? []).map((contact, index) =>
-				new ContactCard({
-					...contact,
-					onClick: () => {
-						this.setProps({ activeContactIndex: index });
-						if (this.props.onSelectContact) {
-							this.props.onSelectContact(index);
-						}
-					},
+			contactComponents: (props.contacts ?? []).map((contact, index) => new ContactCard({
+				...contact,
+				onClick: () => {
+					this.setProps({ activeContactIndex: index });
+					if (this.props.onSelectContact) {
+						this.props.onSelectContact(index);
+					}
+				},
 
-				})
-			),
+			})),
 		});
 	}
+
 	public render(): string {
 		const { activeContactIndex } = this.props;
 		const { contactComponents } = this.children;
@@ -34,7 +33,6 @@ export default class ListContacts extends Block {
 			if (contact.props.active) {
 				contact.setProps({ active: false });
 			}
-
 		});
 		return `
 			<ul>
