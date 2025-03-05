@@ -16,8 +16,11 @@ export default class Input extends Block {
 	constructor(props: InputProps) {
 		super('input', {
 			...props,
+			events: {
+				input: props.onChange,
+			},
 			attrs: {
-				placeholder: '',
+				placeholder: props.placeholder || '',
 				...(props.id ? { id: props.id } : {}),
 				...(props.type ? { type: props.type } : {}),
 				...(props.readonly ? { readonly: props.readonly } : {}),

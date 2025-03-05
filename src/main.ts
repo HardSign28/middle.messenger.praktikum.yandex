@@ -19,6 +19,7 @@ Object.entries(Components).forEach(([name, template]) => {
 const navigate = (page: keyof typeof pages) => {
 	const { name, template, context } = pages[page];
 	if (typeof template === 'function') {
+		// eslint-disable-next-line new-cap
 		renderDOM(new template({}));
 		return;
 	}
@@ -28,7 +29,7 @@ const navigate = (page: keyof typeof pages) => {
 	container.innerHTML = templatingFunction(fullContext);
 };
 
-document.addEventListener('DOMContentLoaded', () => navigate('chat'));
+document.addEventListener('DOMContentLoaded', () => navigate('nav'));
 document.addEventListener('click', (e) => {
 	const target = e.target as HTMLElement | null;
 

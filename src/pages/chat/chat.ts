@@ -26,6 +26,9 @@ export default class ChatPage extends Block {
 			ChatSearch: new ChatSearch({
 				label: 'Зарегистрироваться',
 				type: 'outline-primary',
+				onChange: (e) => {
+					console.log('eeee', e.target.value)
+				},
 			}),
 			activeContactIndex: -1,
 			ChatHeader: new ChatHeader({

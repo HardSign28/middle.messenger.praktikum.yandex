@@ -1,6 +1,6 @@
-import { Button } from '../../components';
-import Block from '../../core/block';
-import InputField from '@/components/input/inputField.ts';
+import InputField from '@/components/input/inputField';
+import { Button } from '@/components';
+import Block from '@/core/block';
 
 export default class LoginPage extends Block {
 	constructor(props) {
@@ -19,7 +19,7 @@ export default class LoginPage extends Block {
 				label: 'Логин',
 				class: 'mb-20',
 				onChange: (e) => {
-					const value = e.target.value;
+					const { value } = e.target;
 					let error = '';
 					if (value === 'error') {
 						error = 'Some error is happened.';
@@ -43,7 +43,7 @@ export default class LoginPage extends Block {
 				label: 'Пароль',
 				class: 'mb-20',
 				onChange: (e) => {
-					const value = e.target.value;
+					const { value } = e.target;
 					let error = '';
 					if (value === 'error') {
 						error = 'Some error is happened.';
