@@ -1,4 +1,5 @@
 import Block from '@/core/block';
+import {Avatar} from '@/components';
 
 export default class ChatHeader extends Block {
 	constructor(props) {
@@ -13,14 +14,18 @@ export default class ChatHeader extends Block {
 				password: '',
 			},
 			className: 'chat__header',
+			Avatar: new Avatar({
+				class: 'chat__header-avatar',
+				imgUrl: 'activeChatImg',
+			}),
 		});
 	}
 
 	public render(): string {
 		return `
 		<div class="chat__header-left-side">
-			{{> Avatar class="chat__header-avatar" imgUrl=activeChatImg}}
-			<div>Вадим</div>
+			{{{ Avatar }}}
+			<div>{{ name }}</div>
 		</div>
 		<div class="chat__header-right-side">
 			<div class="chat__menu">

@@ -1,10 +1,17 @@
 import Block from '@/core/block';
+import {Avatar} from '@/components';
 
 export default class ContactCard extends Block {
 	constructor(props) {
 		super('div', {
 			...props,
 			// className: ContactCard.getClassName(props),
+
+			Avatar: new Avatar({
+				size: 'sm',
+				class: 'chat__avatar',
+				imgUrl: props.avatar,
+			}),
 			events: {
 				click: props.onClick,
 			},
@@ -14,7 +21,7 @@ export default class ContactCard extends Block {
 	public render(): string {
 		return `
 			<article class="contact-card {{#if active }}contact-card_active{{/if}}">
-				{{> Avatar size="sm" class="chat__avatar" imgUrl=avatar}}
+				{{{ Avatar }}}
 				<div class="contact-card-content">
 					<div class="contact-card-head">
 						<div class="contact-card-head__name">{{ name }}</div>

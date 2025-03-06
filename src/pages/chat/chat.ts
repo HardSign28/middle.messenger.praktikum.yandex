@@ -56,7 +56,10 @@ export default class ChatPage extends Block {
 			activeContactIndex: -1,
 			hasActiveContact: false,
 
-			ChatHeader: new ChatHeader({}),
+			ChatHeader: new ChatHeader({
+				name: 'Петя',
+				activeChatImg: '',
+			}),
 			ChatFooter: new ChatFooter({}),
 			ChatMessages: new ChatMessages({ chatGroups: [] }),
 

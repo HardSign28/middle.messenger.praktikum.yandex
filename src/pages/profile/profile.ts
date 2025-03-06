@@ -1,4 +1,4 @@
-import { Button, BackButton } from '@/components';
+import { Button, BackButton, Avatar } from '@/components';
 import Block from '@/core/block';
 import InputField from '@/components/input/inputField.ts';
 
@@ -15,6 +15,13 @@ export default class ProfilePage extends Block {
 				password: '',
 			},
 			className: 'page page-profile',
+			Avatar: new Avatar({
+				size: 'md',
+				class: 'mb-20',
+				name: 'Иван',
+				edit: true,
+				imgUrl: '',
+			}),
 			InputFirstName: new InputField({
 				id: 'first-name',
 				label: 'Имя',
@@ -237,7 +244,7 @@ export default class ProfilePage extends Block {
 		<div class="container w-100">
 			<form class="card w-100">
 				<div class="profile__avatar mb-20">
-					{{> Avatar size="md" class="mb-20" name="Иван" edit="true" imgUrl=""}}
+					{{{ Avatar  }}}
 					<div class="user-name mb-20">Иван</div>
 				</div>
 				{{{ InputEmail }}}
