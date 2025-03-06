@@ -1,0 +1,27 @@
+<main class="page page-profile">
+	{{> BackButton }}
+	<div class="container w-100">
+		<section class="profile w-100">
+			<form class="card w-100">
+				<div class="profile__avatar mb-20">
+					{{> Avatar size="md" class="mb-20" name="Иван" edit="true" imgUrl=""}}
+					<div class="user-name mb-20">Иван</div>
+				</div>
+				{{> Input id="email" class="mb-10" name="email" type="email" label="Почта" value="pochta@yandex.kz" readonly="true" }}
+				{{> Input id="login" class="mb-10" name="login" label="Логин" value="ivanivanov" readonly="true" }}
+				{{> Input id="first-name" class="mb-10" name="first_name" label="Имя" value="Иван" readonly="true" }}
+				{{> Input id="second-name" class="mb-10" name="second_name" label="Фамилия" value="Иванов" readonly="true" }}
+				{{> Input id="display-name" class="mb-10" name="display_name" label="Имя в чате" value="Иван" readonly="true" }}
+				{{> Input id="phone" class="mb-10" name="phone" type="tel" label="Телефон" value="+7 (909) 967 30 30" readonly="true" }}
+				<div class="mt-20">
+					{{> Button class="mb-10" label="Изменить данные" type="primary" size="lg" }}
+					{{> Button class="mb-10" label="Изменить пароль" type="primary" size="lg" }}
+					{{> Button label="Выйти" type="outline-primary" size="lg" }}
+				</div>
+			</form>
+		</section>
+	</div>
+	{{#if (eq showDialog "upload") }}
+		{{> DialogUpload }}
+	{{/if}}
+</main>

@@ -1,0 +1,16 @@
+.page-profile {
+  background: var(--color-light-gray);
+
+  .profile {
+    &__avatar {
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      width: fit-content;
+    }
+  }
+
+  .user-name {
+    text-align: center;
+  }
+}

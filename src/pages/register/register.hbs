@@ -1,0 +1,19 @@
+<main class="page page-register bg-gradient">
+	<div class="container w-100">
+		<section class="card">
+			<h1 class="card__title text-center">Регистрация</h1>
+			<form>
+				{{> Input id="first-name" label="Имя" class="mb-20" name="first_name"}}
+				{{> Input id="second-name" label="Фамилия" class="mb-20" name="second_name"}}
+				{{> Input id="login" label="Логин" class="mb-20" name="login"}}
+				{{> Input id="phone" label="Телефон" class="mb-20" name="phone" type="tel"}}
+				{{> Input id="email" label="Email" class="mb-20" name="email" type="email"}}
+				{{> Input id="password" label="Пароль" class="mb-20" type="password"}}
+				<div class="mt-20">
+					{{> Button label="Зарегистрироваться" type="primary" class="mb-10" size="lg" }}
+					{{> Button label="Войти" type="outline-primary" }}
+				</div>
+			</form>
+		</section>
+	</div>
+</main>

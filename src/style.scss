@@ -1,0 +1,84 @@
+@use "assets/fonts/fonts.scss";
+@use "assets/styles/_vars.scss";
+@use "assets/styles/_globals.scss";
+
+.card {
+  background: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1.5rem;
+  border-radius: .6rem;
+  box-shadow: 0 6px 15px 0 rgba(0, 0, 0, .14);
+
+  &__title {
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+}
+
+.bg-gradient {
+  background:
+    url("@/assets/chat-bg-white.webp"),
+    radial-gradient(circle, #61bdbb 0%, #a9dbda 100%);
+  background-size:
+    500px auto,
+    400%;
+  animation: gradient 20s linear infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position:
+      0 0,
+      0 50%;
+  }
+
+  50% {
+    background-position:
+      250px 60%,
+      0 50%;
+  }
+
+  100% {
+    background-position:
+      500px 0,
+      0 50%;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+
+  // Small devices (landscape phones, 576px and up)
+  @media (min-width: 576px) {
+    max-width: 540px;
+  }
+
+  // Medium devices (tablets, 768px and up)
+  @media (min-width: 768px) {
+    max-width: 720px;
+  }
+
+  // Large devices (desktops, 992px and up)
+  @media (min-width: 992px) {
+    max-width: 960px;
+  }
+
+  // Extra large devices (large desktops, 1200px and up)
+  @media (min-width: 1200px) {
+    max-width: 1140px;
+  }
+
+  // Huge devices (huge desktops, 1400px and up)
+  @media (min-width: 1400px) {
+    max-width: 1320px;
+  }
+}

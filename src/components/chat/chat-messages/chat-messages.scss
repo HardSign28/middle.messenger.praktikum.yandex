@@ -1,0 +1,135 @@
+.chat {
+  &__messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+
+    &-date {
+      display: flex;
+      margin: 10px auto;
+      background: rgba(0, 0, 0, .2);
+      border-radius: var(--ellips-radius);
+      padding: 2px 8px;
+      font-size: 14px;
+      color: var(--color-white);
+    }
+  }
+
+  &__message {
+    max-width: 60%;
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+    position: relative;
+    box-shadow: 0 1px 2px var(--chat-default-shadow);
+
+    &:not(:last-of-type) {
+      margin-bottom: 7px;
+    }
+
+    &_img {
+      .chat__message-meta {
+        position: absolute;
+        background: rgba(0, 0, 0, .1);
+        padding: 2px 6px;
+        margin: 0;
+        border-radius: var(--ellips-radius);
+        bottom: 10px;
+        right: 10px;
+      }
+    }
+
+    &-content {
+      float: left;
+    }
+
+    &-meta {
+      margin-left: 5px;
+      position: relative;
+      bottom: -8px;
+      right: -4px;
+      float: right;
+      font-size: 11px;
+      align-self: end;
+      margin-bottom: 6px;
+      margin-right: 6px;
+      display: flex;
+      gap: 2px;
+      align-items: center;
+      line-height: 1;
+      color: var(--main-color-darken);
+    }
+
+    &--me {
+      background: #eeffde;
+
+      &:last-of-type {
+        border-bottom-right-radius: 0;
+
+        &::after {
+          content: "";
+          display: flex;
+          position: absolute;
+          width: 9px;
+          height: 20px;
+          bottom: -3px;
+          right: -9px;
+          background: url("@/assets/icons/chat-appendix-r.svg");
+        }
+      }
+    }
+
+    &--other {
+      background: var(--color-white);
+      text-align: left;
+
+      .chat__message-meta {
+        color: var(--color-dark-gray);
+      }
+
+      &:last-of-type {
+        border-bottom-left-radius: 0;
+
+        &::after {
+          content: "";
+          display: flex;
+          position: absolute;
+          width: 9px;
+          height: 20px;
+          bottom: -3px;
+          left: -9px;
+          background: url("@/assets/icons/chat-appendix-l.svg");
+        }
+      }
+    }
+
+    &-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+
+      &--me {
+        align-items: flex-end;
+        justify-content: flex-end;
+      }
+
+      &--other {
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  .double-check {
+    background: url("@/assets/icons/double-check.svg") center no-repeat;
+    width: 15px;
+    height: 14px;
+  }
+
+  .chat__attach-img {
+    max-width: 100%;
+    height: auto;
+  }
+}
