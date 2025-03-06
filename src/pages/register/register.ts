@@ -1,6 +1,7 @@
 import { Button } from '@/components';
 import Block from '@/core/block';
 import InputField from '@/components/input/inputField.ts';
+import { validateAll, validateField } from '@/utils/validateField.ts';
 
 export default class RegisterPage extends Block {
 	constructor(props) {
@@ -9,6 +10,10 @@ export default class RegisterPage extends Block {
 			formState: {
 				login: '',
 				password: '',
+				first_name: '',
+				second_name: '',
+				email: '',
+				phone: '',
 			},
 			errors: {
 				login: '',
@@ -22,13 +27,7 @@ export default class RegisterPage extends Block {
 				name: 'first_name',
 				onChange: (e) => {
 					const { value } = e.target;
-					let error = '';
-					if (value === 'error') {
-						error = 'Some error is happened.';
-					}
-					if (value.length < 3) {
-						error = 'More 3 characters.';
-					}
+					const error = validateField(value, 'first_name');
 					this.children.InputFirstName.setProps({
 						error,
 					});
@@ -36,7 +35,7 @@ export default class RegisterPage extends Block {
 					this.setProps({
 						formState: {
 							...this.props.formState,
-							login: value,
+							first_name: value,
 						},
 					});
 				},
@@ -48,10 +47,7 @@ export default class RegisterPage extends Block {
 				name: 'second_name',
 				onChange: (e) => {
 					const { value } = e.target;
-					let error = '';
-					if (value.length < 3) {
-						error = 'More 3 characters.';
-					}
+					const error = validateField(value, 'second_name');
 					this.children.InputSecondName.setProps({
 						error,
 					});
@@ -59,7 +55,7 @@ export default class RegisterPage extends Block {
 					this.setProps({
 						formState: {
 							...this.props.formState,
-							login: value,
+							second_name: value,
 						},
 					});
 				},
@@ -71,10 +67,7 @@ export default class RegisterPage extends Block {
 				name: 'login',
 				onChange: (e) => {
 					const { value } = e.target;
-					let error = '';
-					if (value.length < 3) {
-						error = 'More 3 characters.';
-					}
+					const error = validateField(value, 'login');
 					this.children.InputLogin.setProps({
 						error,
 					});
@@ -94,10 +87,7 @@ export default class RegisterPage extends Block {
 				name: 'phone',
 				onChange: (e) => {
 					const { value } = e.target;
-					let error = '';
-					if (value.length < 3) {
-						error = 'More 3 characters.';
-					}
+					const error = validateField(value, 'phone');
 					this.children.InputPhone.setProps({
 						error,
 					});
@@ -105,7 +95,7 @@ export default class RegisterPage extends Block {
 					this.setProps({
 						formState: {
 							...this.props.formState,
-							login: value,
+							phone: value,
 						},
 					});
 				},
@@ -118,10 +108,7 @@ export default class RegisterPage extends Block {
 				type: 'email',
 				onChange: (e) => {
 					const { value } = e.target;
-					let error = '';
-					if (value.length < 3) {
-						error = 'More 3 characters.';
-					}
+					const error = validateField(value, 'email');
 					this.children.InputEmail.setProps({
 						error,
 					});
@@ -129,7 +116,7 @@ export default class RegisterPage extends Block {
 					this.setProps({
 						formState: {
 							...this.props.formState,
-							login: value,
+							email: value,
 						},
 					});
 				},
@@ -141,13 +128,7 @@ export default class RegisterPage extends Block {
 				type: 'password',
 				onChange: (e) => {
 					const { value } = e.target;
-					let error = '';
-					if (value === 'error') {
-						error = 'Some error is happened.';
-					}
-					if (value.length < 3) {
-						error = 'More 3 characters.';
-					}
+					const error = validateField(value, 'password');
 					this.children.InputPassword.setProps({
 						error,
 					});
@@ -155,7 +136,7 @@ export default class RegisterPage extends Block {
 					this.setProps({
 						formState: {
 							...this.props.formState,
-							login: value,
+							password: value,
 						},
 					});
 				},
@@ -166,7 +147,6 @@ export default class RegisterPage extends Block {
 
 				onClick: (e) => {
 					e.preventDefault();
-					console.log(this.props.formState.login);
 				},
 			}),
 			SignUpButton: new Button({
@@ -174,6 +154,11 @@ export default class RegisterPage extends Block {
 				type: 'primary',
 				size: 'lg',
 				class: 'mb-10',
+				onClick: (e) => {
+					e.preventDefault();
+					validateAll(this.props.formState, this.children, 'login', 'password', 'firstName', 'secondName', 'phone', 'email');
+					console.log(this.props.formState);
+				},
 			}),
 		});
 	}

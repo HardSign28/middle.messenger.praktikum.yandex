@@ -1,6 +1,7 @@
 import InputField from '@/components/input/inputField';
 import { Button } from '@/components';
 import Block from '@/core/block';
+import { validateField, validateAll } from '@/utils/validateField';
 
 export default class LoginPage extends Block {
 	constructor(props) {
@@ -20,21 +21,12 @@ export default class LoginPage extends Block {
 				class: 'mb-20',
 				onChange: (e) => {
 					const { value } = e.target;
-					let error = '';
-					if (value === 'error') {
-						error = 'Some error is happened.';
-					}
-					if (value.length < 3) {
-						error = 'More 3 characters.';
-					}
-					this.children.InputLogin.setProps({
-						error,
-					});
-
+					const error = validateField(value, 'login');
+					this.children.InputLogin.setProps({ error });
 					this.setProps({
 						formState: {
 							...this.props.formState,
-							login: value,
+							login: value || '',
 						},
 					});
 				},
@@ -42,15 +34,10 @@ export default class LoginPage extends Block {
 			InputPassword: new InputField({
 				label: 'Пароль',
 				class: 'mb-20',
+				type: 'password',
 				onChange: (e) => {
 					const { value } = e.target;
-					let error = '';
-					if (value === 'error') {
-						error = 'Some error is happened.';
-					}
-					if (value.length < 3) {
-						error = 'More 3 characters.';
-					}
+					const error = validateField(value, 'password');
 					this.children.InputPassword.setProps({
 						error,
 					});
@@ -58,7 +45,7 @@ export default class LoginPage extends Block {
 					this.setProps({
 						formState: {
 							...this.props.formState,
-							login: value,
+							password: value,
 						},
 					});
 				},
@@ -70,7 +57,8 @@ export default class LoginPage extends Block {
 				class: 'mb-10',
 				onClick: (e) => {
 					e.preventDefault();
-					console.log(this.props.formState.login);
+					validateAll(this.props.formState, this.children, 'login', 'password');
+					console.log(this.props.formState);
 				},
 			}),
 			SignUpButton: new Button({
