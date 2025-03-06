@@ -10,15 +10,13 @@ type InputProps = {
 	id?: string;
 	readonly?: boolean;
 	value?: string;
+    placeholder?: string;
 };
 
 export default class Input extends Block {
 	constructor(props: InputProps) {
 		super('input', {
 			...props,
-			events: {
-				input: props.onChange,
-			},
 			attrs: {
 				placeholder: props.placeholder || '',
 				...(props.id ? { id: props.id } : {}),

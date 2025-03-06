@@ -19,11 +19,8 @@ export default class ChatSearch extends Block {
 				className: 'chat__search-input',
 				placeholder: 'Поиск',
 				type: 'search',
-				onChange: (e) => {
-					// console.log('e', e)
-					if (this.props.onChange) {
-						this.props.onChange(e);
-					}
+				events: {
+					input: props.onChange,
 				},
 			}),
 		});
