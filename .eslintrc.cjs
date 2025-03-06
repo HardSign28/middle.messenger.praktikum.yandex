@@ -22,6 +22,7 @@ module.exports = {
 			'ignorePackages',
 			{ ts: 'never', tsx: 'never' },
 		],
+		'no-param-reassign': ['error', { props: false }],
 		// 'object-curly-newline': ['error', { multiline: true, minProperties: 3 }],
 	},
 	ignorePatterns: ['node_modules/', 'dist/', 'build/', 'coverage/'],

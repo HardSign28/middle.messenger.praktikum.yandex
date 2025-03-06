@@ -24,7 +24,7 @@ export default class ServerErrorPage extends Block {
 		<div class="container">
 			<section class="error">
 				<img class="error__image"
-					src="${ img500 }"
+					src="${img500}"
 					width="1920"
 					height="1920"
 					alt="Ошибка 500: внутренняя ошибка сервера">

@@ -1,6 +1,6 @@
-import EventBus from './eventBus';
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
+import EventBus from './eventBus';
 
 // Нельзя создавать экземпляр данного класса
 export default class Block {
@@ -12,7 +12,9 @@ export default class Block {
 	};
 
 	_element = null;
+
 	_meta = null;
+
 	_id = nanoid(6);
 
 	/** JSDoc
@@ -155,7 +157,7 @@ export default class Block {
 			}
 		});
 
-		const fragment = this._createDocumentElement("template");
+		const fragment = this._createDocumentElement('template');
 		const template = Handlebars.compile(this.render());
 		fragment.innerHTML = template(propsAndStubs);
 
@@ -192,7 +194,7 @@ export default class Block {
 	}
 
 	render() {
-		return "";
+		return '';
 	}
 
 	getContent() {

@@ -21,7 +21,7 @@ export default class RegisterPage extends Block {
 				class: 'mb-20',
 				name: 'first_name',
 				onChange: (e) => {
-					const value = e.target.value;
+					const { value } = e.target;
 					let error = '';
 					if (value === 'error') {
 						error = 'Some error is happened.';
@@ -47,7 +47,7 @@ export default class RegisterPage extends Block {
 				class: 'mb-20',
 				name: 'second_name',
 				onChange: (e) => {
-					const value = e.target.value;
+					const { value } = e.target;
 					let error = '';
 					if (value.length < 3) {
 						error = 'More 3 characters.';
@@ -70,7 +70,7 @@ export default class RegisterPage extends Block {
 				class: 'mb-20',
 				name: 'login',
 				onChange: (e) => {
-					const value = e.target.value;
+					const { value } = e.target;
 					let error = '';
 					if (value.length < 3) {
 						error = 'More 3 characters.';
@@ -93,7 +93,7 @@ export default class RegisterPage extends Block {
 				class: 'mb-20',
 				name: 'phone',
 				onChange: (e) => {
-					const value = e.target.value;
+					const { value } = e.target;
 					let error = '';
 					if (value.length < 3) {
 						error = 'More 3 characters.';
@@ -117,7 +117,7 @@ export default class RegisterPage extends Block {
 				name: 'email',
 				type: 'email',
 				onChange: (e) => {
-					const value = e.target.value;
+					const { value } = e.target;
 					let error = '';
 					if (value.length < 3) {
 						error = 'More 3 characters.';
@@ -140,7 +140,7 @@ export default class RegisterPage extends Block {
 				class: 'mb-20',
 				type: 'password',
 				onChange: (e) => {
-					const value = e.target.value;
+					const { value } = e.target;
 					let error = '';
 					if (value === 'error') {
 						error = 'Some error is happened.';

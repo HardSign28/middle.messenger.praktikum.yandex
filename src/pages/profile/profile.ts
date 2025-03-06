@@ -1,5 +1,4 @@
-import { Button } from '@/components';
-import { BackButton } from '@/components';
+import { Button, BackButton } from '@/components';
 import Block from '@/core/block';
 import InputField from '@/components/input/inputField.ts';
 
@@ -24,7 +23,7 @@ export default class ProfilePage extends Block {
 				value: 'Иван',
 				readonly: true,
 				onChange: (e) => {
-					const value = e.target.value;
+					const { value } = e.target;
 					let error = '';
 					if (value === 'error') {
 						error = 'Some error is happened.';
@@ -52,7 +51,7 @@ export default class ProfilePage extends Block {
 				value: 'Иванов',
 				readonly: true,
 				onChange: (e) => {
-					const value = e.target.value;
+					const { value } = e.target;
 					let error = '';
 					if (value.length < 3) {
 						error = 'More 3 characters.';
@@ -77,7 +76,7 @@ export default class ProfilePage extends Block {
 				value: 'ivanivanov',
 				readonly: true,
 				onChange: (e) => {
-					const value = e.target.value;
+					const { value } = e.target;
 					let error = '';
 					if (value.length < 3) {
 						error = 'More 3 characters.';
@@ -102,7 +101,7 @@ export default class ProfilePage extends Block {
 				value: 'Иван',
 				readonly: true,
 				onChange: (e) => {
-					const value = e.target.value;
+					const { value } = e.target;
 					let error = '';
 					if (value.length < 3) {
 						error = 'More 3 characters.';
@@ -128,7 +127,7 @@ export default class ProfilePage extends Block {
 				value: '+7 (909) 967 30 30',
 				readonly: true,
 				onChange: (e) => {
-					const value = e.target.value;
+					const { value } = e.target;
 					let error = '';
 					if (value.length < 3) {
 						error = 'More 3 characters.';
@@ -154,7 +153,7 @@ export default class ProfilePage extends Block {
 				value: 'pochta@yandex.kz',
 				readonly: true,
 				onChange: (e) => {
-					const value = e.target.value;
+					const { value } = e.target;
 					let error = '';
 					if (value.length < 3) {
 						error = 'More 3 characters.';
@@ -177,7 +176,7 @@ export default class ProfilePage extends Block {
 				class: 'mb-20',
 				type: 'password',
 				onChange: (e) => {
-					const value = e.target.value;
+					const { value } = e.target;
 					let error = '';
 					if (value === 'error') {
 						error = 'Some error is happened.';
@@ -226,7 +225,7 @@ export default class ProfilePage extends Block {
 				// href: '#',
 				onClick: (e) => {
 					e.preventDefault();
-					alert('sdfdsf')
+					alert('sdfdsf');
 				},
 			}),
 		});

@@ -24,7 +24,7 @@ export default class NotFoundPage extends Block {
 		<div class="container">
 			<section class="not-found">
 				<img class="not-found__image"
-					src="${ img404 }"
+					src="${img404}"
 					width="512"
 					height="481"
 					alt="Ошибка 404: страница не найдена">
