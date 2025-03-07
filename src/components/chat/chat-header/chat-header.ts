@@ -1,5 +1,5 @@
 import Block from '@/core/block';
-import {Avatar} from '@/components';
+import { Avatar } from '@/components';
 
 export default class ChatHeader extends Block {
 	constructor(props) {
@@ -16,12 +16,15 @@ export default class ChatHeader extends Block {
 			className: 'chat__header',
 			Avatar: new Avatar({
 				class: 'chat__header-avatar',
-				imgUrl: 'activeChatImg',
+				imgUrl: props.activeChatImg,
 			}),
 		});
 	}
 
 	public render(): string {
+		this.children.Avatar.setProps({
+			imgUrl: this.props.activeChatImg,
+		});
 		return `
 		<div class="chat__header-left-side">
 			{{{ Avatar }}}

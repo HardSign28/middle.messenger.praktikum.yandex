@@ -79,9 +79,14 @@ export default class ChatPage extends Block {
 					this.children.ChatMessages.setProps({
 						chatGroups: groupMessages(filteredMessages),
 					});
+
+					this.children.ChatHeader.setProps({
+						name: selectedContact,
+						activeChatImg: this.props.contacts[index]?.avatar,
+					});
 				},
 			}),
-			showDialog: 'add',
+			showDialog: null,
 			DialogRemove: new DialogRemove({
 				userName: 'Иоанн',
 				onOk: () => {

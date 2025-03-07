@@ -21,6 +21,9 @@ export default class ProfilePage extends Block {
 				name: 'Иван',
 				edit: true,
 				imgUrl: '',
+				onClick: () => {
+					this.setProps({ showDialog: 'upload' });
+				},
 			}),
 			InputFirstName: new InputField({
 				id: 'first-name',
@@ -235,8 +238,12 @@ export default class ProfilePage extends Block {
 					alert('sdfdsf');
 				},
 			}),
-			DialogUpload: new DialogUpload({}),
-			showDialog: 'upload',
+			DialogUpload: new DialogUpload({
+				onCancel: () => {
+					this.setProps({ showDialog: null });
+				},
+			}),
+			showDialog: null,
 		});
 	}
 

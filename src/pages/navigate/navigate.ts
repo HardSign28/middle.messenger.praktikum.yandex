@@ -1,4 +1,3 @@
-import { Button } from '@/components';
 import Block from '@/core/block';
 
 export default class NavigatePage extends Block {

@@ -8,6 +8,9 @@ export default class Avatar extends Block {
 			edit: props.edit,
 			imgUrl: props.imgUrl,
 			size: props.size,
+			events: {
+				click: props.onClick,
+			},
 		});
 	}
 	public render(): string {
@@ -22,7 +25,7 @@ export default class Avatar extends Block {
 				itemtype="https://schema.org/ImageObject"
 				>
 				{{#if imgUrl }}
-					<img src="{{ imgUrl }}"
+					<img src="{{{ imgUrl }}}"
 						alt="Аватар пользователя"
 						itemprop="contentUrl"
 						class="avatar__photo">

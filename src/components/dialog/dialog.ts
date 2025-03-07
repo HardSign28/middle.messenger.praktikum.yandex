@@ -6,6 +6,13 @@ export default class Dialog extends Block {
 		super('div', {
 			...props,
 			className: 'dialog',
+			events: {
+				click: (e) => {
+					if (e.target.classList.contains('dialog__close')) {
+						props.onCancel?.();
+					}
+				},
+			},
 			OkButton: new Button({
 				label: props.labelOk,
 				type: 'primary',

@@ -5,7 +5,6 @@ class DialogBody extends Block {
 	constructor(props) {
 		super('div', {
 			...props,
-			// className: 'remove-text',
 			FileUpload: new FileUpload({}),
 		});
 	}
