@@ -27,10 +27,8 @@ export default class RegisterPage extends Block {
 				name: 'first_name',
 				onChange: (e) => {
 					const { value } = e.target;
-					const error = validateField(value, 'first_name');
-					this.children.InputFirstName.setProps({
-						error,
-					});
+					const error = validateField(value, 'firstName');
+					this.children.InputFirstName.setProps({	error });
 
 					this.setProps({
 						formState: {
@@ -47,7 +45,7 @@ export default class RegisterPage extends Block {
 				name: 'second_name',
 				onChange: (e) => {
 					const { value } = e.target;
-					const error = validateField(value, 'second_name');
+					const error = validateField(value, 'secondName');
 					this.children.InputSecondName.setProps({
 						error,
 					});

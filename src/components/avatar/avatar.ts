@@ -13,6 +13,7 @@ export default class Avatar extends Block {
 			},
 		});
 	}
+
 	public render(): string {
 		return `
 			<figure class="avatar__image {{ class }} {{#if size }} avatar__image_{{ size }}{{/if}}"

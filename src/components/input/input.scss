@@ -1,20 +1,18 @@
 .float-input {
   position: relative;
 
-  &_readonly {
-    &::after {
-      content: "";
-      display: block;
-      width: 22px;
-      height: 22px;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      right: 15px;
-      background: url("@/assets/icons/pen-new-square.svg");
-      background-size: 22px;
-      cursor: pointer;
-    }
+  .icon-edit {
+    content: "";
+    display: block;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+    background: url("@/assets/icons/pen-new-square.svg");
+    background-size: 22px;
+    cursor: pointer;
   }
 
   &__element {

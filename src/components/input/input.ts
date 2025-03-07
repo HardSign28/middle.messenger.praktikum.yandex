@@ -17,13 +17,25 @@ export default class Input extends Block {
 	constructor(props: InputProps) {
 		super('input', {
 			...props,
-			attrs: {
-				placeholder: props.placeholder || '',
-				...(props.id ? { id: props.id } : {}),
-				...(props.type ? { type: props.type } : {}),
-				...(props.readonly ? { readonly: props.readonly } : {}),
-				...(props.value ? { value: props.value } : {}),
-			},
+
+			attrs: Input.getAttributes(props),
 		});
+	}
+
+	static getAttributes(props: InputProps) {
+		return {
+			placeholder: props.placeholder || '',
+			...(props.id ? { id: props.id } : {}),
+			...(props.type ? { type: props.type } : {}),
+			...(props.readonly ? { readonly: true } : {}),
+			...(props.value ? { value: props.value } : {}),
+		};
+	}
+
+	public componentDidUpdate(oldProps: InputProps, newProps: InputProps): boolean {
+		if (oldProps.readonly !== newProps.readonly) {
+			this.element.toggleAttribute('readonly', newProps.readonly);
+		}
+		return true;
 	}
 }

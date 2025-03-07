@@ -1,5 +1,5 @@
 import Block from '@/core/block';
-import {Avatar} from '@/components';
+import { Avatar } from '@/components';
 
 export default class ContactCard extends Block {
 	constructor(props) {

@@ -16,10 +16,33 @@ export default class InputField extends Block {
 	constructor(props: InputFieldProps) {
 		super('div', {
 			...props,
+			events: {
+				click: (e) => {
+					if (e.target.classList.contains('icon-edit')) {
+						this.setProps({
+							readonly: false,
+						});
+						this.children.Input.setProps({
+							readonly: false,
+						});
+						setTimeout(() => {
+							const inputElement = this.children.Input.element as HTMLInputElement;
+							if (inputElement) {
+								inputElement.focus();
+
+								const supportedTypes = ['text', 'search', 'password', 'tel', 'url'];
+								if (supportedTypes.includes(inputElement.type)) {
+									const { length } = inputElement.value;
+									inputElement.setSelectionRange(length, length);
+								}
+							}
+						}, 0);
+					}
+				},
+			},
 			Input: new Input({
 				...props,
 				className: 'float-input__element',
-				// id: props.id,
 				events: {
 					blur: props.onChange,
 				},
@@ -43,6 +66,9 @@ export default class InputField extends Block {
 		return `
         {{{ Input }}}
         <label class="float-input__label" for="{{ id }}">{{ label }}</label>
+        {{#if readonly }}
+        <div class="icon-edit"></div>
+        {{/if}}
         <div class="float-input__error">{{ error }}</div>
     `;
 	}

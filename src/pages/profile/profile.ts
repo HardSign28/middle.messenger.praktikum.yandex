@@ -1,6 +1,12 @@
-import {Button, BackButton, Avatar, DialogUpload} from '@/components';
+import {
+	Button,
+	BackButton,
+	Avatar,
+	DialogUpload,
+} from '@/components';
 import Block from '@/core/block';
 import InputField from '@/components/input/inputField';
+import { validateField } from '@/utils/validateField';
 
 export default class ProfilePage extends Block {
 	constructor(props) {
@@ -9,11 +15,13 @@ export default class ProfilePage extends Block {
 			formState: {
 				login: '',
 				password: '',
+				first_name: '',
+				second_name: '',
+				display_name: '',
+				phone: '',
+				email: '',
 			},
-			errors: {
-				login: '',
-				password: '',
-			},
+
 			className: 'page page-profile',
 			Avatar: new Avatar({
 				size: 'md',
@@ -32,15 +40,12 @@ export default class ProfilePage extends Block {
 				name: 'first_name',
 				value: 'Иван',
 				readonly: true,
+
 				onChange: (e) => {
 					const { value } = e.target;
-					let error = '';
-					if (value === 'error') {
-						error = 'Some error is happened.';
-					}
-					if (value.length < 3) {
-						error = 'More 3 characters.';
-					}
+					const error = validateField(value, 'firstName');
+					this.children.InputFirstName.setProps({	error });
+
 					this.children.InputFirstName.setProps({
 						error,
 					});
@@ -48,7 +53,7 @@ export default class ProfilePage extends Block {
 					this.setProps({
 						formState: {
 							...this.props.formState,
-							login: value,
+							first_name: value,
 						},
 					});
 				},
@@ -62,18 +67,13 @@ export default class ProfilePage extends Block {
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target;
-					let error = '';
-					if (value.length < 3) {
-						error = 'More 3 characters.';
-					}
-					this.children.InputSecondName.setProps({
-						error,
-					});
+					const error = validateField(value, 'secondName');
+					this.children.InputSecondName.setProps({ error });
 
 					this.setProps({
 						formState: {
 							...this.props.formState,
-							login: value,
+							second_name: value,
 						},
 					});
 				},
@@ -87,13 +87,8 @@ export default class ProfilePage extends Block {
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target;
-					let error = '';
-					if (value.length < 3) {
-						error = 'More 3 characters.';
-					}
-					this.children.InputLogin.setProps({
-						error,
-					});
+					const error = validateField(value, 'login');
+					this.children.InputLogin.setProps({ error });
 
 					this.setProps({
 						formState: {
@@ -112,18 +107,13 @@ export default class ProfilePage extends Block {
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target;
-					let error = '';
-					if (value.length < 3) {
-						error = 'More 3 characters.';
-					}
-					this.children.InputDisplayName.setProps({
-						error,
-					});
+					const error = validateField(value, 'firstName');
+					this.children.InputDisplayName.setProps({ error });
 
 					this.setProps({
 						formState: {
 							...this.props.formState,
-							login: value,
+							display_name: value,
 						},
 					});
 				},
@@ -138,18 +128,13 @@ export default class ProfilePage extends Block {
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target;
-					let error = '';
-					if (value.length < 3) {
-						error = 'More 3 characters.';
-					}
-					this.children.InputPhone.setProps({
-						error,
-					});
+					const error = validateField(value, 'phone');
+					this.children.InputPhone.setProps({ error });
 
 					this.setProps({
 						formState: {
 							...this.props.formState,
-							login: value,
+							phone: value,
 						},
 					});
 				},
@@ -164,18 +149,13 @@ export default class ProfilePage extends Block {
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target;
-					let error = '';
-					if (value.length < 3) {
-						error = 'More 3 characters.';
-					}
-					this.children.InputEmail.setProps({
-						error,
-					});
+					const error = validateField(value, 'email');
+					this.children.InputEmail.setProps({ error });
 
 					this.setProps({
 						formState: {
 							...this.props.formState,
-							login: value,
+							email: value,
 						},
 					});
 				},
@@ -187,21 +167,13 @@ export default class ProfilePage extends Block {
 				type: 'password',
 				onChange: (e) => {
 					const { value } = e.target;
-					let error = '';
-					if (value === 'error') {
-						error = 'Some error is happened.';
-					}
-					if (value.length < 3) {
-						error = 'More 3 characters.';
-					}
-					this.children.InputPassword.setProps({
-						error,
-					});
+					const error = validateField(value, 'password');
+					this.children.InputPassword.setProps({ error });
 
 					this.setProps({
 						formState: {
 							...this.props.formState,
-							login: value,
+							password: value,
 						},
 					});
 				},
