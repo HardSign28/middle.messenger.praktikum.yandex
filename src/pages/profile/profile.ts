@@ -46,10 +46,6 @@ export default class ProfilePage extends Block {
 					const error = validateField(value, 'firstName');
 					this.children.InputFirstName.setProps({	error });
 
-					this.children.InputFirstName.setProps({
-						error,
-					});
-
 					this.setProps({
 						formState: {
 							...this.props.formState,
@@ -185,7 +181,7 @@ export default class ProfilePage extends Block {
 				class: 'mb-10',
 				onClick: (e) => {
 					e.preventDefault();
-					console.log(this.props.formState.login);
+					console.log(this.props.formState);
 				},
 			}),
 			EditPasswordButton: new Button({
@@ -195,7 +191,7 @@ export default class ProfilePage extends Block {
 				class: 'mb-10',
 				onClick: (e) => {
 					e.preventDefault();
-					console.log(this.props.formState.login);
+					console.log(this.props.formState);
 				},
 			}),
 			LogoutButton: new Button({
@@ -229,7 +225,7 @@ export default class ProfilePage extends Block {
 					<div class="user-name mb-20">Иван</div>
 				</div>
 				{{{ InputEmail }}}
-				{{{ inputLogin }}}
+				{{{ InputLogin }}}
 				{{{ InputFirstName }}}
 				{{{ InputSecondName }}}
 				{{{ InputDisplayName }}}
