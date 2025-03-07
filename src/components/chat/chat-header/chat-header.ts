@@ -5,15 +5,21 @@ export default class ChatHeader extends Block {
 	constructor(props) {
 		super('header', {
 			...props,
-			formState: {
-				login: '',
-				password: '',
-			},
-			errors: {
-				login: '',
-				password: '',
-			},
 			className: 'chat__header',
+			events: {
+				click: (e) => {
+					if (e.target.classList.contains('js_dialog-add')) {
+						if (this.props.onUserAddClick) {
+							this.props.onUserAddClick();
+						}
+					}
+					if (e.target.classList.contains('js_dialog-delete')) {
+						if (this.props.onUserDeleteClick) {
+							this.props.onUserDeleteClick();
+						}
+					}
+				},
+			},
 			Avatar: new Avatar({
 				class: 'chat__header-avatar',
 				imgUrl: props.activeChatImg,
@@ -34,11 +40,11 @@ export default class ChatHeader extends Block {
 			<div class="chat__menu">
 				<div class="chat__menu__container">
 					<ul class="chat__menu__list">
-						<li class="chat__menu__list-item">
+						<li class="chat__menu__list-item js_dialog-add">
 							<i class="chat__menu__icon _add"></i>
 							Добавить пользователя
 						</li>
-						<li class="chat__menu__list-item">
+						<li class="chat__menu__list-item js_dialog-delete">
 							<i class="chat__menu__icon _delete"></i>
 							Удалить пользователя
 						</li>

@@ -59,8 +59,16 @@ export default class ChatPage extends Block {
 			hasActiveContact: false,
 
 			ChatHeader: new ChatHeader({
-				name: 'Петя',
-				activeChatImg: '',
+				onUserAddClick: () => {
+					this.children.DialogAdd.setProps({
+						userName: 'ADD',
+					});
+					this.setProps({ showDialog: 'add' });
+				},
+				onUserDeleteClick: () => {
+					// this.children.DialogRemove.setProps({ userName: 'DELETE' });
+					this.setProps({ showDialog: 'remove' });
+				},
 			}),
 			ChatFooter: new ChatFooter({}),
 			ChatMessages: new ChatMessages({ chatGroups: [] }),
@@ -74,6 +82,10 @@ export default class ChatPage extends Block {
 						activeContactIndex: index,
 						hasActiveContact: index >= 0,
 						activeContactMessages: groupMessages(filteredMessages),
+					});
+
+					this.children.DialogRemove.setProps({
+						userName: selectedContact,
 					});
 
 					this.children.ChatMessages.setProps({
@@ -97,7 +109,6 @@ export default class ChatPage extends Block {
 				},
 			}),
 			DialogAdd: new DialogAdd({
-				userName: 'Иоанн',
 				onOk: () => {
 					this.setProps({ showDialog: null });
 				},

@@ -6,11 +6,12 @@ class DialogBody extends Block {
 		super('p', {
 			...props,
 			className: 'remove-text',
-			userName: props.userName || '',
+			// userName: props.userName || '',
 		});
 	}
 
 	render(): string {
+		console.log('userName 2', this.props.userName);
 		return 'Вы точно хотите удалить переписку с пользователем {{ userName }}?';
 	}
 }
@@ -32,6 +33,7 @@ export default class DialogRemove extends Block {
 	}
 
 	public render(): string {
+		console.log('userName', this.props.userName);
 		return `
 			{{{ Dialog }}}
     	`;
