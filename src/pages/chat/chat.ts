@@ -3,6 +3,8 @@ import {
 	ChatHeader,
 	ChatMessages,
 	ChatSearch,
+	DialogAdd,
+	DialogRemove,
 	ListContacts,
 } from '@/components';
 import { groupMessages } from '@/utils/groupMessages';
@@ -79,6 +81,25 @@ export default class ChatPage extends Block {
 					});
 				},
 			}),
+			showDialog: 'add',
+			DialogRemove: new DialogRemove({
+				userName: 'Иоанн',
+				onOk: () => {
+					this.setProps({ showDialog: null });
+				},
+				onCancel: () => {
+					this.setProps({ showDialog: null });
+				},
+			}),
+			DialogAdd: new DialogAdd({
+				userName: 'Иоанн',
+				onOk: () => {
+					this.setProps({ showDialog: null });
+				},
+				onCancel: () => {
+					this.setProps({ showDialog: null });
+				},
+			}),
 		});
 	}
 
@@ -106,11 +127,11 @@ export default class ChatPage extends Block {
 		</section>
 
 		{{#if (eq showDialog "remove") }}
-			{{> DialogRemove userName="Вадим" }}
+			{{{ DialogRemove }}}
 		{{/if}}
 
 		{{#if (eq showDialog "add") }}
-			{{> DialogAdd }}
+			{{{ DialogAdd }}}
 		{{/if}}
     	`;
 	}

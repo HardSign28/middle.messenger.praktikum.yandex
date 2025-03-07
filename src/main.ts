@@ -20,7 +20,7 @@ const navigate = (page: keyof typeof pages) => {
 	const { name, template, context } = pages[page];
 	if (typeof template === 'function') {
 		// eslint-disable-next-line new-cap
-		renderDOM(new template({}));
+		renderDOM(new template({ pages }));
 		return;
 	}
 	const container = document.getElementById('app')!;

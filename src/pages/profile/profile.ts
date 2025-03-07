@@ -1,6 +1,6 @@
-import { Button, BackButton, Avatar } from '@/components';
+import {Button, BackButton, Avatar, DialogUpload} from '@/components';
 import Block from '@/core/block';
-import InputField from '@/components/input/inputField.ts';
+import InputField from '@/components/input/inputField';
 
 export default class ProfilePage extends Block {
 	constructor(props) {
@@ -235,6 +235,8 @@ export default class ProfilePage extends Block {
 					alert('sdfdsf');
 				},
 			}),
+			DialogUpload: new DialogUpload({}),
+			showDialog: 'upload',
 		});
 	}
 
@@ -260,6 +262,9 @@ export default class ProfilePage extends Block {
 				</div>
 			</form>
 		</div>
+		{{#if (eq showDialog "upload") }}
+			{{{ DialogUpload }}}
+		{{/if}}
     	`;
 	}
 }

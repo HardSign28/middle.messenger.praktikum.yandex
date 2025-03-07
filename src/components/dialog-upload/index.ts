@@ -1,1 +1,1 @@
-export { default as DialogUpload } from './dialog-upload.hbs?raw';
+export { default as DialogUpload } from './dialog-upload';

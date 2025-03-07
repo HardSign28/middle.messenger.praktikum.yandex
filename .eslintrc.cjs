@@ -23,6 +23,7 @@ module.exports = {
 			{ ts: 'never', tsx: 'never' },
 		],
 		'no-param-reassign': ['error', { props: false }],
+		'max-classes-per-file': 'off',
 		// 'object-curly-newline': ['error', { multiline: true, minProperties: 3 }],
 	},
 	ignorePatterns: ['node_modules/', 'dist/', 'build/', 'coverage/'],
