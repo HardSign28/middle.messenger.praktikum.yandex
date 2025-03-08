@@ -2,7 +2,7 @@ import Block from '@/core/block';
 
 type ChatMessagesProps = {
 	chatGroups?: [],
-	messages: [],
+	messages?: [],
 }
 export default class ChatMessages extends Block {
 	constructor(props: ChatMessagesProps) {

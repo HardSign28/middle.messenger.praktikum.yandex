@@ -11,6 +11,7 @@ type InputFieldProps = {
 	id?: string;
 	type?: string;
 	value?: string;
+	name?: string;
 };
 export default class InputField extends Block {
 	constructor(props: InputFieldProps) {

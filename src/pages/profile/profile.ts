@@ -8,8 +8,9 @@ import Block from '@/core/block';
 import InputField from '@/components/input/inputField';
 import { validateField } from '@/utils/validateField';
 
+type ProfilePageProps = Record<string, unknown>;
 export default class ProfilePage extends Block {
-	constructor(props) {
+	constructor(props: ProfilePageProps) {
 		super('main', {
 			...props,
 			formState: {
@@ -42,13 +43,13 @@ export default class ProfilePage extends Block {
 				readonly: true,
 
 				onChange: (e) => {
-					const { value } = e.target;
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'firstName');
 					this.children.InputFirstName.setProps({ error });
 
 					this.setProps({
 						formState: {
-							...this.props.formState,
+							...this.props.formState ?? {},
 							first_name: value,
 						},
 					});
@@ -62,13 +63,13 @@ export default class ProfilePage extends Block {
 				value: 'Иванов',
 				readonly: true,
 				onChange: (e) => {
-					const { value } = e.target;
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'secondName');
 					this.children.InputSecondName.setProps({ error });
 
 					this.setProps({
 						formState: {
-							...this.props.formState,
+							...this.props.formState ?? {},
 							second_name: value,
 						},
 					});
@@ -82,13 +83,13 @@ export default class ProfilePage extends Block {
 				value: 'ivanivanov',
 				readonly: true,
 				onChange: (e) => {
-					const { value } = e.target;
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'login');
 					this.children.InputLogin.setProps({ error });
 
 					this.setProps({
 						formState: {
-							...this.props.formState,
+							...this.props.formState ?? {},
 							login: value,
 						},
 					});
@@ -102,13 +103,13 @@ export default class ProfilePage extends Block {
 				value: 'Иван',
 				readonly: true,
 				onChange: (e) => {
-					const { value } = e.target;
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'firstName');
 					this.children.InputDisplayName.setProps({ error });
 
 					this.setProps({
 						formState: {
-							...this.props.formState,
+							...this.props.formState ?? {},
 							display_name: value,
 						},
 					});
@@ -123,13 +124,13 @@ export default class ProfilePage extends Block {
 				value: '+7 (909) 967 30 30',
 				readonly: true,
 				onChange: (e) => {
-					const { value } = e.target;
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'phone');
 					this.children.InputPhone.setProps({ error });
 
 					this.setProps({
 						formState: {
-							...this.props.formState,
+							...this.props.formState ?? {},
 							phone: value,
 						},
 					});
@@ -144,13 +145,13 @@ export default class ProfilePage extends Block {
 				value: 'pochta@yandex.kz',
 				readonly: true,
 				onChange: (e) => {
-					const { value } = e.target;
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'email');
 					this.children.InputEmail.setProps({ error });
 
 					this.setProps({
 						formState: {
-							...this.props.formState,
+							...this.props.formState ?? {},
 							email: value,
 						},
 					});
@@ -162,13 +163,13 @@ export default class ProfilePage extends Block {
 				class: 'mb-20',
 				type: 'password',
 				onChange: (e) => {
-					const { value } = e.target;
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'password');
 					this.children.InputPassword.setProps({ error });
 
 					this.setProps({
 						formState: {
-							...this.props.formState,
+							...this.props.formState ?? {},
 							password: value,
 						},
 					});

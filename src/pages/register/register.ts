@@ -3,8 +3,9 @@ import Block from '@/core/block';
 import InputField from '@/components/input/inputField';
 import { validateAll, validateField } from '@/utils/validateField';
 
+type RegisterPageProps = Record<string, unknown>;
 export default class RegisterPage extends Block {
-	constructor(props) {
+	constructor(props: RegisterPageProps) {
 		super('main', {
 			...props,
 			formState: {
@@ -25,14 +26,14 @@ export default class RegisterPage extends Block {
 				label: 'Имя',
 				class: 'mb-20',
 				name: 'first_name',
-				onChange: (e) => {
-					const { value } = e.target;
+				onChange: (e: InputEvent) => {
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'firstName');
 					this.children.InputFirstName.setProps({ error });
 
 					this.setProps({
 						formState: {
-							...this.props.formState,
+							...this.props.formState ?? {},
 							first_name: value,
 						},
 					});
@@ -43,8 +44,8 @@ export default class RegisterPage extends Block {
 				label: 'Фамилия',
 				class: 'mb-20',
 				name: 'second_name',
-				onChange: (e) => {
-					const { value } = e.target;
+				onChange: (e: InputEvent) => {
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'secondName');
 					this.children.InputSecondName.setProps({
 						error,
@@ -52,7 +53,7 @@ export default class RegisterPage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState,
+							...this.props.formState ?? {},
 							second_name: value,
 						},
 					});
@@ -63,8 +64,8 @@ export default class RegisterPage extends Block {
 				label: 'Логин',
 				class: 'mb-20',
 				name: 'login',
-				onChange: (e) => {
-					const { value } = e.target;
+				onChange: (e: InputEvent) => {
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'login');
 					this.children.InputLogin.setProps({
 						error,
@@ -72,7 +73,7 @@ export default class RegisterPage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState,
+							...this.props.formState ?? {},
 							login: value,
 						},
 					});
@@ -83,8 +84,8 @@ export default class RegisterPage extends Block {
 				label: 'Телефон',
 				class: 'mb-20',
 				name: 'phone',
-				onChange: (e) => {
-					const { value } = e.target;
+				onChange: (e: InputEvent) => {
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'phone');
 					this.children.InputPhone.setProps({
 						error,
@@ -92,7 +93,7 @@ export default class RegisterPage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState,
+							...this.props.formState ?? {},
 							phone: value,
 						},
 					});
@@ -104,8 +105,8 @@ export default class RegisterPage extends Block {
 				class: 'mb-20',
 				name: 'email',
 				type: 'email',
-				onChange: (e) => {
-					const { value } = e.target;
+				onChange: (e: InputEvent) => {
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'email');
 					this.children.InputEmail.setProps({
 						error,
@@ -113,7 +114,7 @@ export default class RegisterPage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState,
+							...this.props.formState ?? {},
 							email: value,
 						},
 					});
@@ -124,8 +125,8 @@ export default class RegisterPage extends Block {
 				label: 'Пароль',
 				class: 'mb-20',
 				type: 'password',
-				onChange: (e) => {
-					const { value } = e.target;
+				onChange: (e: InputEvent) => {
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'password');
 					this.children.InputPassword.setProps({
 						error,
@@ -133,7 +134,7 @@ export default class RegisterPage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState,
+							...this.props.formState ?? {},
 							password: value,
 						},
 					});
@@ -154,7 +155,7 @@ export default class RegisterPage extends Block {
 				class: 'mb-10',
 				onClick: (e) => {
 					e.preventDefault();
-					validateAll(this.props.formState, this.children, 'login', 'password', 'firstName', 'secondName', 'phone', 'email');
+					validateAll(this.props.formState as Record<string, string>, this.children, 'login', 'password', 'firstName', 'secondName', 'phone', 'email');
 					// eslint-disable-next-line no-console
 					console.log(this.props.formState);
 				},

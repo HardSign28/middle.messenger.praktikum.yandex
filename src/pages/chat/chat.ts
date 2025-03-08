@@ -12,8 +12,21 @@ import Block from '@/core/block';
 import { messages } from '@/data/messages';
 import { generateContacts } from '@/utils/generateContacts';
 
-export default class ChatPage extends Block {
-	constructor(props) {
+type Contact = {
+	name: string;
+	avatar?: string;
+};
+
+type ChatPageProps = {
+	contacts: Contact[];
+	filteredContacts: Contact[];
+	activeContactIndex: number;
+	hasActiveContact: boolean;
+	showDialog: string | null;
+};
+
+export default class ChatPage extends Block<ChatPageProps> {
+	constructor(props: Partial<ChatPageProps>) {
 		const contacts = generateContacts() || []; // Генерируем один раз
 
 		super('main', {
@@ -26,7 +39,8 @@ export default class ChatPage extends Block {
 				label: 'Поиск',
 				type: 'outline-primary',
 				onChange: (e) => {
-					const searchTerm = e.target.value.toLowerCase();
+					const { value } = e.target as HTMLInputElement;
+					const searchTerm = value.toLowerCase();
 					const filtered = this.props.contacts.filter(
 						(contact) => contact.name.toLowerCase().includes(searchTerm),
 					);
@@ -51,7 +65,6 @@ export default class ChatPage extends Block {
 							}, */
 						});
 					}, 2000);
-					//
 				},
 			}),
 
@@ -66,7 +79,6 @@ export default class ChatPage extends Block {
 					this.setProps({ showDialog: 'add' });
 				},
 				onUserDeleteClick: () => {
-					// this.children.DialogRemove.setProps({ userName: 'DELETE' });
 					this.setProps({ showDialog: 'remove' });
 				},
 			}),

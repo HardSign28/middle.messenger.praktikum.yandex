@@ -2,7 +2,7 @@ import Block from '@/core/block';
 
 type BackButtonProps = {
 	href?: string,
-	onClick?: () => void;
+	onClick?: (e: InputEvent) => void;
 	class?: string;
 }
 

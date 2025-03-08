@@ -3,8 +3,9 @@ import { Button } from '@/components';
 import Block from '@/core/block';
 import { validateField, validateAll } from '@/utils/validateField';
 
+type LoginPageProps = Record<string, unknown>;
 export default class LoginPage extends Block {
-	constructor(props) {
+	constructor(props: LoginPageProps) {
 		super('main', {
 			...props,
 			formState: {
@@ -19,14 +20,14 @@ export default class LoginPage extends Block {
 			InputLogin: new InputField({
 				label: 'Логин',
 				class: 'mb-20',
-				onChange: (e) => {
-					const { value } = e.target;
+				onChange: (e: InputEvent) => {
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'login');
 					this.children.InputLogin.setProps({ error });
 					this.setProps({
 						formState: {
-							...this.props.formState,
-							login: value || '',
+							...this.props.formState ?? {},
+							login: value,
 						},
 					});
 				},
@@ -35,8 +36,8 @@ export default class LoginPage extends Block {
 				label: 'Пароль',
 				class: 'mb-20',
 				type: 'password',
-				onChange: (e) => {
-					const { value } = e.target;
+				onChange: (e: InputEvent) => {
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'password');
 					this.children.InputPassword.setProps({
 						error,
@@ -44,7 +45,7 @@ export default class LoginPage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState,
+							...this.props.formState ?? {},
 							password: value,
 						},
 					});
@@ -57,7 +58,7 @@ export default class LoginPage extends Block {
 				class: 'mb-10',
 				onClick: (e) => {
 					e.preventDefault();
-					validateAll(this.props.formState, this.children, 'login', 'password');
+					validateAll(this.props.formState as Record<string, string>, this.children, 'login', 'password');
 					// eslint-disable-next-line no-console
 					console.log(this.props.formState);
 				},

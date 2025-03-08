@@ -1,10 +1,11 @@
 import Block from '@/core/block';
 import { Input } from '@/components';
 
+type ChatFooterProps = Record<string, unknown>;
 export default class ChatFooter extends Block {
-	constructor() {
+	constructor(props: ChatFooterProps) {
 		super('footer', {
-
+			...props,
 			className: 'chat__footer',
 			Input: new Input({
 				name: 'message',

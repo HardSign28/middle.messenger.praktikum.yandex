@@ -19,6 +19,7 @@ class DialogBody extends Block {
 type DialogRemoveProps = {
 	onOk?: () => void;
 	onCancel?: () => void;
+	userName?: string;
 }
 
 export default class DialogRemove extends Block {

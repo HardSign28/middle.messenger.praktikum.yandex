@@ -81,7 +81,7 @@ export const validateField = (value:string, field:string) => {
  * @param fields
  */
 export const validateAll = (
-	formState: Record<string, never>,
+	formState: Record<string, string>,
 	children: Record<string, Block>,
 	...fields:string[]
 ) => {
