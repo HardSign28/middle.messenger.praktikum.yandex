@@ -28,16 +28,17 @@ export default class ListContacts extends Block {
 		const { activeContactIndex } = this.props;
 		const { contactComponents } = this.children;
 
-		contactComponents.forEach((contact, index) => {
-			if (index === activeContactIndex) {
-				contact.setProps({ active: true });
-				return;
-			}
+		(contactComponents as unknown as ContactCard[])
+			.forEach((contact: ContactCard, index: number) => {
+				if (index === activeContactIndex) {
+					contact.setProps({ active: true });
+					return;
+				}
 
-			if (contact.props.active) {
-				contact.setProps({ active: false });
-			}
-		});
+				if (contact.props.active) {
+					contact.setProps({ active: false });
+				}
+			});
 		return `
 			<ul>
 				{{#each contactComponents }}
