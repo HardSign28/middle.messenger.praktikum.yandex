@@ -2,6 +2,7 @@ import './style.scss';
 import Handlebars from 'handlebars';
 import '@/helpers/handlebars';
 import { pages } from '@/data/pages';
+import Block from '@/core/block';
 import * as Components from './components';
 import renderDOM from './core/renderDom';
 
@@ -18,9 +19,9 @@ Object.entries(Components).forEach(([name, template]) => {
  */
 const navigate = (page: keyof typeof pages) => {
 	const { name, template, context } = pages[page];
-	if (typeof template === 'function') {
+	if (typeof template === 'function' && template.prototype instanceof Block) {
 		// eslint-disable-next-line new-cap
-		renderDOM(new template({ pages }));
+		renderDOM(new (template as new (props: unknown) => Block)({ pages }));
 		return;
 	}
 	const container = document.getElementById('app')!;
