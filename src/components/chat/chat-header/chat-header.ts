@@ -16,10 +16,10 @@ export default class ChatHeader extends Block {
 			events: {
 				click: (e: MouseEvent) => {
 					const target = e.target as HTMLElement;
-					if (target.classList.contains('js_dialog-add')) {
+					if (target.classList.contains('js_dialog-add') && typeof this.props.onUserAddClick === 'function') {
 						this.props.onUserAddClick?.();
 					}
-					if (target.classList.contains('js_dialog-delete')) {
+					if (target.classList.contains('js_dialog-delete') && typeof this.props.onUserDeleteClick === 'function') {
 						this.props.onUserDeleteClick?.();
 					}
 				},

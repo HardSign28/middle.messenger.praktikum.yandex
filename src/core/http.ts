@@ -6,7 +6,17 @@ enum METHODS {
 	DELETE = 'DELETE',
 }
 
-const queryStringify = (data) => {
+interface RequestOptions {
+	headers?: Record<string, string>;
+	data?: Record<string, unknown>;
+	timeout?: number;
+}
+
+interface RequestOptionsWithMethod extends RequestOptions {
+	method: METHODS;
+}
+
+const queryStringify = (data: Record<string, unknown>) => {
 	// Можно делать трансформацию GET-параметров в отдельной функции
 	if (!data || typeof data !== 'object') return '';
 	return (
@@ -17,35 +27,39 @@ const queryStringify = (data) => {
 	);
 };
 
-class HTTPTransport {
-	get(url, options = {}) {
+export default class HTTPTransport {
+	get(url: string, options: RequestOptions = {}) {
 		return this.request(
-			url + queryStringify(options.data),
+			url + queryStringify(options.data ?? {}),
 			{ ...options, method: METHODS.GET },
 			options.timeout,
 		);
 	}
 
-	post(url, options = {}) {
+	post(url: string, options: RequestOptions = {}) {
 		return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
 	}
 
-	put(url, options = {}) {
+	put(url: string, options: RequestOptions = {}) {
 		return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 	}
 
-	delete(url, options = {}) {
+	delete(url: string, options: RequestOptions = {}) {
 		return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 	}
 
-	patch(url, options = {}) {
+	patch(url: string, options: RequestOptions = {}) {
 		return this.request(url, { ...options, method: METHODS.PATCH }, options.timeout);
 	}
 
 	// options:
 	// headers — obj
 	// data — obj
-	request = (url, options, timeout = 5000) => new Promise((resolve, reject) => {
+	request = (
+		url: string,
+		options: RequestOptionsWithMethod,
+		timeout = 5000,
+	) => new Promise((resolve, reject) => {
 		const xhr = new XMLHttpRequest();
 		xhr.open(options.method, url);
 
