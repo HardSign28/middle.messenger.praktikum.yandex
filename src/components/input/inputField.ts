@@ -6,8 +6,8 @@ type InputFieldProps = {
 	class?: string;
 	error?: string;
 	readonly?: boolean;
-	onChange?: () => void;
-	onBlur?: () => void;
+	onChange?: (e: InputEvent) => void;
+	onBlur?: (e: InputEvent) => void;
 	id?: string;
 	type?: string;
 	value?: string;
@@ -17,8 +17,9 @@ export default class InputField extends Block {
 		super('div', {
 			...props,
 			events: {
-				click: (e) => {
-					if (e.target.classList.contains('icon-edit')) {
+				click: (e: MouseEvent) => {
+					const { classList } = e.target as HTMLInputElement;
+					if (classList.contains('icon-edit')) {
 						this.setProps({
 							readonly: false,
 						});
@@ -62,7 +63,9 @@ export default class InputField extends Block {
 	}
 
 	public render(): string {
-		this.element.className = this.getClassName();
+		if (this.element) {
+			this.element.className = this.getClassName();
+		}
 		return `
         {{{ Input }}}
         <label class="float-input__label" for="{{ id }}">{{ label }}</label>

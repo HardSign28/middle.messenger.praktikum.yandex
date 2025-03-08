@@ -43,9 +43,9 @@ export function generateContacts() {
 	// Преобразуем в массив объектов
 	return Array.from(contactMap.entries()).map(([name, data]) => ({
 		name,
-		avatar: `/avatars/0${data.chatId}.webp`, // ||  chatImgPlaceholder, // Можно подтягивать из API
+		avatar: `/avatars/0${data.chatId}.webp`,
 		date: data.date,
-		unread: data.unread > 0 ? data.unread : undefined, // Не показываем 0
+		unread: data.unread > 0 ? data.unread : undefined,
 		text: data.lastMessage,
 		you: data.you,
 	}));

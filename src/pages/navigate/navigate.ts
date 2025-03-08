@@ -1,7 +1,9 @@
 import Block from '@/core/block';
 
+type NavigatePageProps = Record<string, unknown>;
+
 export default class NavigatePage extends Block {
-	constructor(props) {
+	constructor(props: NavigatePageProps) {
 		super('main', {
 			...props,
 			className: 'page page-navigate bg-gradient',

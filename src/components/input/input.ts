@@ -4,8 +4,8 @@ type InputProps = {
 	name?: string;
 	label?: string;
 	className?: string,
-	onChange?: () => void;
-	onBlur?: () => void;
+	onChange?: (e: InputEvent) => void;
+	onBlur?: (e: InputEvent) => void;
 	events?: object,
 	type?: string;
 	id?: string;
@@ -35,8 +35,9 @@ export default class Input extends Block {
 	}
 
 	public componentDidUpdate(oldProps: InputProps, newProps: InputProps): boolean {
-		if (oldProps.readonly !== newProps.readonly) {
-			this.element.toggleAttribute('readonly', newProps.readonly);
+		const element = this.element as HTMLElement | null;
+		if (element && oldProps.readonly !== newProps.readonly) {
+			element.toggleAttribute('readonly', newProps.readonly ?? false);
 		}
 		return true;
 	}

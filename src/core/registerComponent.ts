@@ -36,7 +36,7 @@ export default function registerComponent<Props extends PropsBlock>(
 				const keyString = String(key) as keyof Props;
 				if (this[keyString] && typeof this[keyString] === 'string') {
 					hash[keyString] = hash[keyString].replace(
-						new RegExp(`{{${keyString}}}`, 'i'),
+						new RegExp(`{{${String(keyString)}}}`, 'i'),
 						this[keyString],
 					);
 				}

@@ -2,8 +2,10 @@ import { Button } from '@/components';
 import Block from '@/core/block';
 import img404 from '@/assets/icons/404.webp';
 
+type NotFoundPageProps = Record<string, unknown>;
+
 export default class NotFoundPage extends Block {
-	constructor(props) {
+	constructor(props: NotFoundPageProps) {
 		super('main', {
 			...props,
 			className: 'page page-not-found bg-gradient',
@@ -11,9 +13,8 @@ export default class NotFoundPage extends Block {
 				label: 'Назад к чатам',
 				size: 'lg',
 				type: 'primary',
-				onClick: (e) => {
+				onClick: (e: MouseEvent) => {
 					e.preventDefault();
-					// console.log();
 				},
 			}),
 		});

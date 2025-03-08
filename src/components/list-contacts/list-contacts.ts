@@ -1,8 +1,13 @@
 import { ContactCard } from '@/components';
 import Block from '@/core/block';
 
+type ListContactsProps = {
+	contacts?: object[];
+	onSelectContact?: (index: number) => void;
+}
+
 export default class ListContacts extends Block {
-	constructor(props) {
+	constructor(props: ListContactsProps) {
 		super('nav', {
 			...props,
 			className: 'page-chat',
@@ -11,7 +16,7 @@ export default class ListContacts extends Block {
 				...contact,
 				onClick: () => {
 					this.setProps({ activeContactIndex: index });
-					if (this.props.onSelectContact) {
+					if (typeof this.props.onSelectContact === 'function') {
 						this.props.onSelectContact(index);
 					}
 				},

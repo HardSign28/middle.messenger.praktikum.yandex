@@ -5,6 +5,8 @@ import EventBus from './eventBus';
 type Props = Record<string, unknown>
 // Нельзя создавать экземпляр данного класса
 export default class Block<P extends Props = Props> {
+	protected children: Record<string, Block> = {}; // Добавляем тип
+
 	static EVENTS = {
 		INIT: 'init',
 		FLOW_CDM: 'flow:component-did-mount',
@@ -19,6 +21,10 @@ export default class Block<P extends Props = Props> {
 	_meta = null;
 
 	_id = nanoid(6);
+
+	public get id() {
+		return this._id;
+	}
 
 	/** JSDoc
 	 * @param {string} tagName
@@ -127,7 +133,7 @@ export default class Block<P extends Props = Props> {
 		Object.assign(this.props, nextProps);
 	};
 
-	get element() {
+	get element(): HTMLElement | null {
 		return this._element;
 	}
 

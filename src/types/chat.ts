@@ -4,6 +4,8 @@ export type Message = {
 	time: string;
 	seen?: boolean;
 	img?: boolean;
+	chatId: number;
+	name: string;
 };
 
 export type MessageGroup = {

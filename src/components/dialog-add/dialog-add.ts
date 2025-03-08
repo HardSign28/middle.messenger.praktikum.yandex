@@ -18,12 +18,12 @@ class DialogBody extends Block {
 				label: 'Логин',
 				class: 'mb-20',
 				onChange: (e: InputEvent) => {
-					const { value } = e.target;
+					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'login');
 					this.children.InputLogin.setProps({ error });
 					this.setProps({
 						formState: {
-							...this.props.formState,
+							...this.props.formState ?? {},
 							login: value,
 						},
 					});

@@ -1,3 +1,5 @@
+import Block from '@/core/block';
+
 /**
  * Валидация поля
  * @param value
@@ -78,20 +80,19 @@ export const validateField = (value:string, field:string) => {
  * @param children
  * @param fields
  */
-export const validateAll = (formState: object, children, ...fields:[]) => {
-	const errors = {};
-
+export const validateAll = (
+	formState: Record<string, never>,
+	children: Record<string, Block>,
+	...fields:string[]
+) => {
 	fields.forEach((field) => {
 		const value = formState[field]; // Получаем текущее значение поля
 		const error = validateField(value, field); // Вызываем валидацию
 
-		errors[field] = error; // Сохраняем ошибку
 		const inputName = `Input${field.charAt(0).toUpperCase() + field.slice(1)}`;
 
 		if (children[inputName]) {
 			children[inputName].setProps({ error }); // Устанавливаем ошибку в Input
 		}
 	});
-
-	return errors; // Можно вернуть объект ошибок, если нужно
 };

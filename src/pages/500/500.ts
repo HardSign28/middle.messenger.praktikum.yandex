@@ -2,8 +2,9 @@ import { Button } from '@/components';
 import Block from '@/core/block';
 import img500 from '@/assets/icons/500.webp';
 
+type ServerErrorPageProps = Record<string, unknown>;
 export default class ServerErrorPage extends Block {
-	constructor(props) {
+	constructor(props: ServerErrorPageProps) {
 		super('main', {
 			...props,
 			className: 'page page-error bg-gradient',
@@ -11,9 +12,8 @@ export default class ServerErrorPage extends Block {
 				label: 'Назад к чатам',
 				size: 'lg',
 				type: 'primary',
-				onClick: (e) => {
+				onClick: (e: MouseEvent) => {
 					e.preventDefault();
-					// console.log();
 				},
 			}),
 		});

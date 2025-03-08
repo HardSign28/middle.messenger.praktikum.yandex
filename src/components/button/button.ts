@@ -3,7 +3,7 @@ import Block from '@/core/block';
 type ButtonProps = {
 	class?: string;
 	type?: string;
-	onClick?: () => void;
+	onClick?: (e: MouseEvent) => void;
 	size?: string;
 	label?: string;
 }
