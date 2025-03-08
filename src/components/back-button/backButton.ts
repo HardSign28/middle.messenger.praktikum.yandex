@@ -1,7 +1,13 @@
 import Block from '@/core/block';
 
+type BackButtonProps = {
+	href?: string,
+	onClick?: () => void;
+	class?: string;
+}
+
 export default class BackButton extends Block {
-	constructor(props) {
+	constructor(props: BackButtonProps) {
 		super('a', {
 			...props,
 			className: [
@@ -15,7 +21,6 @@ export default class BackButton extends Block {
 			},
 			attrs: {
 				href: props.href || '#',
-				/// ...(props.href ? { href: props.href } : {}),
 			},
 		});
 	}

@@ -1,22 +1,26 @@
 import Block from '@/core/block';
 import { Avatar } from '@/components';
 
+type ChatHeaderProps = {
+	onUserAddClick?: () => void;
+	onUserDeleteClick?: () => void;
+	activeChatImg?: string;
+	name?: string;
+}
+
 export default class ChatHeader extends Block {
-	constructor(props) {
+	constructor(props: ChatHeaderProps) {
 		super('header', {
 			...props,
 			className: 'chat__header',
 			events: {
-				click: (e) => {
-					if (e.target.classList.contains('js_dialog-add')) {
-						if (this.props.onUserAddClick) {
-							this.props.onUserAddClick();
-						}
+				click: (e: MouseEvent) => {
+					const target = e.target as HTMLElement;
+					if (target.classList.contains('js_dialog-add')) {
+						this.props.onUserAddClick?.();
 					}
-					if (e.target.classList.contains('js_dialog-delete')) {
-						if (this.props.onUserDeleteClick) {
-							this.props.onUserDeleteClick();
-						}
+					if (target.classList.contains('js_dialog-delete')) {
+						this.props.onUserDeleteClick?.();
 					}
 				},
 			},

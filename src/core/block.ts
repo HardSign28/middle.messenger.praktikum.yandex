@@ -2,14 +2,17 @@ import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 import EventBus from './eventBus';
 
+type Props = Record<string, unknown>
 // Нельзя создавать экземпляр данного класса
-export default class Block {
+export default class Block<P extends Props = Props> {
 	static EVENTS = {
 		INIT: 'init',
 		FLOW_CDM: 'flow:component-did-mount',
 		FLOW_CDU: 'flow:component-did-update',
 		FLOW_RENDER: 'flow:render',
 	};
+
+	props: P;
 
 	_element = null;
 

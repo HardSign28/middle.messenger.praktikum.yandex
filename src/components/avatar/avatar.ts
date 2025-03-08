@@ -1,13 +1,19 @@
 import Block from '@/core/block';
 
+type AvatarProps = {
+	size?: string;
+	class?: string;
+	name?: string;
+	edit?: boolean;
+	imgUrl?: string;
+	onClick?: () => void;
+};
+
 export default class Avatar extends Block {
-	constructor(props) {
+	constructor(props: AvatarProps) {
 		super('div', {
 			...props,
 			className: 'avatar__image-wrapper',
-			edit: props.edit,
-			imgUrl: props.imgUrl,
-			size: props.size,
 			events: {
 				click: props.onClick,
 			},

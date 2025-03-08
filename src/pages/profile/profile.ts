@@ -44,7 +44,7 @@ export default class ProfilePage extends Block {
 				onChange: (e) => {
 					const { value } = e.target;
 					const error = validateField(value, 'firstName');
-					this.children.InputFirstName.setProps({	error });
+					this.children.InputFirstName.setProps({ error });
 
 					this.setProps({
 						formState: {
@@ -181,6 +181,7 @@ export default class ProfilePage extends Block {
 				class: 'mb-10',
 				onClick: (e) => {
 					e.preventDefault();
+					// eslint-disable-next-line no-console
 					console.log(this.props.formState);
 				},
 			}),
@@ -191,6 +192,7 @@ export default class ProfilePage extends Block {
 				class: 'mb-10',
 				onClick: (e) => {
 					e.preventDefault();
+					// eslint-disable-next-line no-console
 					console.log(this.props.formState);
 				},
 			}),
@@ -203,7 +205,6 @@ export default class ProfilePage extends Block {
 				// href: '#',
 				onClick: (e) => {
 					e.preventDefault();
-					alert('sdfdsf');
 				},
 			}),
 			DialogUpload: new DialogUpload({

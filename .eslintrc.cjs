@@ -10,7 +10,6 @@ module.exports = {
 	},
 	plugins: ['@typescript-eslint', 'import'],
 	rules: {
-		// 'max-len': [2, 100],
 		'@typescript-eslint/no-unused-vars': 2,
 		'linebreak-style': ['error', 'windows'],
 		'no-tabs': ['error', { allowIndentationTabs: true }],
@@ -25,6 +24,8 @@ module.exports = {
 		'no-param-reassign': ['error', { props: false }],
 		'max-classes-per-file': 'off',
 		// 'object-curly-newline': ['error', { multiline: true, minProperties: 3 }],
+		'import/no-extraneous-dependencies': 'off',
+		'no-underscore-dangle': 'off',
 	},
 	ignorePatterns: ['node_modules/', 'dist/', 'build/', 'coverage/'],
 	settings: {

@@ -3,22 +3,28 @@ import { Dialog } from '@/components';
 import InputField from '@/components/input/inputField';
 import { validateField } from '@/utils/validateField';
 
+type DialogBodyProps = Record<string, unknown>;
+
 class DialogBody extends Block {
-	constructor(props) {
+	constructor(props: DialogBodyProps) {
 		super('div', {
 			...props,
+
+			formState: {
+				login: '',
+			},
 			userName: props.userName || '',
 			InputLogin: new InputField({
 				label: 'Логин',
 				class: 'mb-20',
-				onChange: (e) => {
+				onChange: (e: InputEvent) => {
 					const { value } = e.target;
 					const error = validateField(value, 'login');
 					this.children.InputLogin.setProps({ error });
 					this.setProps({
 						formState: {
 							...this.props.formState,
-							login: value || '',
+							login: value,
 						},
 					});
 				},
@@ -31,8 +37,12 @@ class DialogBody extends Block {
 	}
 }
 
+type DialogAddProps = {
+	onOk?: () => void;
+	onCancel?: () => void;
+}
 export default class DialogAdd extends Block {
-	constructor(props) {
+	constructor(props: DialogAddProps) {
 		super('div', {
 			...props,
 			className: 'dialog-container',

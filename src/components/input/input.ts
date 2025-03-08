@@ -1,6 +1,7 @@
 import Block from '@/core/block';
 
 type InputProps = {
+	name?: string;
 	label?: string;
 	className?: string,
 	onChange?: () => void;
@@ -27,6 +28,7 @@ export default class Input extends Block {
 			placeholder: props.placeholder || '',
 			...(props.id ? { id: props.id } : {}),
 			...(props.type ? { type: props.type } : {}),
+			...(props.name ? { name: props.name } : {}),
 			...(props.readonly ? { readonly: true } : {}),
 			...(props.value ? { value: props.value } : {}),
 		};

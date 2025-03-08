@@ -1,14 +1,24 @@
 import Block from '@/core/block';
 import { Button } from '@/components';
 
+type DialogType = {
+	labelOk?: string;
+	labelCancel?: string;
+	onOk?: () => void;
+	onCancel?: () => void;
+	title?: string;
+	Body?: unknown;
+}
+
 export default class Dialog extends Block {
-	constructor(props) {
+	constructor(props: DialogType) {
 		super('div', {
 			...props,
 			className: 'dialog',
 			events: {
-				click: (e) => {
-					if (e.target.classList.contains('dialog__close')) {
+				click: (e: MouseEvent) => {
+					const target = e.target as HTMLElement;
+					if (target.classList.contains('dialog__close')) {
 						props.onCancel?.();
 					}
 				},

@@ -27,7 +27,9 @@ export default class ChatPage extends Block {
 				type: 'outline-primary',
 				onChange: (e) => {
 					const searchTerm = e.target.value.toLowerCase();
-					const filtered = this.props.contacts.filter((contact) => contact.name.toLowerCase().includes(searchTerm));
+					const filtered = this.props.contacts.filter(
+						(contact) => contact.name.toLowerCase().includes(searchTerm),
+					);
 					setTimeout(() => {
 						this.setProps({ filteredContacts: filtered });
 						this.setProps({ contacts: filtered });
@@ -48,8 +50,6 @@ export default class ChatPage extends Block {
 								});
 							}, */
 						});
-
-						console.log('filteredContacts', this.props.filteredContacts);
 					}, 2000);
 					//
 				},

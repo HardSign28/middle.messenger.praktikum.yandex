@@ -1,18 +1,16 @@
 import Block from '@/core/block';
+import { Input } from '@/components';
 
 export default class ChatFooter extends Block {
-	constructor(props) {
+	constructor() {
 		super('footer', {
-			...props,
-			formState: {
-				login: '',
-				password: '',
-			},
-			errors: {
-				login: '',
-				password: '',
-			},
+
 			className: 'chat__footer',
+			Input: new Input({
+				name: 'message',
+				className: 'chat__footer-message-input',
+				placeholder: 'Сообщение',
+			}),
 		});
 	}
 
@@ -37,11 +35,7 @@ export default class ChatFooter extends Block {
 			</div>
 		</div>
 		<div class="chat__footer-message-box">
-			<input
-				name="message"
-				class="chat__footer-message-input"
-				placeholder="Сообщение"
-			/>
+			{{{ Input }}}
 		</div>
 		<div class="chat__footer-send"></div>
     	`;

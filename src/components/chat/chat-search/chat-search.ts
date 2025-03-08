@@ -1,21 +1,15 @@
 import Block from '@/core/block';
 import { Input } from '@/components/input';
 
+type ChatSearchProps = {
+	onChange?: () => void;
+}
 export default class ChatSearch extends Block {
-	constructor(props) {
+	constructor(props: ChatSearchProps) {
 		super('div', {
 			...props,
-			formState: {
-				login: '',
-				password: '',
-			},
-			errors: {
-				login: '',
-				password: '',
-			},
 			className: 'chat__search',
 			Input: new Input({
-				...props,
 				className: 'chat__search-input',
 				placeholder: 'Поиск',
 				type: 'search',

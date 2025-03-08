@@ -1,8 +1,9 @@
 import Block from '@/core/block';
 import { Dialog, FileUpload } from '@/components';
 
+type DialogBodyProps = Record<string, unknown>;
 class DialogBody extends Block {
-	constructor(props) {
+	constructor(props: DialogBodyProps) {
 		super('div', {
 			...props,
 			FileUpload: new FileUpload({}),
@@ -14,8 +15,12 @@ class DialogBody extends Block {
 	}
 }
 
+type DialogUploadProps = {
+	onOk?: () => void;
+	onCancel?: () => void;
+}
 export default class DialogUpload extends Block {
-	constructor(props) {
+	constructor(props: DialogUploadProps) {
 		super('div', {
 			...props,
 			className: 'dialog-container',

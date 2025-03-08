@@ -58,6 +58,7 @@ export default class LoginPage extends Block {
 				onClick: (e) => {
 					e.preventDefault();
 					validateAll(this.props.formState, this.children, 'login', 'password');
+					// eslint-disable-next-line no-console
 					console.log(this.props.formState);
 				},
 			}),

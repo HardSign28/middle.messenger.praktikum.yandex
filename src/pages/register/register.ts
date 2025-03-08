@@ -1,7 +1,7 @@
 import { Button } from '@/components';
 import Block from '@/core/block';
-import InputField from '@/components/input/inputField.ts';
-import { validateAll, validateField } from '@/utils/validateField.ts';
+import InputField from '@/components/input/inputField';
+import { validateAll, validateField } from '@/utils/validateField';
 
 export default class RegisterPage extends Block {
 	constructor(props) {
@@ -28,7 +28,7 @@ export default class RegisterPage extends Block {
 				onChange: (e) => {
 					const { value } = e.target;
 					const error = validateField(value, 'firstName');
-					this.children.InputFirstName.setProps({	error });
+					this.children.InputFirstName.setProps({ error });
 
 					this.setProps({
 						formState: {
@@ -155,6 +155,7 @@ export default class RegisterPage extends Block {
 				onClick: (e) => {
 					e.preventDefault();
 					validateAll(this.props.formState, this.children, 'login', 'password', 'firstName', 'secondName', 'phone', 'email');
+					// eslint-disable-next-line no-console
 					console.log(this.props.formState);
 				},
 			}),
@@ -178,7 +179,7 @@ export default class RegisterPage extends Block {
 				{{{ SignInButton }}}
 			</div>
 			</form>
-			</section>			
+			</section>
 		</div>
     	`;
 	}

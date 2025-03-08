@@ -1,12 +1,15 @@
 import Block from '@/core/block';
 import { Avatar } from '@/components';
 
+type ContactCardProps = {
+	avatar?: string;
+	onClick?: () => void;
+}
+
 export default class ContactCard extends Block {
-	constructor(props) {
+	constructor(props: ContactCardProps) {
 		super('div', {
 			...props,
-			// className: ContactCard.getClassName(props),
-
 			Avatar: new Avatar({
 				size: 'sm',
 				class: 'chat__avatar',

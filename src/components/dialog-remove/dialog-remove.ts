@@ -1,23 +1,28 @@
 import Block from '@/core/block';
 import { Dialog } from '@/components';
 
+type DialogBodyProps = Record<string, unknown>;
+
 class DialogBody extends Block {
-	constructor(props) {
+	constructor(props: DialogBodyProps) {
 		super('p', {
 			...props,
 			className: 'remove-text',
-			// userName: props.userName || '',
 		});
 	}
 
 	render(): string {
-		console.log('userName 2', this.props.userName);
 		return 'Вы точно хотите удалить переписку с пользователем {{ userName }}?';
 	}
 }
 
+type DialogRemoveProps = {
+	onOk?: () => void;
+	onCancel?: () => void;
+}
+
 export default class DialogRemove extends Block {
-	constructor(props) {
+	constructor(props: DialogRemoveProps) {
 		super('div', {
 			...props,
 			className: 'dialog-container',
@@ -33,7 +38,6 @@ export default class DialogRemove extends Block {
 	}
 
 	public render(): string {
-		console.log('userName', this.props.userName);
 		return `
 			{{{ Dialog }}}
     	`;

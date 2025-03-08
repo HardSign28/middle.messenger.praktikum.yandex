@@ -1,7 +1,13 @@
 import { messages } from '@/data/messages';
 
 export function generateContacts() {
-	const contactMap = new Map<string, { lastMessage: string; date: string; unread: number, chatId: number, you: boolean }>();
+	const contactMap = new Map<string, {
+		lastMessage: string;
+		date: string;
+		unread: number,
+		chatId: number,
+		you: boolean,
+	}>();
 
 	messages.forEach((msg) => {
 		const {
