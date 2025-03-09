@@ -1,5 +1,6 @@
 import Block from '@/core/block';
 import { Avatar } from '@/components';
+import { AvatarProps } from '@/types/avatar';
 
 type ChatHeaderProps = {
 	onUserAddClick?: () => void;
@@ -32,8 +33,8 @@ export default class ChatHeader extends Block {
 	}
 
 	public render(): string {
-		this.children.Avatar.setProps({
-			imgUrl: this.props.activeChatImg,
+		(this.children.Avatar as Block<AvatarProps>).setProps({
+			imgUrl: this.props.activeChatImg as string,
 		});
 		return `
 		<div class="chat__header-left-side">

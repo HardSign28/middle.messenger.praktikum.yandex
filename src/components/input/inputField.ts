@@ -1,18 +1,7 @@
 import Block from '@/core/block';
+import { InputFieldProps } from '@/types/inputField';
 import Input from './input';
 
-type InputFieldProps = {
-	label: string;
-	class?: string;
-	error?: string;
-	readonly?: boolean;
-	onChange?: (e: InputEvent) => void;
-	onBlur?: (e: InputEvent) => void;
-	id?: string;
-	type?: string;
-	value?: string;
-	name?: string;
-};
 export default class InputField extends Block {
 	constructor(props: InputFieldProps) {
 		super('div', {
@@ -24,11 +13,12 @@ export default class InputField extends Block {
 						this.setProps({
 							readonly: false,
 						});
-						this.children.Input.setProps({
+						(this.children.Input as Block<InputFieldProps>).setProps({
 							readonly: false,
 						});
 						setTimeout(() => {
-							const inputElement = this.children.Input.element as HTMLInputElement;
+							const inputElement = (this.children.Input as Block<InputFieldProps>)
+								.element as HTMLInputElement;
 							if (inputElement) {
 								inputElement.focus();
 

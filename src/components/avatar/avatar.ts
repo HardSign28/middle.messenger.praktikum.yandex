@@ -1,13 +1,5 @@
 import Block from '@/core/block';
-
-type AvatarProps = {
-	size?: string;
-	class?: string;
-	name?: string;
-	edit?: boolean;
-	imgUrl?: string;
-	onClick?: () => void;
-};
+import { AvatarProps } from '@/types/avatar';
 
 export default class Avatar extends Block {
 	constructor(props: AvatarProps) {

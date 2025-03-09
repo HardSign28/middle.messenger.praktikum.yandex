@@ -2,6 +2,7 @@ import Block from '@/core/block';
 import { Dialog } from '@/components';
 import InputField from '@/components/input/inputField';
 import { validateField } from '@/utils/validateField';
+import { InputFieldProps } from '@/types/inputField';
 
 type DialogBodyProps = Record<string, unknown>;
 
@@ -20,7 +21,7 @@ class DialogBody extends Block {
 				onChange: (e: InputEvent) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'login');
-					this.children.InputLogin.setProps({ error });
+					(this.children.InputLogin as Block<InputFieldProps>).setProps({ error });
 					this.setProps({
 						formState: {
 							...this.props.formState ?? {},

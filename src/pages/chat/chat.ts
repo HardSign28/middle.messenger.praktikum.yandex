@@ -23,17 +23,18 @@ type ChatPageProps = {
 	activeContactIndex: number;
 	hasActiveContact: boolean;
 	showDialog: string | null;
+	activeContactMessages?: ReturnType<typeof groupMessages>;
 };
 
 export default class ChatPage extends Block<ChatPageProps> {
 	constructor(props: Partial<ChatPageProps>) {
-		const contacts = generateContacts() || []; // Генерируем один раз
+		const contacts = generateContacts() || [];
 
 		super('main', {
 			...props,
 			className: 'page-chat',
 			contacts,
-			filteredContacts: contacts, // Используем один и тот же массив
+			filteredContacts: contacts,
 
 			ChatSearch: new ChatSearch({
 				label: 'Поиск',
@@ -44,12 +45,17 @@ export default class ChatPage extends Block<ChatPageProps> {
 					const filtered = this.props.contacts.filter(
 						(contact) => contact.name.toLowerCase().includes(searchTerm),
 					);
+
 					setTimeout(() => {
-						this.setProps({ filteredContacts: filtered });
+						this.setProps({
+							...this.props,
+							filteredContacts: filtered,
+						});
+						/*
 						this.setProps({ contacts: filtered });
 						this.children.ChatMessages.setProps({
 							contacts: filtered, // Передаём уже сгенерированные контакты
-							/*
+
 							onSelectContact: (index) => {
 								const selectedContact = filtered[index]?.name;
 								const filteredMessages = messages.filter((msg) => msg.name === selectedContact);
@@ -62,8 +68,9 @@ export default class ChatPage extends Block<ChatPageProps> {
 								this.children.ChatMessages.setProps({
 									chatGroups: groupMessages(filteredMessages),
 								});
-							}, */
+							},
 						});
+						*/
 					}, 2000);
 				},
 			}),
@@ -73,13 +80,19 @@ export default class ChatPage extends Block<ChatPageProps> {
 
 			ChatHeader: new ChatHeader({
 				onUserAddClick: () => {
-					this.children.DialogAdd.setProps({
+					(this.children.DialogAdd as Block).setProps({
 						userName: 'ADD',
 					});
-					this.setProps({ showDialog: 'add' });
+					this.setProps({
+						...this.props,
+						showDialog: 'add',
+					});
 				},
 				onUserDeleteClick: () => {
-					this.setProps({ showDialog: 'remove' });
+					this.setProps({
+						...this.props,
+						showDialog: 'remove',
+					});
 				},
 			}),
 			ChatFooter: new ChatFooter({}),
@@ -91,20 +104,21 @@ export default class ChatPage extends Block<ChatPageProps> {
 					const selectedContact = this.props.contacts[index]?.name;
 					const filteredMessages = messages.filter((msg) => msg.name === selectedContact);
 					this.setProps({
+						...this.props,
 						activeContactIndex: index,
 						hasActiveContact: index >= 0,
 						activeContactMessages: groupMessages(filteredMessages),
 					});
 
-					this.children.DialogRemove.setProps({
+					(this.children.DialogRemove as Block).setProps({
 						userName: selectedContact,
 					});
 
-					this.children.ChatMessages.setProps({
+					(this.children.ChatMessages as Block).setProps({
 						chatGroups: groupMessages(filteredMessages),
 					});
 
-					this.children.ChatHeader.setProps({
+					(this.children.ChatHeader as Block).setProps({
 						name: selectedContact,
 						activeChatImg: this.props.contacts[index]?.avatar,
 					});
@@ -114,18 +128,30 @@ export default class ChatPage extends Block<ChatPageProps> {
 			DialogRemove: new DialogRemove({
 				userName: 'Иоанн',
 				onOk: () => {
-					this.setProps({ showDialog: null });
+					this.setProps({
+						...this.props,
+						showDialog: null,
+					});
 				},
 				onCancel: () => {
-					this.setProps({ showDialog: null });
+					this.setProps({
+						...this.props,
+						showDialog: null,
+					});
 				},
 			}),
 			DialogAdd: new DialogAdd({
 				onOk: () => {
-					this.setProps({ showDialog: null });
+					this.setProps({
+						...this.props,
+						showDialog: null,
+					});
 				},
 				onCancel: () => {
-					this.setProps({ showDialog: null });
+					this.setProps({
+						...this.props,
+						showDialog: null,
+					});
 				},
 			}),
 		});
