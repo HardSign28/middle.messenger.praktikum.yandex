@@ -26,6 +26,7 @@ module.exports = {
 		// 'object-curly-newline': ['error', { multiline: true, minProperties: 3 }],
 		'import/no-extraneous-dependencies': 'off',
 		'no-underscore-dangle': 'off',
+		'func-names': 'off',
 	},
 	ignorePatterns: ['node_modules/', 'dist/', 'build/', 'coverage/'],
 	settings: {

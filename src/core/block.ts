@@ -7,7 +7,7 @@ type Props = Record<string, unknown>
 // Нельзя создавать экземпляр данного класса
 export default class Block<P extends Props = Props> {
 	// eslint-disable-next-line no-use-before-define
-	protected children: Record<string, Block> = {};
+	children: Record<string, Block<Props> | Block<Props>[]> = {};
 
 	static EVENTS = {
 		INIT: 'init',
@@ -189,7 +189,7 @@ export default class Block<P extends Props = Props> {
 						`[data-id="${component._id}"]`,
 					);
 
-					stub?.replaceWith(component.getContent());
+					stub?.replaceWith(component.getContent() as Node);
 				});
 			} else {
 				const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
