@@ -45,7 +45,7 @@ export default class ProfilePage extends Block {
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'firstName');
-					this.children.InputFirstName.setProps({ error });
+					(this.children.InputFirstName as Block).setProps({ error });
 
 					this.setProps({
 						formState: {
@@ -65,7 +65,7 @@ export default class ProfilePage extends Block {
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'secondName');
-					this.children.InputSecondName.setProps({ error });
+					(this.children.InputSecondName as Block).setProps({ error });
 
 					this.setProps({
 						formState: {
@@ -85,7 +85,7 @@ export default class ProfilePage extends Block {
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'login');
-					this.children.InputLogin.setProps({ error });
+					(this.children.InputLogin as Block).setProps({ error });
 
 					this.setProps({
 						formState: {
@@ -105,7 +105,7 @@ export default class ProfilePage extends Block {
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'firstName');
-					this.children.InputDisplayName.setProps({ error });
+					(this.children.InputDisplayName as Block).setProps({ error });
 
 					this.setProps({
 						formState: {
@@ -126,7 +126,7 @@ export default class ProfilePage extends Block {
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'phone');
-					this.children.InputPhone.setProps({ error });
+					(this.children.InputPhone as Block).setProps({ error });
 
 					this.setProps({
 						formState: {
@@ -147,7 +147,7 @@ export default class ProfilePage extends Block {
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'email');
-					this.children.InputEmail.setProps({ error });
+					(this.children.InputEmail as Block).setProps({ error });
 
 					this.setProps({
 						formState: {
@@ -165,7 +165,7 @@ export default class ProfilePage extends Block {
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'password');
-					this.children.InputPassword.setProps({ error });
+					(this.children.InputPassword as Block).setProps({ error });
 
 					this.setProps({
 						formState: {

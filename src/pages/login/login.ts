@@ -23,7 +23,7 @@ export default class LoginPage extends Block {
 				onChange: (e: InputEvent) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'login');
-					this.children.InputLogin.setProps({ error });
+					(this.children.InputLogin as Block).setProps({ error });
 					this.setProps({
 						formState: {
 							...this.props.formState ?? {},
@@ -39,7 +39,7 @@ export default class LoginPage extends Block {
 				onChange: (e: InputEvent) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'password');
-					this.children.InputPassword.setProps({
+					(this.children.InputPassword as Block).setProps({
 						error,
 					});
 
@@ -58,7 +58,13 @@ export default class LoginPage extends Block {
 				class: 'mb-10',
 				onClick: (e) => {
 					e.preventDefault();
-					validateAll(this.props.formState as Record<string, string>, this.children, 'login', 'password');
+					const childrenBlocks = Object.fromEntries(
+						Object.entries(this.children)
+							// eslint-disable-next-line @typescript-eslint/no-unused-vars
+							.filter(([_, child]) => !Array.isArray(child))
+							.map(([key, child]) => [key, child as Block]),
+					);
+					validateAll(this.props.formState as Record<string, string>, childrenBlocks, 'login', 'password');
 					// eslint-disable-next-line no-console
 					console.log(this.props.formState);
 				},

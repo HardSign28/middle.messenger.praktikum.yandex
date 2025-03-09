@@ -29,7 +29,7 @@ export default class RegisterPage extends Block {
 				onChange: (e: InputEvent) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'firstName');
-					this.children.InputFirstName.setProps({ error });
+					(this.children.InputFirstName as Block).setProps({ error });
 
 					this.setProps({
 						formState: {
@@ -47,7 +47,7 @@ export default class RegisterPage extends Block {
 				onChange: (e: InputEvent) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'secondName');
-					this.children.InputSecondName.setProps({
+					(this.children.InputSecondName as Block).setProps({
 						error,
 					});
 
@@ -67,7 +67,7 @@ export default class RegisterPage extends Block {
 				onChange: (e: InputEvent) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'login');
-					this.children.InputLogin.setProps({
+					(this.children.InputLogin as Block).setProps({
 						error,
 					});
 
@@ -87,7 +87,7 @@ export default class RegisterPage extends Block {
 				onChange: (e: InputEvent) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'phone');
-					this.children.InputPhone.setProps({
+					(this.children.InputPhone as Block).setProps({
 						error,
 					});
 
@@ -108,7 +108,7 @@ export default class RegisterPage extends Block {
 				onChange: (e: InputEvent) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'email');
-					this.children.InputEmail.setProps({
+					(this.children.InputEmail as Block).setProps({
 						error,
 					});
 
@@ -128,7 +128,7 @@ export default class RegisterPage extends Block {
 				onChange: (e: InputEvent) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'password');
-					this.children.InputPassword.setProps({
+					(this.children.InputPassword as Block).setProps({
 						error,
 					});
 
@@ -155,7 +155,13 @@ export default class RegisterPage extends Block {
 				class: 'mb-10',
 				onClick: (e) => {
 					e.preventDefault();
-					validateAll(this.props.formState as Record<string, string>, this.children, 'login', 'password', 'firstName', 'secondName', 'phone', 'email');
+					const childrenBlocks = Object.fromEntries(
+						Object.entries(this.children)
+							// eslint-disable-next-line @typescript-eslint/no-unused-vars
+							.filter(([_, child]) => !Array.isArray(child))
+							.map(([key, child]) => [key, child as Block]),
+					);
+					validateAll(this.props.formState as Record<string, string>, childrenBlocks, 'login', 'password', 'firstName', 'secondName', 'phone', 'email');
 					// eslint-disable-next-line no-console
 					console.log(this.props.formState);
 				},
