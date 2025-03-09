@@ -11,7 +11,7 @@ module.exports = {
 	plugins: ['@typescript-eslint', 'import'],
 	rules: {
 		'@typescript-eslint/no-unused-vars': 2,
-		'linebreak-style': ['error', 'windows'],
+		'linebreak-style': ['error', process.platform === 'win32' ? 'windows' : 'unix'],
 		'no-tabs': ['error', { allowIndentationTabs: true }],
 		indent: ['error', 'tab'],
 		'import/prefer-default-export': 'off',
