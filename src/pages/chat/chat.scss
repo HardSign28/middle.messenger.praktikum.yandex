@@ -4,11 +4,11 @@
     height: 100vh;
 
     &__list {
-      width: 20%;
+      width: 300px;
       background: var(--color-white);
       padding: 10px;
       overflow-y: auto;
-      min-width: 300px;
+      flex-shrink: 0;
       box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
       border-right: 1px solid var(--color-gray);
     }
