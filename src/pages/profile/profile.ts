@@ -7,10 +7,10 @@ import {
 import Block from '@/core/block';
 import InputField from '@/components/input/inputField';
 import { validateField } from '@/utils/validateField';
+import { DefaultProps } from '@/types/props';
 
-type ProfilePageProps = Record<string, unknown>;
 export default class ProfilePage extends Block {
-	constructor(props: ProfilePageProps) {
+	constructor(props: DefaultProps) {
 		super('main', {
 			...props,
 			formState: {

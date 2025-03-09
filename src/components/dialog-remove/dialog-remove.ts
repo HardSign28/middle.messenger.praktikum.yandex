@@ -1,10 +1,10 @@
 import Block from '@/core/block';
 import { Dialog } from '@/components';
-
-type DialogBodyProps = Record<string, unknown>;
+import { DefaultProps } from '@/types/props';
+import { DialogRemoveProps } from '@/types/dialog';
 
 class DialogBody extends Block {
-	constructor(props: DialogBodyProps) {
+	constructor(props: DefaultProps) {
 		super('p', {
 			...props,
 			className: 'remove-text',
@@ -14,12 +14,6 @@ class DialogBody extends Block {
 	render(): string {
 		return 'Вы точно хотите удалить переписку с пользователем {{ userName }}?';
 	}
-}
-
-type DialogRemoveProps = {
-	onOk?: () => void;
-	onCancel?: () => void;
-	userName?: string;
 }
 
 export default class DialogRemove extends Block {

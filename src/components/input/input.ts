@@ -1,18 +1,5 @@
 import Block from '@/core/block';
-
-type InputProps = {
-	name?: string;
-	label?: string;
-	className?: string,
-	onChange?: (e: InputEvent) => void;
-	onBlur?: (e: InputEvent) => void;
-	events?: object,
-	type?: string;
-	id?: string;
-	readonly?: boolean;
-	value?: string;
-    placeholder?: string;
-};
+import { InputProps } from '@/types/input';
 
 export default class Input extends Block {
 	constructor(props: InputProps) {

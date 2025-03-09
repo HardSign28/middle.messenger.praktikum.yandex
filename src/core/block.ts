@@ -1,13 +1,12 @@
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
+import { DefaultProps } from '@/types/props';
 import EventBus from './eventBus';
 
-type Props = Record<string, unknown>
-
 // Нельзя создавать экземпляр данного класса
-export default class Block<P extends Props = Props> {
+export default class Block<P extends DefaultProps = DefaultProps> {
 	// eslint-disable-next-line no-use-before-define
-	children: Record<string, Block<Props> | Block<Props>[]> = {};
+	children: Record<string, Block<DefaultProps> | Block<DefaultProps>[]> = {};
 
 	static EVENTS = {
 		INIT: 'init',
@@ -42,7 +41,7 @@ export default class Block<P extends Props = Props> {
 
 		const { props, children } = this._getChildrenAndProps(propsWithChildren);
 
-		this.children = children as Record<string, Block<Props> | Block<Props>[]>;
+		this.children = children as Record<string, Block<DefaultProps> | Block<DefaultProps>[]>;
 
 		this._meta = {
 			tagName,

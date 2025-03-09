@@ -2,10 +2,10 @@ import { Button } from '@/components';
 import Block from '@/core/block';
 import InputField from '@/components/input/inputField';
 import { validateAll, validateField } from '@/utils/validateField';
+import { DefaultProps } from '@/types/props';
 
-type RegisterPageProps = Record<string, unknown>;
 export default class RegisterPage extends Block {
-	constructor(props: RegisterPageProps) {
+	constructor(props: DefaultProps) {
 		super('main', {
 			...props,
 			formState: {

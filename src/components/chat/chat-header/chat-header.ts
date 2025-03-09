@@ -1,13 +1,7 @@
 import Block from '@/core/block';
 import { Avatar } from '@/components';
 import { AvatarProps } from '@/types/avatar';
-
-type ChatHeaderProps = {
-	onUserAddClick?: () => void;
-	onUserDeleteClick?: () => void;
-	activeChatImg?: string;
-	name?: string;
-}
+import { ChatHeaderProps } from '@/types/chat';
 
 export default class ChatHeader extends Block {
 	constructor(props: ChatHeaderProps) {

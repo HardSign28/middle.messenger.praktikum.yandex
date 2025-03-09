@@ -1,12 +1,6 @@
 import Block from '@/core/block';
+import { ButtonProps } from '@/types/button';
 
-type ButtonProps = {
-	class?: string;
-	type?: string;
-	onClick?: (e: MouseEvent) => void;
-	size?: string;
-	label?: string;
-}
 export default class Button extends Block {
 	constructor(props: ButtonProps) {
 		super('button', {

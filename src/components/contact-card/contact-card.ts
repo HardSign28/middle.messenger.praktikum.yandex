@@ -1,10 +1,6 @@
 import Block from '@/core/block';
 import { Avatar } from '@/components';
-
-type ContactCardProps = {
-	avatar?: string;
-	onClick?: () => void;
-}
+import { ContactCardProps } from '@/types/chat';
 
 export default class ContactCard extends Block {
 	constructor(props: ContactCardProps) {

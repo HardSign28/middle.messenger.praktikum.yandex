@@ -1,11 +1,10 @@
 import { Button } from '@/components';
 import Block from '@/core/block';
 import img404 from '@/assets/icons/404.webp';
-
-type NotFoundPageProps = Record<string, unknown>;
+import { DefaultProps } from '@/types/props';
 
 export default class NotFoundPage extends Block {
-	constructor(props: NotFoundPageProps) {
+	constructor(props: DefaultProps) {
 		super('main', {
 			...props,
 			className: 'page page-not-found bg-gradient',

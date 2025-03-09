@@ -1,10 +1,10 @@
 import { Button } from '@/components';
 import Block from '@/core/block';
 import img500 from '@/assets/icons/500.webp';
+import { DefaultProps } from '@/types/props';
 
-type ServerErrorPageProps = Record<string, unknown>;
 export default class ServerErrorPage extends Block {
-	constructor(props: ServerErrorPageProps) {
+	constructor(props: DefaultProps) {
 		super('main', {
 			...props,
 			className: 'page page-error bg-gradient',

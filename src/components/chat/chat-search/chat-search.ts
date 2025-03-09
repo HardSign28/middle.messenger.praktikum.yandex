@@ -1,11 +1,7 @@
 import Block from '@/core/block';
 import { Input } from '@/components/input';
+import { ChatSearchProps } from '@/types/chat';
 
-type ChatSearchProps = {
-	onChange?: (e: InputEvent) => void;
-	label?: string;
-	type?: string;
-}
 export default class ChatSearch extends Block {
 	constructor(props: ChatSearchProps) {
 		super('div', {

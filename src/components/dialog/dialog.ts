@@ -1,14 +1,6 @@
 import Block from '@/core/block';
 import { Button } from '@/components';
-
-type DialogType = {
-	labelOk?: string;
-	labelCancel?: string;
-	onOk?: () => void;
-	onCancel?: () => void;
-	title?: string;
-	Body?: unknown;
-}
+import { DialogType } from '@/types/dialog';
 
 export default class Dialog extends Block {
 	constructor(props: DialogType) {

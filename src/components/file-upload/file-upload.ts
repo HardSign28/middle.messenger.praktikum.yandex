@@ -1,8 +1,8 @@
 import Block from '@/core/block';
+import { DefaultProps } from '@/types/props';
 
-type FileUploadProps = Record<string, unknown>;
 export default class FileUpload extends Block {
-	constructor(props: FileUploadProps) {
+	constructor(props: DefaultProps) {
 		super('div', {
 			...props,
 			className: 'file-upload',

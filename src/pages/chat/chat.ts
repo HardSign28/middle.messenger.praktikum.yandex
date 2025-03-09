@@ -11,20 +11,7 @@ import { groupMessages } from '@/utils/groupMessages';
 import Block from '@/core/block';
 import { messages } from '@/data/messages';
 import { generateContacts } from '@/utils/generateContacts';
-
-type Contact = {
-	name: string;
-	avatar?: string;
-};
-
-type ChatPageProps = {
-	contacts: Contact[];
-	filteredContacts: Contact[];
-	activeContactIndex: number;
-	hasActiveContact: boolean;
-	showDialog: string | null;
-	activeContactMessages?: ReturnType<typeof groupMessages>;
-};
+import { ChatPageProps } from '@/types/chat';
 
 export default class ChatPage extends Block<ChatPageProps> {
 	constructor(props: Partial<ChatPageProps>) {

@@ -3,11 +3,11 @@ import { Dialog } from '@/components';
 import InputField from '@/components/input/inputField';
 import { validateField } from '@/utils/validateField';
 import { InputFieldProps } from '@/types/inputField';
-
-type DialogBodyProps = Record<string, unknown>;
+import { DefaultProps } from '@/types/props';
+import { DialogAddProps } from '@/types/dialog';
 
 class DialogBody extends Block {
-	constructor(props: DialogBodyProps) {
+	constructor(props: DefaultProps) {
 		super('div', {
 			...props,
 
@@ -38,10 +38,6 @@ class DialogBody extends Block {
 	}
 }
 
-type DialogAddProps = {
-	onOk?: () => void;
-	onCancel?: () => void;
-}
 export default class DialogAdd extends Block {
 	constructor(props: DialogAddProps) {
 		super('div', {

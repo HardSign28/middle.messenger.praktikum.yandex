@@ -1,10 +1,5 @@
 import Block from '@/core/block';
-
-type BackButtonProps = {
-	href?: string,
-	onClick?: (e: InputEvent) => void;
-	class?: string;
-}
+import { BackButtonProps } from '@/types/button';
 
 export default class BackButton extends Block {
 	constructor(props: BackButtonProps) {

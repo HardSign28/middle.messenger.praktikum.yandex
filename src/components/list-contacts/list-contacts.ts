@@ -1,10 +1,6 @@
 import { ContactCard } from '@/components';
 import Block from '@/core/block';
-
-type ListContactsProps = {
-	contacts?: object[];
-	onSelectContact?: (index: number) => void;
-}
+import { ListContactsProps } from '@/types/chat';
 
 export default class ListContacts extends Block {
 	constructor(props: ListContactsProps) {
