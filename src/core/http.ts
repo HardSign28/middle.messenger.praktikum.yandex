@@ -1,84 +1,80 @@
-enum METHODS {
-	GET= 'GET',
+enum METHOD {
+	GET = 'GET',
 	POST = 'POST',
 	PUT = 'PUT',
 	PATCH = 'PATCH',
 	DELETE = 'DELETE',
 }
 
-interface RequestOptions {
-	headers?: Record<string, string>;
+type Options = {
+	method: METHOD;
 	data?: Record<string, unknown>;
 	timeout?: number;
-}
-
-interface RequestOptionsWithMethod extends RequestOptions {
-	method: METHODS;
-}
-
-const queryStringify = (data: Record<string, unknown>) => {
-	// Можно делать трансформацию GET-параметров в отдельной функции
-	if (!data || typeof data !== 'object') return '';
-	return (
-		`?${
-			Object.entries(data)
-				.map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`)
-				.join('&')}`
-	);
 };
 
-export default class HTTPTransport {
-	get(url: string, options: RequestOptions = {}) {
-		return this.request(
-			url + queryStringify(options.data ?? {}),
-			{ ...options, method: METHODS.GET },
-			options.timeout,
-		);
+type OptionsWithoutMethod = Omit<Options, 'method'>;
+
+export class HTTPTransport {
+	private apiUrl: string = '';
+
+	constructor(apiPath: string) {
+		this.apiUrl = `https://ya-praktikum.tech/api/v2/${apiPath}`;
 	}
 
-	post(url: string, options: RequestOptions = {}) {
-		return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
-	}
-
-	put(url: string, options: RequestOptions = {}) {
-		return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
-	}
-
-	delete(url: string, options: RequestOptions = {}) {
-		return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
-	}
-
-	patch(url: string, options: RequestOptions = {}) {
-		return this.request(url, { ...options, method: METHODS.PATCH }, options.timeout);
-	}
-
-	// options:
-	// headers — obj
-	// data — obj
-	request = (
+	get<TResponse>(
 		url: string,
-		options: RequestOptionsWithMethod,
-		timeout = 5000,
-	) => new Promise((resolve, reject) => {
-		const xhr = new XMLHttpRequest();
-		xhr.open(options.method, url);
+		options: OptionsWithoutMethod = {},
+	): Promise<TResponse> {
+		return this.request<TResponse>(`${this.apiUrl}${url}`, {
+			...options,
+			method: METHOD.GET,
+		});
+	}
 
-		xhr.timeout = timeout;
+	post<TResponse>(
+		url: string,
+		options: OptionsWithoutMethod = {},
+	): Promise<TResponse> {
+		return this.request<TResponse>(`${this.apiUrl}${url}`, {
+			...options,
+			method: METHOD.POST,
+		});
+	}
 
-		if (options.headers) {
-			Object.entries(options.headers).forEach(([key, value]) => {
-				xhr.setRequestHeader(key, value);
-			});
+	put(url: string, options: OptionsWithoutMethod = {}) {
+		return this.request(url, { ...options, method: METHOD.PUT });
+	}
+
+	delete(url: string, options: OptionsWithoutMethod = {}) {
+		return this.request(url, { ...options, method: METHOD.DELETE });
+	}
+
+	patch(url: string, options: OptionsWithoutMethod = {}) {
+		return this.request(url, { ...options, method: METHOD.PATCH });
+	}
+
+	async request<TResponse>(
+		url: string,
+		options: Options = { method: METHOD.GET },
+	): Promise<TResponse> {
+		const { method, data } = options;
+		const response = await fetch(url, {
+			method,
+			credentials: 'include',
+			mode: 'cors',
+			headers: { 'Content-Type': 'application/json' },
+			body: data ? JSON.stringify(data) : null,
+		});
+
+		if (!response.ok) {
+			throw response;
 		}
 
-		xhr.onload = () => resolve(xhr);
-		xhr.onerror = () => reject(new Error(`Network error on ${url}`));
-		xhr.ontimeout = () => reject(new Error(`Timeout exceeded: ${timeout}ms on ${url}`));
+		const isJson = response.headers
+			.get('content-type')
+			?.includes('application/json');
+		const resultData = (await isJson) ? response.json() : null;
 
-		if (options.method === METHODS.GET || !options.data) {
-			xhr.send();
-		} else {
-			xhr.send(JSON.stringify(options.data));
-		}
-	});
+		return resultData as unknown as TResponse;
+	}
 }

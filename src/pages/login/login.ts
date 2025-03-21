@@ -3,6 +3,7 @@ import { Button } from '@/components';
 import Block from '@/core/block';
 import { validateField, validateAll } from '@/utils/validateField';
 import { DefaultProps } from '@/types/props';
+import * as authServices from '@/services/auth';
 
 export default class LoginPage extends Block {
 	constructor(props: DefaultProps) {
@@ -66,7 +67,13 @@ export default class LoginPage extends Block {
 					);
 					validateAll(this.props.formState as Record<string, string>, childrenBlocks, 'login', 'password');
 					// eslint-disable-next-line no-console
-					console.log(this.props.formState);
+					const data = {
+						login: this.props.formState.login,
+						password: this.props.formState.password,
+					};
+
+					console.log(data);
+					authServices.login(data);
 				},
 			}),
 			SignUpButton: new Button({

@@ -2,9 +2,17 @@ import './style.scss';
 import Handlebars from 'handlebars';
 import '@/helpers/handlebars';
 import { pages } from '@/data/pages';
+import * as Pages from "./pages";
 import Block from '@/core/block';
 import * as Components from './components';
 import renderDOM from './core/renderDom';
+
+import Router from '@/core/Router';
+import { ROUTER } from '@/constants';
+import { Store, StoreEvents } from '@/core/Store';
+
+import * as authServices from '@/services/auth';
+import RegisterPage from './pages/register/register.ts';
 
 Object.entries(Components).forEach(([name, template]) => {
 	if (typeof template === 'function') {
@@ -13,33 +21,25 @@ Object.entries(Components).forEach(([name, template]) => {
 	Handlebars.registerPartial(name, template);
 });
 
-/**
- * Навигация по страницам
- * @param page
- */
-const navigate = (page: keyof typeof pages) => {
-	const { name, template, context } = pages[page];
-	if (typeof template === 'function' && template.prototype instanceof Block) {
-		// eslint-disable-next-line new-cap
-		renderDOM(new (template as new (props: unknown) => Block)({ pages }));
-		return;
-	}
-	const container = document.getElementById('app')!;
-	const fullContext = { ...context, pages, currentPage: name };
-	const templatingFunction = Handlebars.compile(template);
-	container.innerHTML = templatingFunction(fullContext);
-};
-
-document.addEventListener('DOMContentLoaded', () => navigate('nav'));
-document.addEventListener('click', (e) => {
-	const target = e.target as HTMLElement | null;
-
-	if (target && target.hasAttribute('page')) {
-		const page = target.getAttribute('page') as keyof typeof pages;
-
-		navigate(page);
-
-		e.preventDefault();
-		e.stopImmediatePropagation();
-	}
+window.store = new Store({
+	isLoading: false,
+	user: null,
+	loginError: null,
 });
+
+store.on(StoreEvents.Updated, (prevState, newState) => {
+	console.log('prevState', prevState);
+	console.log('newState', newState);
+});
+
+// authServices.checkLoginUser();
+
+const APP_ROOT_ELEMNT = '#app';
+window.router = new Router(APP_ROOT_ELEMNT);
+window.router
+	.use(ROUTER.login, Pages.LoginPage)
+	.use(ROUTER.register, Pages.RegisterPage)
+	.use(ROUTER.profile, Pages.ProfilePage)
+	.use(ROUTER.chat, Pages.ChatPage)
+	.use('*', Pages.NotFoundPage)
+	.start();
