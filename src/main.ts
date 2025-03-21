@@ -1,10 +1,15 @@
+import './style.scss';
 import Handlebars from 'handlebars';
 import '@/helpers/handlebars';
-import * as Components from './components';
-import './style.scss';
 import { pages } from '@/data/pages';
+import Block from '@/core/block';
+import * as Components from './components';
+import renderDOM from './core/renderDom';
 
 Object.entries(Components).forEach(([name, template]) => {
+	if (typeof template === 'function') {
+		return;
+	}
 	Handlebars.registerPartial(name, template);
 });
 
@@ -13,7 +18,12 @@ Object.entries(Components).forEach(([name, template]) => {
  * @param page
  */
 const navigate = (page: keyof typeof pages) => {
-	const { template, context, name } = pages[page];
+	const { name, template, context } = pages[page];
+	if (typeof template === 'function' && template.prototype instanceof Block) {
+		// eslint-disable-next-line new-cap
+		renderDOM(new (template as new (props: unknown) => Block)({ pages }));
+		return;
+	}
 	const container = document.getElementById('app')!;
 	const fullContext = { ...context, pages, currentPage: name };
 	const templatingFunction = Handlebars.compile(template);

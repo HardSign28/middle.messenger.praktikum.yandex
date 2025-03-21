@@ -7,10 +7,7 @@ module.exports = {
 
 	extends: [
 		'stylelint-config-standard',
-		// 'stylelint-config-prettier',
 	],
-	// add your custom config here
-	// https://stylelint.io/user-guide/configuration
 	rules: {
 		'color-hex-case': 'lower',
 		'color-named': null,
@@ -65,23 +62,10 @@ module.exports = {
 		'block-closing-brace-empty-line-before': 'never',
 
 		'no-missing-end-of-source-newline': true,
-		'media-query-no-invalid': false,
+		'media-query-no-invalid': null,
 		'import-notation': 'string',
 
 		// Текущие версии сборки sass-loader не позволяют использовать (width >= 10px) (10px <= width >= 20px) и т.д.
 		'media-feature-range-notation': 'prefix',
-
-		// "declaration-block-semicolon-newline-after": null,
-		// "indentation": "tab",
-		// "linebreaks": "unix",
-		// "max-nesting-depth": null,
-		// "selector-max-compound-selectors": null,
-		// "selector-max-id": null,
-		// "selector-no-qualifying-type": null,
-		// "selector-pseudo-element-colon-notation": null
-		// "property-no-vendor-prefix": null,
-		// "order/order": null,
-		// "order/properties-alphabetical-order": null,
-		// "scss/at-import-partial-extension-blacklist": null,
 	},
 };

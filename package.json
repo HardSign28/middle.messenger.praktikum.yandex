@@ -10,13 +10,19 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "start": "tsc && vite build && vite preview",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "stylelint \"**/*.scss\" && eslint . --ext .ts && tsc --noEmit"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.20.0",
+    "@typescript-eslint/eslint-plugin": "^8.26.0",
+    "@typescript-eslint/parser": "^8.26.0",
     "autoprefixer": "^10.4.20",
-    "eslint": "^9.20.0",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "nanoid": "^5.1.2",
     "postcss": "^8.5.2",
     "postcss-scss": "^4.0.9",
     "prettier": "^3.5.1",

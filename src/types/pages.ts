@@ -1,6 +1,6 @@
 export type Page = {
 	name: string;
-	template: string;
+	template: unknown;
 	context?: Record<string, unknown>; // Теперь context не обязателен
 };
 
