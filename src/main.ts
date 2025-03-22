@@ -13,6 +13,10 @@ window.store = new Store({
 });
 
 store.on(StoreEvents.Updated, (prevState, newState) => {
+	if (prevState !== newState) {
+		// console.log('prevState', prevState);
+	}
+
 	// console.log('prevState', prevState);
 	// console.log('newState', newState);
 });

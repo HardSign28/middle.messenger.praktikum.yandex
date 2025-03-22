@@ -1,4 +1,4 @@
-type PlainObject<T = any> = {
+type PlainObject<T = unknown> = {
 	[k in string]: T;
 };
 

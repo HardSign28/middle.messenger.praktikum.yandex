@@ -43,14 +43,11 @@ export const logout = async () => {
 };
 
 export const checkLoginUser = async () => {
-
 	window.store.set({ isLoading: true });
 	try {
 		const user = await authApi.me();
 		window.store.set({ user });
-		// console.log('user', user)
 		if (window.location.pathname === ROUTER.login) {
-			console.log('true');
 			window.router.back();
 		}
 	} catch (responsError) {

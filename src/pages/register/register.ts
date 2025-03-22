@@ -200,11 +200,9 @@ class RegisterPage extends Block {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		isLoading: state.isLoading,
-		registerError: state.registerError,
-	};
-};
+const mapStateToProps = (state) => ({
+	isLoading: state.isLoading,
+	registerError: state.registerError,
+});
 
 export default connect(mapStateToProps)(RegisterPage);

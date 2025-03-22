@@ -27,6 +27,9 @@ module.exports = {
 		'import/no-extraneous-dependencies': 'off',
 		'no-underscore-dangle': 'off',
 		'func-names': 'off',
+		'no-constructor-return': 'off',
+		'no-continue': 'off',
+		'no-restricted-syntax': 'off',
 	},
 	ignorePatterns: ['node_modules/', 'dist/', 'build/', 'coverage/'],
 	settings: {

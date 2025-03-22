@@ -23,15 +23,15 @@ class Router {
 	}
 
 	use(pathname, block) {
-		const route = new Route(pathname, block, {rootQuery: this._rootQuery});
+		const route = new Route(pathname, block, { rootQuery: this._rootQuery });
 		this.routes.push(route);
 		return this;
 	}
 
 	start() {
-		window.onpopstate = (event => {
+		window.onpopstate = ((event) => {
 			this._onRoute(event.currentTarget.location.pathname);
-		}).bind(this);
+		});
 		this._onRoute(window.location.pathname);
 	}
 
@@ -63,13 +63,13 @@ class Router {
 		this.history.forward();
 	}
 
-	getRoute(pathname) {
-		const route = this.routes.find(route => route.match(pathname));
-		if(!route) {
-			return this.routes.find(route => route.match('*'))
+	getRoute(pathname: string) {
+		const matchedRoute = this.routes.find((route) => route.match(pathname));
+		if (!matchedRoute) {
+			return this.routes.find((fallbackRoute) => fallbackRoute.match('*'));
 		}
-		return route
+		return matchedRoute;
 	}
 }
 
-export default  Router;
+export default Router;

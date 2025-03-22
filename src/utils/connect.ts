@@ -1,12 +1,14 @@
 import { StoreEvents } from '@/core/Store';
+import { DefaultProps } from '@/types/props';
 import isEqual from './isEqual';
 
 export function connect(mapStateToProps) {
 	return function (Component) {
 		return class extends Component {
 			private onChangeStoreCallback: () => void;
-			constructor(props) {
-				const store = window.store;
+
+			constructor(props: DefaultProps) {
+				const { store } = window;
 				// сохраняем начальное состояние
 				let state = mapStateToProps(store.getState());
 

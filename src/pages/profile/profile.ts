@@ -223,26 +223,22 @@ class ProfilePage extends Block {
 		});
 	}
 
-	componentDidMount() {
-		console.log('componentDidMount', this.props.user);
-	}
-
-	componentDidUpdate(oldProps, newProps) {
+	componentDidUpdate(oldProps: DefaultProps, newProps: DefaultProps) {
 		// Проверяем обновления пользователя
 		if (oldProps.user !== newProps.user) {
-			this.children.InputPhone.setProps({
+			(this.children.InputPhone as Block).setProps({
 				value: newProps.user.phone || '',
 			});
-			this.children.InputEmail.setProps({
+			(this.children.InputEmail as Block).setProps({
 				value: newProps.user.email || '',
 			});
-			this.children.Avatar.setProps({
+			(this.children.Avatar as Block).setProps({
 				name: newProps.user.first_name || '',
 			});
-			this.children.InputSecondName.setProps({
+			(this.children.InputSecondName as Block).setProps({
 				value: newProps.user.second_name || '',
 			});
-			this.children.InputDisplayName.setProps({
+			(this.children.InputDisplayName as Block).setProps({
 				value: newProps.user.display_name || '',
 			});
 		}
@@ -281,12 +277,9 @@ class ProfilePage extends Block {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		isLoading: state.isLoading,
-		user: state.user,
-	};
-};
+const mapStateToProps = (state) => ({
+	isLoading: state.isLoading,
+	user: state.user,
+});
 
-// 	authServices.checkLoginUser();
 export default connect(mapStateToProps)(ProfilePage);

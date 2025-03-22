@@ -68,14 +68,8 @@ class LoginPage extends Block {
 							.map(([key, child]) => [key, child as Block]),
 					);
 					validateAll(this.props.formState as Record<string, string>, childrenBlocks, 'login', 'password');
-					// eslint-disable-next-line no-console
-					const data = {
-						login: this.props.formState.login,
-						password: this.props.formState.password,
-					};
 
-					console.log(data);
-					authServices.login(data);
+					authServices.login(this.props.formState);
 				},
 			}),
 			SignUpButton: new Button({
@@ -108,12 +102,14 @@ class LoginPage extends Block {
     	`;
 	}
 }
+interface AppState {
+	isLoading: boolean;
+	loginError: string | null;
+}
 
-const mapStateToProps = (state) => {
-	return {
-		isLoading: state.isLoading,
-		loginError: state.loginError,
-	};
-};
+const mapStateToProps = (state: AppState) => ({
+	isLoading: state.isLoading,
+	loginError: state.loginError,
+});
 
 export default connect(mapStateToProps)(LoginPage);
