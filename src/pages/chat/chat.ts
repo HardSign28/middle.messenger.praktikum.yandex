@@ -1,4 +1,5 @@
 import {
+	Button,
 	ChatFooter,
 	ChatHeader,
 	ChatMessages,
@@ -12,6 +13,7 @@ import Block from '@/core/block';
 import { messages } from '@/data/messages';
 import { generateContacts } from '@/utils/generateContacts';
 import { ChatPageProps } from '@/types/chat';
+import {ROUTER} from '@/constants.ts';
 
 export default class ChatPage extends Block<ChatPageProps> {
 	constructor(props: Partial<ChatPageProps>) {
@@ -141,6 +143,15 @@ export default class ChatPage extends Block<ChatPageProps> {
 					});
 				},
 			}),
+			SettingsButton: new Button({
+				label: 'Настройки',
+				type: 'outline-primary',
+				size: 'xs',
+				class: 'mb-10',
+				onClick: () => {
+					window.router.go(ROUTER.profile);
+				}
+			}),
 		});
 	}
 
@@ -148,6 +159,7 @@ export default class ChatPage extends Block<ChatPageProps> {
 		return `
 		<section class="chat">
 			<aside class="chat__list">
+				{{{ SettingsButton }}}
 				{{{ ChatSearch }}}
 				{{{ ListContacts }}}
 			</aside>
