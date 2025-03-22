@@ -9,7 +9,7 @@ import InputField from '@/components/input/inputField';
 import { validateField } from '@/utils/validateField';
 import { DefaultProps } from '@/types/props';
 import { connect } from '@/utils/connect';
-import * as authServices from '@/services/auth.ts';
+import * as authServices from '@/services/auth';
 
 class ProfilePage extends Block {
 	constructor(props: DefaultProps) {
@@ -209,9 +209,9 @@ class ProfilePage extends Block {
 				},
 			}),
 			BackButton: new BackButton({
-				// href: '#',
 				onClick: (e) => {
 					e.preventDefault();
+					window.router.back();
 				},
 			}),
 			DialogUpload: new DialogUpload({

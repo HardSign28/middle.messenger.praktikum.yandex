@@ -47,11 +47,14 @@ export const checkLoginUser = async () => {
 	window.store.set({ isLoading: true });
 	try {
 		const user = await authApi.me();
-		// window.router.go(ROUTER.chat);
 		window.store.set({ user });
+		// console.log('user', user)
+		if (window.location.pathname === ROUTER.login) {
+			console.log('true');
+			window.router.back();
+		}
 	} catch (responsError) {
 		const error = await responsError.json();
-		console.log('responsError', responsError)
 		window.store.set({ loginError: error.reason });
 		if (responsError?.status === 401) {
 			window.router.go(ROUTER.login);

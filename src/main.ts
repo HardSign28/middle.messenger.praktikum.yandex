@@ -1,18 +1,10 @@
 import './style.scss';
-import Handlebars from 'handlebars';
 import '@/helpers/handlebars';
-import { pages } from '@/data/pages';
-import * as Pages from "./pages";
-import Block from '@/core/block';
-import * as Components from './components';
-import renderDOM from './core/renderDom';
-
 import Router from '@/core/Router';
 import { ROUTER } from '@/constants';
 import { Store, StoreEvents } from '@/core/Store';
-
 import * as authServices from '@/services/auth';
-import RegisterPage from './pages/register/register.ts';
+import * as Pages from './pages';
 
 window.store = new Store({
 	isLoading: false,
@@ -21,8 +13,8 @@ window.store = new Store({
 });
 
 store.on(StoreEvents.Updated, (prevState, newState) => {
-	console.log('prevState', prevState);
-	console.log('newState', newState);
+	// console.log('prevState', prevState);
+	// console.log('newState', newState);
 });
 
 authServices.checkLoginUser();

@@ -2,6 +2,7 @@ import { Button } from '@/components';
 import Block from '@/core/block';
 import img404 from '@/assets/icons/404.webp';
 import { DefaultProps } from '@/types/props';
+import { ROUTER } from '@/constants';
 
 export default class NotFoundPage extends Block {
 	constructor(props: DefaultProps) {
@@ -14,6 +15,7 @@ export default class NotFoundPage extends Block {
 				type: 'primary',
 				onClick: (e: MouseEvent) => {
 					e.preventDefault();
+					window.router.go(ROUTER.chat);
 				},
 			}),
 		});

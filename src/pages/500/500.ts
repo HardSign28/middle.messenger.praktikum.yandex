@@ -2,6 +2,7 @@ import { Button } from '@/components';
 import Block from '@/core/block';
 import img500 from '@/assets/icons/500.webp';
 import { DefaultProps } from '@/types/props';
+import { ROUTER } from '@/constants';
 
 export default class ServerErrorPage extends Block {
 	constructor(props: DefaultProps) {
@@ -14,6 +15,7 @@ export default class ServerErrorPage extends Block {
 				type: 'primary',
 				onClick: (e: MouseEvent) => {
 					e.preventDefault();
+					window.router.go(ROUTER.chat);
 				},
 			}),
 		});
