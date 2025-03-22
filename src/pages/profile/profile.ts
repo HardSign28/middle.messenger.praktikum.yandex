@@ -9,6 +9,7 @@ import InputField from '@/components/input/inputField';
 import { validateField } from '@/utils/validateField';
 import { DefaultProps } from '@/types/props';
 import { connect } from '@/utils/connect';
+import * as authServices from '@/services/auth.ts';
 
 class ProfilePage extends Block {
 	constructor(props: DefaultProps) {
@@ -202,6 +203,10 @@ class ProfilePage extends Block {
 				label: 'Выйти',
 				type: 'outline-primary',
 				size: 'lg',
+				onClick: (e) => {
+					e.preventDefault();
+					authServices.logout();
+				},
 			}),
 			BackButton: new BackButton({
 				// href: '#',
@@ -282,4 +287,6 @@ const mapStateToProps = (state) => {
 		user: state.user,
 	};
 };
+
+// 	authServices.checkLoginUser();
 export default connect(mapStateToProps)(ProfilePage);
