@@ -22,10 +22,20 @@ export default class Input extends Block {
 	}
 
 	public componentDidUpdate(oldProps: InputProps, newProps: InputProps): boolean {
-		const element = this.element as HTMLElement | null;
-		if (element && oldProps.readonly !== newProps.readonly) {
-			element.toggleAttribute('readonly', newProps.readonly ?? false);
+		const element = this.element as HTMLInputElement | null;
+
+		if (element) {
+			// Синхронизация атрибута `value` с новыми пропсами
+			if (oldProps.value !== newProps.value) {
+				element.value = newProps.value ?? '';
+			}
+
+			// Синхронизация атрибута `readonly`
+			if (oldProps.readonly !== newProps.readonly) {
+				element.toggleAttribute('readonly', newProps.readonly ?? false);
+			}
 		}
+
 		return true;
 	}
 }

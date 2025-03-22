@@ -14,13 +14,6 @@ import { Store, StoreEvents } from '@/core/Store';
 import * as authServices from '@/services/auth';
 import RegisterPage from './pages/register/register.ts';
 
-Object.entries(Components).forEach(([name, template]) => {
-	if (typeof template === 'function') {
-		return;
-	}
-	Handlebars.registerPartial(name, template);
-});
-
 window.store = new Store({
 	isLoading: false,
 	user: null,
@@ -32,7 +25,7 @@ store.on(StoreEvents.Updated, (prevState, newState) => {
 	console.log('newState', newState);
 });
 
-// authServices.checkLoginUser();
+authServices.checkLoginUser();
 
 const APP_ROOT_ELEMNT = '#app';
 window.router = new Router(APP_ROOT_ELEMNT);
@@ -41,5 +34,5 @@ window.router
 	.use(ROUTER.register, Pages.RegisterPage)
 	.use(ROUTER.profile, Pages.ProfilePage)
 	.use(ROUTER.chat, Pages.ChatPage)
-	.use('*', Pages.NotFoundPage)
+	.use(ROUTER.notFound, Pages.NotFoundPage)
 	.start();

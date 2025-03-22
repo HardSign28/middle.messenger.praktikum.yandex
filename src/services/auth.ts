@@ -16,11 +16,24 @@ export const login = async (model) => {
 	}
 };
 
+export const register = async (model) => {
+	window.store.set({ isLoading: true });
+	try {
+		await authApi.register(model);
+		window.router.go(ROUTER.chat);
+	} catch (responsError) {
+		const error = await responsError.json();
+		window.store.set({ registerError: error.reason });
+	} finally {
+		window.store.set({ isLoading: false });
+	}
+};
+
 export const checkLoginUser = async () => {
 	window.store.set({ isLoading: true });
 	try {
 		const user = await authApi.me();
-		window.router.go(ROUTER.cats);
+		// window.router.go(ROUTER.chat);
 		window.store.set({ user });
 	} catch (responsError) {
 		const error = await responsError.json();

@@ -3,8 +3,11 @@ import Block from '@/core/block';
 import InputField from '@/components/input/inputField';
 import { validateAll, validateField } from '@/utils/validateField';
 import { DefaultProps } from '@/types/props';
+import { ROUTER } from '@/constants';
+import * as authServices from '@/services/auth';
+import { connect } from '@/utils/connect';
 
-export default class RegisterPage extends Block {
+class RegisterPage extends Block {
 	constructor(props: DefaultProps) {
 		super('main', {
 			...props,
@@ -146,6 +149,7 @@ export default class RegisterPage extends Block {
 
 				onClick: (e) => {
 					e.preventDefault();
+					window.router.go(ROUTER.login);
 				},
 			}),
 			SignUpButton: new Button({
@@ -163,7 +167,8 @@ export default class RegisterPage extends Block {
 					);
 					validateAll(this.props.formState as Record<string, string>, childrenBlocks, 'login', 'password', 'firstName', 'secondName', 'phone', 'email');
 					// eslint-disable-next-line no-console
-					console.log(this.props.formState);
+					// console.log(this.props.formState);
+					authServices.register(this.props.formState);
 				},
 			}),
 		});
@@ -181,6 +186,9 @@ export default class RegisterPage extends Block {
 				{{{ InputPhone }}}
 				{{{ InputEmail }}}
 				{{{ InputPassword }}}
+				{{#if registerError }}
+					<p>{{registerError}}</p>
+				{{/if}}
 			<div class="mt-20">
 				{{{ SignUpButton }}}
 				{{{ SignInButton }}}
@@ -191,3 +199,12 @@ export default class RegisterPage extends Block {
     	`;
 	}
 }
+
+const mapStateToProps = (state) => {
+	return {
+		isLoading: state.isLoading,
+		registerError: state.registerError,
+	};
+};
+
+export default connect(mapStateToProps)(RegisterPage);

@@ -1,6 +1,7 @@
 export enum ROUTER {
-	login = '/login',
+	login = '/',
 	register = '/sign-up',
 	profile = '/settings',
 	chat = '/messenger',
+	notFound = '*',
 }

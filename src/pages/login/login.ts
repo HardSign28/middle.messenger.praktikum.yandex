@@ -3,9 +3,11 @@ import { Button } from '@/components';
 import Block from '@/core/block';
 import { validateField, validateAll } from '@/utils/validateField';
 import { DefaultProps } from '@/types/props';
+import { connect } from '@/utils/connect';
 import * as authServices from '@/services/auth';
+import { ROUTER } from '@/constants';
 
-export default class LoginPage extends Block {
+class LoginPage extends Block {
 	constructor(props: DefaultProps) {
 		super('main', {
 			...props,
@@ -79,6 +81,10 @@ export default class LoginPage extends Block {
 			SignUpButton: new Button({
 				label: 'Зарегистрироваться',
 				type: 'outline-primary',
+				onClick: (e) => {
+					e.preventDefault();
+					window.router.go(ROUTER.register);
+				},
 			}),
 		});
 	}
@@ -91,6 +97,9 @@ export default class LoginPage extends Block {
 				<form action="/login" method="POST" aria-labelledby="login-title">
 					{{{ InputLogin }}}
 					{{{ InputPassword }}}
+					{{#if loginError }}
+					<p>{{loginError}}</p>
+					{{/if}}
 					{{{ SignInButton }}}
 					{{{ SignUpButton }}}
 				</form>
@@ -99,3 +108,12 @@ export default class LoginPage extends Block {
     	`;
 	}
 }
+
+const mapStateToProps = (state) => {
+	return {
+		isLoading: state.isLoading,
+		loginError: state.loginError,
+	};
+};
+
+export default connect(mapStateToProps)(LoginPage);

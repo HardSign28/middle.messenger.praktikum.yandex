@@ -53,6 +53,14 @@ export default class InputField extends Block {
 			.join(' ');
 	}
 
+	componentDidUpdate(oldProps, newProps) {
+		if (oldProps.value !== newProps.value) {
+			this.children.Input.setProps({
+				value: newProps.value || '',
+			});
+		}
+	}
+
 	public render(): string {
 		if (this.element) {
 			this.element.className = this.getClassName();

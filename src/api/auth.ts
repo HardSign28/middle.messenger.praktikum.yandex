@@ -18,6 +18,10 @@ export default class AuthApi {
 		return authApi.post('/signin', { data });
 	}
 
+	async register(data: LoginRequestData): Promise<void | APIError> {
+		return authApi.post('/signup', { data });
+	}
+
 	async me(): Promise<UserDTO | APIError> {
 		return authApi.get('/user');
 	}

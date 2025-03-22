@@ -8,19 +8,20 @@ import Block from '@/core/block';
 import InputField from '@/components/input/inputField';
 import { validateField } from '@/utils/validateField';
 import { DefaultProps } from '@/types/props';
+import { connect } from '@/utils/connect';
 
-export default class ProfilePage extends Block {
+class ProfilePage extends Block {
 	constructor(props: DefaultProps) {
 		super('main', {
 			...props,
 			formState: {
-				login: '',
+				login: props.user?.login || '',
 				password: '',
-				first_name: '',
-				second_name: '',
-				display_name: '',
-				phone: '',
-				email: '',
+				first_name: props.user?.first_name || '',
+				second_name: props.user?.second_name || '',
+				display_name: props.user?.display_name || '',
+				phone: props.user?.phone || '',
+				email: props.user?.email || '',
 			},
 
 			className: 'page page-profile',
@@ -121,7 +122,7 @@ export default class ProfilePage extends Block {
 				class: 'mb-10',
 				name: 'phone',
 				type: 'tel',
-				value: '+7 (909) 967 30 30',
+				value: props.user?.phone || '',
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
@@ -217,14 +218,43 @@ export default class ProfilePage extends Block {
 		});
 	}
 
+	componentDidMount() {
+		console.log('componentDidMount', this.props.user);
+	}
+
+	componentDidUpdate(oldProps, newProps) {
+		// Проверяем обновления пользователя
+		if (oldProps.user !== newProps.user) {
+			this.children.InputPhone.setProps({
+				value: newProps.user.phone || '',
+			});
+			this.children.InputEmail.setProps({
+				value: newProps.user.email || '',
+			});
+			this.children.Avatar.setProps({
+				name: newProps.user.first_name || '',
+			});
+			this.children.InputSecondName.setProps({
+				value: newProps.user.second_name || '',
+			});
+			this.children.InputDisplayName.setProps({
+				value: newProps.user.display_name || '',
+			});
+		}
+
+		return true;
+	}
+
 	public render(): string {
 		return `
 		{{{ BackButton }}}
 		<div class="container w-100">
 			<form class="card w-100">
 				<div class="profile__avatar mb-20">
-					{{{ Avatar  }}}
-					<div class="user-name mb-20">Иван</div>
+					{{{ Avatar }}}
+					{{#if user }}
+						<div class="user-name mb-20">{{ user.first_name }}</div>
+					{{/if}}
 				</div>
 				{{{ InputEmail }}}
 				{{{ InputLogin }}}
@@ -245,3 +275,11 @@ export default class ProfilePage extends Block {
     	`;
 	}
 }
+
+const mapStateToProps = (state) => {
+	return {
+		isLoading: state.isLoading,
+		user: state.user,
+	};
+};
+export default connect(mapStateToProps)(ProfilePage);
