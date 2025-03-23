@@ -10,26 +10,18 @@ import { validateField } from '@/utils/validateField';
 import { DefaultProps } from '@/types/props';
 import { connect } from '@/utils/connect';
 import * as authServices from '@/services/auth';
+import * as usersServices from '@/services/users';
 
 class ProfilePage extends Block {
 	constructor(props: DefaultProps) {
 		super('main', {
 			...props,
-			formState: {
-				login: props.user?.login || '',
-				password: '',
-				first_name: props.user?.first_name || '',
-				second_name: props.user?.second_name || '',
-				display_name: props.user?.display_name || '',
-				phone: props.user?.phone || '',
-				email: props.user?.email || '',
-			},
+			formState: {},
 
 			className: 'page page-profile',
 			Avatar: new Avatar({
 				size: 'md',
 				class: 'mb-20',
-				name: 'Иван',
 				edit: true,
 				imgUrl: '',
 				onClick: () => {
@@ -41,7 +33,6 @@ class ProfilePage extends Block {
 				label: 'Имя',
 				class: 'mb-10',
 				name: 'first_name',
-				value: 'Иван',
 				readonly: true,
 
 				onChange: (e) => {
@@ -62,7 +53,6 @@ class ProfilePage extends Block {
 				label: 'Фамилия',
 				class: 'mb-10',
 				name: 'second_name',
-				value: 'Иванов',
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
@@ -82,7 +72,6 @@ class ProfilePage extends Block {
 				label: 'Логин',
 				class: 'mb-10',
 				name: 'login',
-				value: 'ivanivanov',
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
@@ -102,7 +91,6 @@ class ProfilePage extends Block {
 				label: 'Имя в чате',
 				class: 'mb-10',
 				name: 'display_name',
-				value: 'Иван',
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
@@ -123,7 +111,6 @@ class ProfilePage extends Block {
 				class: 'mb-10',
 				name: 'phone',
 				type: 'tel',
-				value: props.user?.phone || '',
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
@@ -144,7 +131,6 @@ class ProfilePage extends Block {
 				class: 'mb-10',
 				name: 'email',
 				type: 'email',
-				value: 'pochta@yandex.kz',
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
@@ -186,6 +172,7 @@ class ProfilePage extends Block {
 					e.preventDefault();
 					// eslint-disable-next-line no-console
 					console.log(this.props.formState);
+					usersServices.changeProfile(this.props.formState);
 				},
 			}),
 			EditPasswordButton: new Button({
@@ -226,14 +213,17 @@ class ProfilePage extends Block {
 	componentDidUpdate(oldProps: DefaultProps, newProps: DefaultProps) {
 		// Проверяем обновления пользователя
 		if (oldProps.user !== newProps.user) {
+			(this.children.InputLogin as Block).setProps({
+				value: newProps.user.login || '',
+			});
 			(this.children.InputPhone as Block).setProps({
 				value: newProps.user.phone || '',
 			});
 			(this.children.InputEmail as Block).setProps({
 				value: newProps.user.email || '',
 			});
-			(this.children.Avatar as Block).setProps({
-				name: newProps.user.first_name || '',
+			(this.children.InputFirstName as Block).setProps({
+				value: newProps.user.first_name || '',
 			});
 			(this.children.InputSecondName as Block).setProps({
 				value: newProps.user.second_name || '',

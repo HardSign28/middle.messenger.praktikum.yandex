@@ -41,8 +41,11 @@ export class HTTPTransport {
 		});
 	}
 
-	put(url: string, options: OptionsWithoutMethod = {}) {
-		return this.request(url, { ...options, method: METHOD.PUT });
+	put<TResponse>(
+		url: string,
+		options: OptionsWithoutMethod = {},
+	): Promise<TResponse> {
+		return this.request<TResponse>(`${this.apiUrl}${url}`, { ...options, method: METHOD.PUT });
 	}
 
 	delete(url: string, options: OptionsWithoutMethod = {}) {
