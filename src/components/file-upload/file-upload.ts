@@ -5,7 +5,6 @@ export default class FileUpload extends Block {
 	constructor(props: DefaultProps) {
 		super('div', {
 			...props,
-			className: 'file-upload',
 			events: {
 				change: (e: Event) => this.onFileChange(e),
 			},
@@ -33,25 +32,26 @@ export default class FileUpload extends Block {
 
 	public render(): string {
 		return `
-			<div class="file-upload">
-				<label class="file-upload__label">
-					<input 
-						type="file" 
-						class="file-upload__input" 
-						accept="image/*" 
-						onchange="{{ onFileChange }}" 
-					/>
-					<div class="file-upload__icon"></div>
-					Загрузить файл
-				</label>
-				{{#if previewSrc }}
-					<img 
-						src="{{ previewSrc }}" 
-						class="file-upload__preview" 
-						alt="Превью" 
-					/>
-				{{/if}}
+		<label class="file-upload">
+			<input 
+				type="file" 
+				class="file-upload__input" 
+				accept="image/*" 
+				onchange="{{ onFileChange }}" 
+			/>
+			<div class="file-upload__icon"></div>
+			Загрузить файл
+		</label>
+			{{#if previewSrc }}
+			<div class="file-upload__preview">
+			Предпросмотр:
+				<img 
+					src="{{ previewSrc }}" 
+					class="file-upload__preview-img" 
+					alt="Превью" 
+				/>
 			</div>
+			{{/if}}
     	`;
 	}
 }
