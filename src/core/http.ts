@@ -18,7 +18,7 @@ export class HTTPTransport {
 	private apiUrl: string = '';
 
 	constructor(apiPath: string) {
-		this.apiUrl = `https://ya-praktikum.tech/api/v2/${apiPath}`;
+		this.apiUrl = `https://ya-praktikum.tech/api/v2${apiPath}`;
 	}
 
 	get<TResponse>(
@@ -45,6 +45,12 @@ export class HTTPTransport {
 		url: string,
 		options: OptionsWithoutMethod = {},
 	): Promise<TResponse> {
+		console.log('options', options);
+
+		for (const [key, value] of options.data.entries()) {
+			console.log(key, value); // Должны увидеть: "file", File {...}
+		}
+
 		return this.request<TResponse>(`${this.apiUrl}${url}`, { ...options, method: METHOD.PUT });
 	}
 
@@ -61,12 +67,16 @@ export class HTTPTransport {
 		options: Options = { method: METHOD.GET },
 	): Promise<TResponse> {
 		const { method, data } = options;
+
+		const headers = data instanceof FormData
+			? {}
+			: { 'Content-Type': 'application/json' };
 		const response = await fetch(url, {
 			method,
 			credentials: 'include',
 			mode: 'cors',
-			headers: { 'Content-Type': 'application/json' },
-			body: data ? JSON.stringify(data) : null,
+			headers,
+			body: data instanceof FormData ? data : data ? JSON.stringify(data) : null,
 		});
 
 		if (!response.ok) {

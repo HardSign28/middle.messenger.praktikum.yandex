@@ -17,13 +17,12 @@ class ProfilePage extends Block {
 		super('main', {
 			...props,
 			formState: {},
-
 			className: 'page page-profile',
+			showDialog: null,
 			Avatar: new Avatar({
 				size: 'md',
 				class: 'mb-20',
 				edit: true,
-				imgUrl: '',
 				onClick: () => {
 					this.setProps({ showDialog: 'upload' });
 				},
@@ -42,7 +41,7 @@ class ProfilePage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState ?? {},
+							...(this.props.formState ?? {}),
 							first_name: value,
 						},
 					});
@@ -57,11 +56,13 @@ class ProfilePage extends Block {
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'secondName');
-					(this.children.InputSecondName as Block).setProps({ error });
+					(this.children.InputSecondName as Block).setProps({
+						error,
+					});
 
 					this.setProps({
 						formState: {
-							...this.props.formState ?? {},
+							...(this.props.formState ?? {}),
 							second_name: value,
 						},
 					});
@@ -80,7 +81,7 @@ class ProfilePage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState ?? {},
+							...(this.props.formState ?? {}),
 							login: value,
 						},
 					});
@@ -95,11 +96,13 @@ class ProfilePage extends Block {
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'firstName');
-					(this.children.InputDisplayName as Block).setProps({ error });
+					(this.children.InputDisplayName as Block).setProps({
+						error,
+					});
 
 					this.setProps({
 						formState: {
-							...this.props.formState ?? {},
+							...(this.props.formState ?? {}),
 							display_name: value,
 						},
 					});
@@ -119,7 +122,7 @@ class ProfilePage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState ?? {},
+							...(this.props.formState ?? {}),
 							phone: value,
 						},
 					});
@@ -139,7 +142,7 @@ class ProfilePage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState ?? {},
+							...(this.props.formState ?? {}),
 							email: value,
 						},
 					});
@@ -157,21 +160,19 @@ class ProfilePage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState ?? {},
+							...(this.props.formState ?? {}),
 							password: value,
 						},
 					});
 				},
 			}),
 			EditButton: new Button({
-				label: 'Изменить данные',
+				label: 'Сохранить данные',
 				size: 'lg',
 				type: 'primary',
 				class: 'mb-10',
 				onClick: (e) => {
 					e.preventDefault();
-					// eslint-disable-next-line no-console
-					console.log(this.props.formState);
 					usersServices.changeProfile(this.props.formState);
 				},
 			}),
@@ -204,36 +205,80 @@ class ProfilePage extends Block {
 			DialogUpload: new DialogUpload({
 				onCancel: () => {
 					this.setProps({ showDialog: null });
+					this.onDialogUploadClose();
+				},
+				onOk: async () => {
+					const file = this.props.selectedFile;
+					if (!file) {
+						console.error('Файл не выбран');
+						return;
+					}
+
+					const formData = new FormData();
+					formData.append('avatar', file);
+
+					try {
+						await usersServices.changeAvatar(formData).then((response) => {
+							if (response) {
+								this.setProps({ showDialog: null });
+								this.setProps({ previewSrc: '' });
+								this.children.Avatar.setProps({
+									imgUrl: `https://ya-praktikum.tech/api/v2/resources${response.avatar}`,
+								});
+								this.onDialogUploadClose();
+							}
+						});
+					} catch (error) {
+						console.error('Ошибка загрузки аватара:', error);
+					}
 				},
 			}),
-			showDialog: null,
 		});
 	}
 
-	componentDidUpdate(oldProps: DefaultProps, newProps: DefaultProps) {
-		// Проверяем обновления пользователя
-		if (oldProps.user !== newProps.user) {
-			(this.children.InputLogin as Block).setProps({
-				value: newProps.user.login || '',
-			});
-			(this.children.InputPhone as Block).setProps({
-				value: newProps.user.phone || '',
-			});
-			(this.children.InputEmail as Block).setProps({
-				value: newProps.user.email || '',
-			});
-			(this.children.InputFirstName as Block).setProps({
-				value: newProps.user.first_name || '',
-			});
-			(this.children.InputSecondName as Block).setProps({
-				value: newProps.user.second_name || '',
-			});
-			(this.children.InputDisplayName as Block).setProps({
-				value: newProps.user.display_name || '',
-			});
-		}
+	onDialogUploadClose() {
+		const DialogUpload = this.children.DialogUpload;
+		const Dialog = DialogUpload.children.Dialog;
+		const Body = Dialog.children.Body;
+		const FileUpload = Body.children.FileUpload;
+		FileUpload.resetPreview();
+	}
+	componentDidMount() {
+		this.loadData(this?.props?.user as Record<string, unknown>);
+	}
 
+	componentDidUpdate(oldProps: DefaultProps, newProps: DefaultProps) {
+		if (oldProps.user !== newProps.user) {
+			this.loadData(newProps.user as Record<string, unknown>);
+		}
 		return true;
+	}
+
+	loadData(source: Record<string, unknown>) {
+		if (!source) return;
+		(this.children.Avatar as Block).setProps({
+			imgUrl:
+				`https://ya-praktikum.tech/api/v2/resources/${source?.avatar}`
+				|| '',
+		});
+		(this.children.InputLogin as Block).setProps({
+			value: source?.login || '',
+		});
+		(this.children.InputPhone as Block).setProps({
+			value: source?.phone || '',
+		});
+		(this.children.InputEmail as Block).setProps({
+			value: source?.email || '',
+		});
+		(this.children.InputFirstName as Block).setProps({
+			value: source?.first_name || '',
+		});
+		(this.children.InputSecondName as Block).setProps({
+			value: source?.second_name || '',
+		});
+		(this.children.InputDisplayName as Block).setProps({
+			value: source?.display_name || '',
+		});
 	}
 
 	public render(): string {
@@ -267,9 +312,10 @@ class ProfilePage extends Block {
 	}
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: Record<string, unknown>) => ({
 	isLoading: state.isLoading,
 	user: state.user,
+	selectedFile: state.selectedFile,
 });
 
 export default connect(mapStateToProps)(ProfilePage);

@@ -10,6 +10,7 @@ window.store = new Store({
 	isLoading: false,
 	user: null,
 	loginError: null,
+	selectedFile: null,
 });
 
 store.on(StoreEvents.Updated, (prevState, newState) => {

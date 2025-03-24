@@ -9,4 +9,8 @@ export default class UsersApi {
 	async changeProfile(data: Record<string, string>): Promise<void | APIError> {
 		return usersApi.put('/profile', { data });
 	}
+
+	async changeAvatar(data: FormData): Promise<void | APIError> {
+		return usersApi.put('/profile/avatar', { data });
+	}
 }
