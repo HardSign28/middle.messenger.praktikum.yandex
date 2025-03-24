@@ -7,8 +7,8 @@ export const changeProfile = async (model) => {
 	try {
 		await usersApi.changeProfile(model);
 	} catch (responseError) {
-		const error = await responseError.json();
-		window.store.set({ loginError: error.reason });
+		const { data } = responseError;
+		window.store.set({ loginError: data?.reason });
 		throw responseError;
 	} finally {
 		window.store.set({ isLoading: false });
@@ -20,8 +20,8 @@ export const changeAvatar = async (file: FormData) => {
 	try {
 		return await usersApi.changeAvatar(file);
 	} catch (responseError) {
-		const error = await responseError.json();
-		window.store.set({ changeAvatarError: error.reason });
+		const { data } = responseError;
+		window.store.set({ changeAvatarError: data?.reason });
 		throw responseError;
 	} finally {
 		window.store.set({ isLoading: false });

@@ -165,9 +165,8 @@ class RegisterPage extends Block {
 							.filter(([_, child]) => !Array.isArray(child))
 							.map(([key, child]) => [key, child as Block]),
 					);
-					validateAll(this.props.formState as Record<string, string>, childrenBlocks, 'login', 'password', 'firstName', 'secondName', 'phone', 'email');
-					// eslint-disable-next-line no-console
-					// console.log(this.props.formState);
+					validateAll(this.props.formState as Record<string, string>, childrenBlocks, 'login', 'password', 'first_name', 'second_name', 'phone', 'email');
+
 					authServices.register(this.props.formState);
 				},
 			}),

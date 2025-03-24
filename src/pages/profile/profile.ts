@@ -269,11 +269,15 @@ class ProfilePage extends Block {
 
 	loadData(source: Record<string, unknown>) {
 		if (!source) return;
-		(this.children.Avatar as Block).setProps({
-			imgUrl:
-				`https://ya-praktikum.tech/api/v2/resources/${source?.avatar}`
-				|| '',
-		});
+
+		if (source?.avatar) {
+			(this.children.Avatar as Block).setProps({
+				imgUrl:
+					`https://ya-praktikum.tech/api/v2/resources/${source.avatar}`
+					|| '',
+			});
+		}
+
 		(this.children.InputLogin as Block).setProps({
 			value: source?.login || '',
 		});

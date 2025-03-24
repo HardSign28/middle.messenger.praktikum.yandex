@@ -8,9 +8,9 @@ export const login = async (model) => {
 	try {
 		await authApi.login(model);
 		window.router.go(ROUTER.chat);
-	} catch (responsError) {
-		const error = await responsError.json();
-		window.store.set({ loginError: error.reason });
+	} catch (responseError) {
+		const { data } = responseError;
+		window.store.set({ loginError: data.reason });
 	} finally {
 		window.store.set({ isLoading: false });
 	}
@@ -21,9 +21,9 @@ export const register = async (model) => {
 	try {
 		await authApi.register(model);
 		window.router.go(ROUTER.chat);
-	} catch (responsError) {
-		const error = await responsError.json();
-		window.store.set({ registerError: error.reason });
+	} catch (responseError) {
+		const { data } = responseError;
+		window.store.set({ registerError: data?.reason });
 	} finally {
 		window.store.set({ isLoading: false });
 	}
@@ -34,9 +34,9 @@ export const logout = async () => {
 	try {
 		await authApi.logout();
 		window.router.go(ROUTER.login);
-	} catch (responsError) {
-		const error = await responsError.json();
-		window.store.set({ registerError: error.reason });
+	} catch (responseError) {
+		const { data } = responseError;
+		window.store.set({ registerError: data?.reason });
 	} finally {
 		window.store.set({ isLoading: false });
 	}
@@ -47,13 +47,11 @@ export const checkLoginUser = async () => {
 	try {
 		const user = await authApi.me();
 		window.store.set({ user });
-		if (window.location.pathname === ROUTER.login) {
+		if (window.location.pathname === ROUTER.login || window.location.pathname === ROUTER.register) {
 			window.router.back();
 		}
-	} catch (responsError) {
-		const error = await responsError.json();
-		window.store.set({ loginError: error.reason });
-		if (responsError?.status === 401) {
+	} catch (responseError) {
+		if (responseError?.status === 401 && window.location.pathname !== ROUTER.register) {
 			window.router.go(ROUTER.login);
 		}
 	} finally {
