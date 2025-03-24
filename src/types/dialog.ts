@@ -14,6 +14,11 @@ export type DialogUploadProps = {
 	onCancel?: () => void;
 }
 
+export type DialogPasswordProps = {
+	onOk?: (callback: unknown) => void;
+	onCancel?: () => void;
+}
+
 export type DialogType = {
 	labelOk?: string;
 	labelCancel?: string;

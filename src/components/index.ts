@@ -7,6 +7,7 @@ export { Dialog } from './dialog';
 export { DialogRemove } from './dialog-remove';
 export { DialogUpload } from './dialog-upload';
 export { DialogAdd } from './dialog-add';
+export { DialogPassword } from './dialog-password';
 export { Avatar } from './avatar';
 export { FileUpload } from './file-upload';
 export { ChatSearch } from './chat/chat-search';

@@ -10,6 +10,8 @@ window.store = new Store({
 	isLoading: false,
 	user: null,
 	loginError: null,
+	changeAvatarError: null,
+	changePasswordError: null,
 	selectedFile: null,
 });
 

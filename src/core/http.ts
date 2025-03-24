@@ -45,12 +45,6 @@ export class HTTPTransport {
 		url: string,
 		options: OptionsWithoutMethod = {},
 	): Promise<TResponse> {
-		console.log('options', options);
-
-		for (const [key, value] of options.data.entries()) {
-			console.log(key, value); // Должны увидеть: "file", File {...}
-		}
-
 		return this.request<TResponse>(`${this.apiUrl}${url}`, { ...options, method: METHOD.PUT });
 	}
 
@@ -71,6 +65,7 @@ export class HTTPTransport {
 		const headers = data instanceof FormData
 			? {}
 			: { 'Content-Type': 'application/json' };
+
 		const response = await fetch(url, {
 			method,
 			credentials: 'include',
@@ -79,15 +74,24 @@ export class HTTPTransport {
 			body: data instanceof FormData ? data : data ? JSON.stringify(data) : null,
 		});
 
-		if (!response.ok) {
-			throw response;
+		let resultData: TResponse | null = null;
+
+		const contentType = response.headers.get('content-type');
+		const isJson = contentType?.includes('application/json');
+
+		if (isJson) {
+			resultData = await response.json();
 		}
 
-		const isJson = response.headers
-			.get('content-type')
-			?.includes('application/json');
-		const resultData = (await isJson) ? response.json() : null;
+		if (!response.ok) {
+			throw {
+				status: response.status,
+				statusText: response.statusText,
+				data: resultData,
+			};
+		}
 
-		return resultData as unknown as TResponse;
+		return resultData as TResponse;
 	}
+
 }

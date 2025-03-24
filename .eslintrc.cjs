@@ -30,6 +30,7 @@ module.exports = {
 		'no-constructor-return': 'off',
 		'no-continue': 'off',
 		'no-restricted-syntax': 'off',
+		'no-throw-literal': 'off',
 	},
 	ignorePatterns: ['node_modules/', 'dist/', 'build/', 'coverage/'],
 	settings: {

@@ -3,6 +3,7 @@ import {
 	BackButton,
 	Avatar,
 	DialogUpload,
+	DialogPassword,
 } from '@/components';
 import Block from '@/core/block';
 import InputField from '@/components/input/inputField';
@@ -183,8 +184,7 @@ class ProfilePage extends Block {
 				class: 'mb-10',
 				onClick: (e) => {
 					e.preventDefault();
-					// eslint-disable-next-line no-console
-					console.log(this.props.formState);
+					this.setProps({ showDialog: 'password' });
 				},
 			}),
 			LogoutButton: new Button({
@@ -230,6 +230,19 @@ class ProfilePage extends Block {
 						});
 					} catch (error) {
 						console.error('Ошибка загрузки аватара:', error);
+					}
+				},
+			}),
+			DialogPassword: new DialogPassword({
+				onCancel: () => {
+					this.setProps({ showDialog: null });
+				},
+				onOk: async (formData) => {
+					try {
+						await usersServices.changePassword(formData);
+						this.setProps({ showDialog: null });
+					} catch (error) {
+						console.error('Ошибка смены пароля:', error);
 					}
 				},
 			}),
@@ -307,6 +320,9 @@ class ProfilePage extends Block {
 		</div>
 		{{#if (eq showDialog "upload") }}
 			{{{ DialogUpload }}}
+		{{/if}}
+		{{#if (eq showDialog "password") }}
+			{{{ DialogPassword }}}
 		{{/if}}
     	`;
 	}
