@@ -1,29 +1,28 @@
-import { messages } from '@/data/messages';
-
-export function generateContacts() {
+export function generateContacts(messages) {
 	const contactMap = new Map<string, {
-		lastMessage: string;
+		last_message: string;
 		date: string;
-		unread: number,
-		chatId: number,
+		unread_count: number,
+		id: number,
+		avatar: string,
 		you: boolean,
 	}>();
 
 	messages.forEach((msg) => {
 		const {
-			chatId,
-			name,
+			id,
+			title,
 			text,
 			time,
 			sender,
 			seen,
 		} = msg;
 
-		const existing = contactMap.get(name) || {
+		const existing = contactMap.get(title) || {
 			lastMessage: '',
 			date: '',
 			unread: 0,
-			chatId,
+			id,
 			you: false,
 		};
 
@@ -37,16 +36,16 @@ export function generateContacts() {
 			existing.unread += 1;
 		}
 
-		contactMap.set(name, existing);
+		contactMap.set(title, existing);
 	});
 
 	// Преобразуем в массив объектов
-	return Array.from(contactMap.entries()).map(([name, data]) => ({
-		name,
-		avatar: `/avatars/0${data.chatId}.webp`,
+	return Array.from(contactMap.entries()).map(([title, data]) => ({
+		title,
+		avatar: data.avatar,
 		date: data.date,
-		unread: data.unread > 0 ? data.unread : undefined,
-		text: data.lastMessage,
+		unread: data.unread_count + 1,
+		text: data.last_message,
 		you: data.you,
 	}));
 }

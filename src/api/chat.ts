@@ -14,8 +14,12 @@ export default class ChatApi {
 		return chatApi.post('', { data });
 	}
 
-	async changeAvatar(data: FormData): Promise<void | APIError> {
-		return chatApi.put('/profile/avatar', { data });
+	async getChatToken(id: number): Promise<void | APIError> {
+		return chatApi.post(`/token/${id}`, { id });
+	}
+
+	async getChatUsers(id: number): Promise<void | APIError> {
+		return chatApi.get(`/${id}/users`);
 	}
 
 	async changePassword(data: Record<string, string>): Promise<void | APIError> {

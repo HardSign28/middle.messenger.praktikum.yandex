@@ -35,6 +35,10 @@ export type ChatSearchProps = {
 
 export type ContactCardProps = {
 	avatar?: string;
+	last_message?: {
+		user?: Record<string, unknown>,
+		time?: string,
+	};
 	onClick?: () => void;
 }
 
