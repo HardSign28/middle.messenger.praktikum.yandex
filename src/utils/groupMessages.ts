@@ -1,5 +1,5 @@
 import { Message, MessageGroup } from '@/types/chat';
-import { formatDateChatMessage } from '@/utils/formatDate';
+import {formatDateChatList, formatDateChatMessage} from '@/utils/formatDate';
 
 /**
  * Группирует сообщения по дате, отправителю и времени.
@@ -21,7 +21,7 @@ export const groupMessages = (
 
 	messages.forEach((msg) => {
 		const msgTime = new Date(msg.time);
-		const dateKey = msgTime.toISOString().split('T')[0]; // Формат: YYYY-MM-DD
+		const dateKey = formatDateChatList(msgTime.toISOString().split('T')[0]); // Формат: YYYY-MM-DD
 		const prevTime = currentGroup
 			? new Date(
 				`2000-01-01T${currentGroup.messages[currentGroup.messages.length - 1].time}:00`,
