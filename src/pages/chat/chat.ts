@@ -243,22 +243,17 @@ class ChatPage extends Block<ChatPageProps> {
 		this.socket.on('message', (data) => {
 			const newMessage = JSON.parse(data);
 
-
 			console.log('messages init', newMessage);
 
-			if (Array.isArray(newMessage)) {
-				this.setProps({
-					...this.props,
-					messages: [...newMessage],
-				});
-			} else {
-				if (newMessage?.type !== 'message') return;
-				this.setProps({
-					...this.props,
-					messages: [...this.props.messages, newMessage],
-				});
-			}
+			if (!Array.isArray(newMessage) && newMessage?.type !== 'message') return;
 
+			this.setProps({
+				...this.props,
+				messages: [
+					...(this.props.messages || []),
+					...(Array.isArray(newMessage) ? newMessage : [newMessage]),
+				],
+			});
 
 			console.log('this.props.messages', this.props.messages);
 			(this.children.ChatMessages as Block).setProps({
