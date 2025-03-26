@@ -10,6 +10,7 @@ export class WSTransport {
 	private url: string;
 	private isConnected: boolean = false;
 	private eventHandlers: WebSocketEvents = {};
+	private keepAliveInterval = null;
 
 	constructor(url: string) {
 		this.url = url;
@@ -21,11 +22,13 @@ export class WSTransport {
 		this.socket.addEventListener('open', () => {
 			this.isConnected = true;
 			console.log('Соединение установлено');
+			this.startKeepAlive();
 			if (this.eventHandlers.open) this.eventHandlers.open();
 		});
 
 		this.socket.addEventListener('close', (event) => {
 			this.isConnected = false;
+			this.stopKeepAlive();
 			if (event.wasClean) {
 				console.log('Соединение закрыто чисто');
 			} else {
@@ -43,6 +46,22 @@ export class WSTransport {
 			console.log('Ошибка', event);
 			if (this.eventHandlers.error) this.eventHandlers.error(event);
 		});
+	}
+
+	private startKeepAlive(interval: number = 30000): void {
+		this.stopKeepAlive(); // Очищаем предыдущий таймер, если он есть
+		this.keepAliveInterval = setInterval(() => {
+			if (this.isConnected) {
+				this.send({ type: 'ping' });
+			}
+		}, interval);
+	}
+
+	private stopKeepAlive(): void {
+		if (this.keepAliveInterval) {
+			clearInterval(this.keepAliveInterval);
+			this.keepAliveInterval = null;
+		}
 	}
 
 	public send(data: Record<string, unknown>): void {

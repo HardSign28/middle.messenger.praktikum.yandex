@@ -18,6 +18,8 @@ import { WSTransport } from '@/core/ws';
 import { connect } from '@/utils/connect';
 
 class ChatPage extends Block<ChatPageProps> {
+	private socket: WSTransport | null = null;
+
 	constructor(props: Partial<ChatPageProps>) {
 
 		super('main', {
@@ -62,11 +64,11 @@ class ChatPage extends Block<ChatPageProps> {
 				},
 			}),
 			ChatFooter: new ChatFooter({
-				onSendButtonClick: (data) => {
-					console.log('onSendButtonClick: ', data);
+				onSendButtonClick: (message) => {
+					console.log('onSendButtonClick: ', message);
 
 					// TODO: Тут передаем текст в WS для отправки сообщения
-
+					this.sendMessage(message);
 					// Очищаем поле ввода при успешной отправке
 					this.children.ChatFooter.children.Input.setProps({
 						value: '',
@@ -218,32 +220,63 @@ class ChatPage extends Block<ChatPageProps> {
 	async chatConnect({ userId, chatId, token }:{ userId: number, chatId: number, token:string }) {
 		if (!userId || !chatId || !token) return;
 
-		const socket = new WSTransport(
+		this.socket = new WSTransport(
 			`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`,
 		);
 
 		// Тут получаем и пихаем сообщения в чат
-		socket.on('open', () => {
-			socket.send({
+		this.socket.on('open', () => {
+			this.socket?.send({
 				content: '0',
 				type: 'get old',
 			});
 		});
 
-		socket.on('message', (data) => {
-			console.log('messages', JSON.parse(data));
+		this.socket.on('message', (data) => {
+			const newMessage = JSON.parse(data);
+
+
+			console.log('messages init', newMessage);
+
+			if (Array.isArray(newMessage)) {
+				this.setProps({
+					...this.props,
+					messages: [...newMessage],
+				});
+			} else {
+				if (newMessage?.type !== 'message') return;
+				this.setProps({
+					...this.props,
+					messages: [...this.props.messages, newMessage],
+				});
+			}
+
+
+			console.log('this.props.messages', this.props.messages);
 			(this.children.ChatMessages as Block).setProps({
 				// TODO: JSON.parse в try/catch
-				chatGroups: groupMessages(JSON.parse(data), this.props.user.id),
+				chatGroups: groupMessages(this.props.messages, this.props.user.id),
 			});
 		});
 
-		socket.on('close', (event) => {
+		this.socket.on('close', (event) => {
 			console.log('Соединение закрыто:', event);
 		});
 
-		socket.on('error', (event) => {
+		this.socket.on('error', (event) => {
 			console.error('Ошибка WebSocket:', event);
+		});
+	}
+
+	sendMessage(message) {
+		if (!this.socket) {
+			console.error('Соединение WebSocket не установлено. Невозможно отправить сообщение.');
+			return;
+		}
+
+		this.socket.send({
+			content: message,
+			type: 'message',
 		});
 	}
 
