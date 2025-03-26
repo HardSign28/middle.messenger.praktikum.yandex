@@ -1,13 +1,21 @@
 import Block from '@/core/block';
 import { ChatMessagesProps } from '@/types/chat';
+import {InputProps} from '@/types/input.ts';
 
 export default class ChatMessages extends Block {
 	constructor(props: ChatMessagesProps) {
 		super('section', {
 			...props,
 			className: 'chat__messages',
+			attrs: ChatMessages.getAttributes(props),
 			chatGroups: props.chatGroups || [],
 		});
+	}
+
+	static getAttributes(props: InputProps) {
+		return {
+			...(props.id ? { id: props.id } : {}),
+		};
 	}
 
 	public render(): string {

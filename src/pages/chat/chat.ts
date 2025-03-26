@@ -75,7 +75,7 @@ class ChatPage extends Block<ChatPageProps> {
 					});
 				},
 			}),
-			ChatMessages: new ChatMessages({ chatGroups: [] }),
+			ChatMessages: new ChatMessages({ chatGroups: [], id: 'test' }),
 			ListContacts: new ListContacts({
 				onSelectContact: async (index) => {
 					const selectedContact = this.props.contacts[index];
@@ -214,6 +214,14 @@ class ChatPage extends Block<ChatPageProps> {
 		}
 	}
 
+	scrollChatToBottom() {
+		const chatMessages = document.getElementById('test');
+		if (chatMessages) {
+			console.log('work');
+			chatMessages.scrollTop = chatMessages.scrollHeight;
+		}
+	}
+
 	/**
 	 * Подключаемся к чату по WebSocket
 	 */
@@ -257,6 +265,7 @@ class ChatPage extends Block<ChatPageProps> {
 				// TODO: JSON.parse в try/catch
 				chatGroups: groupMessages(this.props.messages, this.props.user.id),
 			});
+			this.scrollChatToBottom();
 		});
 
 		this.socket.on('close', (event) => {
@@ -289,7 +298,7 @@ class ChatPage extends Block<ChatPageProps> {
 				{{{ AddChat }}}
 				{{{ ListContacts }}}
 			</aside>
-			<section class="chat__content {{#if hasActiveContact }}chat__content_bg{{/if }}">
+			<section id="js_chatMessages" class="chat__content {{#if hasActiveContact }}chat__content_bg{{/if }}">
 				{{#if hasActiveContact }}
 					{{{ ChatHeader }}}
 					{{{ ChatMessages }}}
