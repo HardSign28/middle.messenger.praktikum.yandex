@@ -240,7 +240,8 @@ class ChatPage extends Block<ChatPageProps> {
 			});
 		});
 
-		this.socket.on('message', (data) => {
+		this.socket.on('message', async (data) => {
+			// await this.fetchChats(); // Скачет чат
 			const newMessage = JSON.parse(data);
 
 			console.log('messages init', newMessage);
@@ -260,6 +261,7 @@ class ChatPage extends Block<ChatPageProps> {
 				// TODO: JSON.parse в try/catch
 				chatGroups: groupMessages(this.props.messages, this.props.user.id),
 			});
+
 			this.scrollChatToBottom();
 		});
 
