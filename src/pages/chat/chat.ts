@@ -61,7 +61,18 @@ class ChatPage extends Block<ChatPageProps> {
 					});
 				},
 			}),
-			ChatFooter: new ChatFooter({}),
+			ChatFooter: new ChatFooter({
+				onSendButtonClick: (data) => {
+					console.log('onSendButtonClick: ', data);
+
+					// TODO: Тут передаем текст в WS для отправки сообщения
+
+					// Очищаем поле ввода при успешной отправке
+					this.children.ChatFooter.children.Input.setProps({
+						value: '',
+					});
+				},
+			}),
 			ChatMessages: new ChatMessages({ chatGroups: [] }),
 			ListContacts: new ListContacts({
 				onSelectContact: async (index) => {

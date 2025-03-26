@@ -36,7 +36,6 @@ export class WSTransport {
 		});
 
 		this.socket.addEventListener('message', (event) => {
-			console.log('Получены данные', event.data);
 			if (this.eventHandlers.message) this.eventHandlers.message(event.data);
 		});
 
