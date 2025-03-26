@@ -25,3 +25,13 @@ export function formatDateChatList(inputDate: string): string | undefined {
 		return `${day}.${month}`;
 	}
 }
+
+export function formatDateChatMessage(inputDate: string): string | undefined {
+	if (!inputDate) return undefined;
+	const localDate = new Date(inputDate);
+
+	const hours = localDate.getHours().toString().padStart(2, '0');
+	const minutes = localDate.getMinutes().toString().padStart(2, '0');
+
+	return `${hours}:${minutes}`;
+}

@@ -11,12 +11,11 @@ import {
 } from '@/components';
 import { groupMessages } from '@/utils/groupMessages';
 import Block from '@/core/block';
-import { messages } from '@/data/messages';
 import { ChatPageProps } from '@/types/chat';
 import { ROUTER } from '@/constants';
 import * as chatServices from '@/services/chat';
 import { WSTransport } from '@/core/ws';
-import {connect} from '@/utils/connect.ts';
+import { connect } from '@/utils/connect';
 
 class ChatPage extends Block<ChatPageProps> {
 	constructor(props: Partial<ChatPageProps>) {
@@ -25,6 +24,7 @@ class ChatPage extends Block<ChatPageProps> {
 			...props,
 			className: 'page-chat',
 			contacts: [],
+			messages: [],
 			activeContactIndex: -1,
 			hasActiveContact: false,
 			showDialog: null,
@@ -66,7 +66,7 @@ class ChatPage extends Block<ChatPageProps> {
 			ListContacts: new ListContacts({
 				onSelectContact: async (index) => {
 					const selectedContact = this.props.contacts[index];
-					const selectedContactName = this.props.contacts[index]?.name;
+					const selectedContactName = this.props.contacts[index]?.title;
 					const chatConnectData = {
 						userId: this.props.user.id,
 						chatId: selectedContact?.id,
@@ -93,20 +93,15 @@ class ChatPage extends Block<ChatPageProps> {
 					// Подключаемся к чату по WS
 					this.chatConnect(chatConnectData);
 
-					const filteredMessages = messages.filter((msg) => msg.name === selectedContactName);
+
 					this.setProps({
 						...this.props,
 						activeContactIndex: index,
 						hasActiveContact: index >= 0,
-						activeContactMessages: groupMessages(filteredMessages),
 					});
 
 					(this.children.DialogRemove as Block).setProps({
 						userName: selectedContactName,
-					});
-
-					(this.children.ChatMessages as Block).setProps({
-						chatGroups: groupMessages(filteredMessages),
 					});
 
 					(this.children.ChatHeader as Block).setProps({
@@ -225,7 +220,11 @@ class ChatPage extends Block<ChatPageProps> {
 		});
 
 		socket.on('message', (data) => {
-			console.log('Новое сообщение:', data);
+			console.log('messages', JSON.parse(data));
+			(this.children.ChatMessages as Block).setProps({
+				// TODO: JSON.parse в try/catch
+				chatGroups: groupMessages(JSON.parse(data), this.props.user.id),
+			});
 		});
 
 		socket.on('close', (event) => {
@@ -249,12 +248,7 @@ class ChatPage extends Block<ChatPageProps> {
 			<section class="chat__content {{#if hasActiveContact }}chat__content_bg{{/if }}">
 				{{#if hasActiveContact }}
 					{{{ ChatHeader }}}
-					<section class="chat__messages">
-						<time class="chat__messages-date">
-							{{ conversationDate }}
-						</time>
-						{{{ ChatMessages }}}
-					</section>
+					{{{ ChatMessages }}}
 					{{{ ChatFooter }}}
 				{{ else }}
 					<div class="chat__content-empty">Выберите чат, чтобы отправить сообщение</div>
