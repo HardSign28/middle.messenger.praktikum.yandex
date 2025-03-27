@@ -1,4 +1,5 @@
 import { HTTPTransport } from '@/core/http';
+import { PasswordModel, ProfileModel } from '@/types/api';
 import {
 	APIError,
 } from './type';
@@ -6,7 +7,7 @@ import {
 const usersApi = new HTTPTransport('/user');
 
 export default class UsersApi {
-	async changeProfile(data: Record<string, string>): Promise<void | APIError> {
+	async changeProfile(data: ProfileModel): Promise<void | APIError> {
 		return usersApi.put('/profile', { data });
 	}
 
@@ -14,7 +15,7 @@ export default class UsersApi {
 		return usersApi.put('/profile/avatar', { data });
 	}
 
-	async changePassword(data: Record<string, string>): Promise<void | APIError> {
+	async changePassword(data: PasswordModel): Promise<void | APIError> {
 		return usersApi.put('/password', { data });
 	}
 }
