@@ -4,6 +4,7 @@ import {
 	Avatar,
 	DialogUpload,
 	DialogPassword,
+	Dialog, FileUpload,
 } from '@/components';
 import Block from '@/core/block';
 import InputField from '@/components/input/inputField';
@@ -12,6 +13,7 @@ import { DefaultProps } from '@/types/props';
 import { connect } from '@/utils/connect';
 import * as authServices from '@/services/auth';
 import * as usersServices from '@/services/users';
+import { PasswordModelType, ProfileModelType } from '@/types/api';
 
 class ProfilePage extends Block {
 	constructor(props: DefaultProps) {
@@ -174,7 +176,7 @@ class ProfilePage extends Block {
 				class: 'mb-10',
 				onClick: (e) => {
 					e.preventDefault();
-					usersServices.changeProfile(this.props.formState);
+					usersServices.changeProfile(this.props.formState as ProfileModelType);
 				},
 			}),
 			EditPasswordButton: new Button({
@@ -202,15 +204,16 @@ class ProfilePage extends Block {
 					window.router.back();
 				},
 			}),
-			DialogUpload: new DialogUpload({
+			DialogUploadComponent: new DialogUpload({
 				onCancel: () => {
 					this.setProps({ showDialog: null });
 					this.onDialogUploadClose();
 				},
 				onOk: async () => {
 					const file = this.props.selectedFile;
-					if (!file) {
-						console.error('Файл не выбран');
+					if (!(file instanceof File)) {
+						const dialog = (this.children.DialogUploadComponent as Block).children.Dialog as Dialog;
+						dialog.setError('Файл не выбран или выбран неверный тип файла');
 						return;
 					}
 
@@ -218,18 +221,18 @@ class ProfilePage extends Block {
 					formData.append('avatar', file);
 
 					try {
-						await usersServices.changeAvatar(formData).then((response) => {
-							if (response) {
-								this.setProps({ showDialog: null });
-								this.setProps({ previewSrc: '' });
-								this.children.Avatar.setProps({
-									imgUrl: `https://ya-praktikum.tech/api/v2/resources${response.avatar}`,
-								});
-								this.onDialogUploadClose();
-							}
-						});
-					} catch (error) {
-						console.error('Ошибка загрузки аватара:', error);
+						const response = await usersServices.changeAvatar(formData);
+						if ('avatar' in response) {
+							this.setProps({ showDialog: null });
+							this.setProps({ previewSrc: '' });
+							(this.children.Avatar as Block).setProps({
+								imgUrl: `https://ya-praktikum.tech/api/v2/resources${response.avatar}`,
+							});
+							this.onDialogUploadClose();
+						}
+					} catch {
+						const dialog = (this.children.DialogUploadComponent as Block).children.Dialog as Dialog;
+						dialog.setError('Ошибка загрузки аватара');
 					}
 				},
 			}),
@@ -239,10 +242,11 @@ class ProfilePage extends Block {
 				},
 				onOk: async (formData) => {
 					try {
-						await usersServices.changePassword(formData);
+						await usersServices.changePassword(formData as PasswordModelType);
 						this.setProps({ showDialog: null });
-					} catch (error) {
-						console.error('Ошибка смены пароля:', error);
+					} catch {
+						const dialog = (this.children.DialogPassword as Block).children.Dialog as Dialog;
+						dialog.setError('Ошибка смены пароля');
 					}
 				},
 			}),
@@ -250,11 +254,9 @@ class ProfilePage extends Block {
 	}
 
 	onDialogUploadClose() {
-		const { DialogUpload } = this.children;
-		const { Dialog } = DialogUpload.children;
-		const { Body } = Dialog.children;
-		const { FileUpload } = Body.children;
-		FileUpload.resetPreview();
+		const dialog = (this.children.DialogUploadComponent as Block).children.Dialog as Dialog;
+		const fileUpload = (dialog.children.Body as Block).children.FileUpload as FileUpload;
+		fileUpload.resetPreview();
 	}
 
 	componentDidMount() {
@@ -324,7 +326,7 @@ class ProfilePage extends Block {
 			</form>
 		</div>
 		{{#if (eq showDialog "upload") }}
-			{{{ DialogUpload }}}
+			{{{ DialogUploadComponent }}}
 		{{/if}}
 		{{#if (eq showDialog "password") }}
 			{{{ DialogPassword }}}
@@ -337,6 +339,7 @@ const mapStateToProps = (state: Record<string, unknown>) => ({
 	isLoading: state.isLoading,
 	user: state.user,
 	selectedFile: state.selectedFile,
+	selectedFileError: state.selectedFileError,
 });
 
 export default connect(mapStateToProps)(ProfilePage);

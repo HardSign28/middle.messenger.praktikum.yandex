@@ -1,9 +1,9 @@
 import UsersApi from '@/api/users';
-import { PasswordModel, ProfileModel } from '@/types/api';
+import { PasswordModelType, ProfileModelType } from '@/types/api';
 
 const usersApi = new UsersApi();
 
-export const changeProfile = async (model: ProfileModel) => {
+export const changeProfile = async (model: ProfileModelType) => {
 	window.store.set({ isLoading: true });
 	try {
 		await usersApi.changeProfile(model);
@@ -29,7 +29,7 @@ export const changeAvatar = async (file: FormData) => {
 	}
 };
 
-export const changePassword = async (model: PasswordModel) => {
+export const changePassword = async (model: PasswordModelType) => {
 	window.store.set({ isLoading: true });
 	try {
 		return await usersApi.changePassword(model);

@@ -1,10 +1,10 @@
 import { ROUTER } from '@/constants';
 import AuthApi from '@/api/auth';
-import { loginModel, RegisterModel, responseErrorType } from '@/types/api';
+import { LoginModelType, RegisterModel, responseErrorType } from '@/types/api';
 
 const authApi = new AuthApi();
 
-export const login = async (model: loginModel) => {
+export const login = async (model: LoginModelType) => {
 	window.store.set({ isLoading: true });
 	try {
 		await authApi.login(model);

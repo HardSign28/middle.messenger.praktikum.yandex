@@ -11,13 +11,13 @@ import {
 } from '@/components';
 import { groupMessages } from '@/utils/groupMessages';
 import Block from '@/core/block';
-import { ChatPageProps } from '@/types/chat';
+import { ChatPageProps, Contact, CreateChatData } from '@/types/chat';
 import { ROUTER } from '@/constants';
 import * as chatServices from '@/services/chat';
 import { WSTransport } from '@/core/ws';
 import { connect } from '@/utils/connect';
 
-class ChatPage extends Block<ChatPageProps> {
+class ChatPage extends Block {
 	private socket: WSTransport | null = null;
 
 	constructor(props: Partial<ChatPageProps>) {
@@ -35,11 +35,11 @@ class ChatPage extends Block<ChatPageProps> {
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
 					const searchTerm = value.toLowerCase();
-					const filtered = this.props.contacts.filter(
+					const filtered = (this.props.contacts as Contact[]).filter(
 						(contact) => contact.title.toLowerCase().includes(searchTerm),
 					);
 
-					this.children.ListContacts.setProps({
+					(this.children.ListContacts as Block).setProps({
 						contacts: filtered,
 					});
 				},
@@ -63,43 +63,45 @@ class ChatPage extends Block<ChatPageProps> {
 				},
 			}),
 			ChatFooter: new ChatFooter({
-				onSendButtonClick: (message) => {
-					console.log('onSendButtonClick: ', message);
-
-					// TODO: Тут передаем текст в WS для отправки сообщения
+				onSendButtonClick: (message: string) => {
 					this.sendMessage(message);
 					// Очищаем поле ввода при успешной отправке
-					this.children.ChatFooter.children.Input.setProps({
+					const chatFooter = this.children.ChatFooter as Block;
+					(chatFooter.children.Input as Block).setProps({
 						value: '',
 					});
 				},
 			}),
-			ChatMessages: new ChatMessages({ chatGroups: [], id: 'test' }),
+			ChatMessages: new ChatMessages({}),
 			ListContacts: new ListContacts({
 				onSelectContact: async (index) => {
-					const selectedContact = this.props.contacts[index];
-					const selectedContactName = this.props.contacts[index]?.title;
+					const selectedContact = (this.props.contacts as Contact[] | undefined)?.[index];
+					const selectedContactName = selectedContact?.title;
 					const chatConnectData = {
 						userId: this.props.user.id,
-						chatId: selectedContact?.id,
-						token: null,
+						chatId: Number(selectedContact?.id),
+						token: '',
 					};
 
 					// TODO: вынести в функцию
 					// Получаем токен для чата
 					try {
-						const { token } = await chatServices.getChatToken(selectedContact?.id);
-						chatConnectData.token = token;
+						const response = await chatServices.getChatToken(Number(selectedContact?.id));
+						if ('token' in response) {
+							const { token } = response; // Безопасно извлекаем token
+							chatConnectData.token = token;
+						} else {
+							throw new Error(`Ошибка при получении токена: ${response}`);
+						}
 					} catch (error) {
-						console.error('Ошибка getChatToken:', error);
+						throw new Error(`Ошибка getChatToken: ${error}}`);
 					}
 
 					// Получаем список участников чата
 					try {
-						const response = await chatServices.getChatUsers(selectedContact?.id);
-						console.log('getChatUsers', response);
+						await chatServices.getChatUsers(Number(selectedContact?.id));
 					} catch (error) {
-						console.error('Ошибка getChatUsers:', error);
+						throw new Error(`Ошибка getChatUsers: ${error}}`);
 					}
 
 					// Подключаемся к чату по WS
@@ -117,7 +119,7 @@ class ChatPage extends Block<ChatPageProps> {
 
 					(this.children.ChatHeader as Block).setProps({
 						name: selectedContactName,
-						activeChatImg: this.props.contacts[index]?.avatar,
+						activeChatImg: (this.props.contacts as Contact[] | undefined)?.[index]?.avatar,
 					});
 				},
 			}),
@@ -153,14 +155,13 @@ class ChatPage extends Block<ChatPageProps> {
 			DialogAddChat: new DialogAddChat({
 				onOk: async (formData) => {
 					try {
-						const response = await chatServices.createChat(formData);
-						console.log('response', response);
+						await chatServices.createChat(formData as CreateChatData);
 						this.setProps({
 							...this.props,
 							showDialog: null,
 						});
 					} catch (error) {
-						console.error('Ошибка Создания чата:', error);
+						throw new Error(`Ошибка Создания чата: ${error}}`);
 					}
 				},
 				onCancel: () => {
@@ -204,18 +205,17 @@ class ChatPage extends Block<ChatPageProps> {
 				...this.props,
 				contacts,
 			});
-			this.children.ListContacts.setProps({
+			(this.children.ListContacts as Block).setProps({
 				contacts,
 			});
 		} catch (error) {
-			console.error('Ошибка загрузки чатов:', error);
+			throw new Error(`Ошибка загрузки чатов: ${error}}`);
 		}
 	}
 
 	scrollChatToBottom() {
 		const chatMessages = document.getElementById('test');
 		if (chatMessages) {
-			console.log('work');
 			chatMessages.scrollTop = chatMessages.scrollHeight;
 		}
 	}
@@ -242,8 +242,6 @@ class ChatPage extends Block<ChatPageProps> {
 			// await this.fetchChats(); // Скачет чат
 			const newMessage = JSON.parse(data);
 
-			console.log('messages init', newMessage);
-
 			if (!Array.isArray(newMessage) && newMessage?.type !== 'message') return;
 
 			this.setProps({
@@ -254,7 +252,6 @@ class ChatPage extends Block<ChatPageProps> {
 				],
 			});
 
-			console.log('this.props.messages', this.props.messages);
 			(this.children.ChatMessages as Block).setProps({
 				// TODO: JSON.parse в try/catch
 				chatGroups: groupMessages(this.props.messages, this.props.user.id),
@@ -264,18 +261,17 @@ class ChatPage extends Block<ChatPageProps> {
 		});
 
 		this.socket.on('close', (event) => {
-			console.log('Соединение закрыто:', event);
+			throw new Error(`Ошибка getChatToken: ${event}}`);
 		});
 
 		this.socket.on('error', (event) => {
-			console.error('Ошибка WebSocket:', event);
+			throw new Error(`Ошибка WebSocket: ${event}}`);
 		});
 	}
 
-	sendMessage(message) {
+	sendMessage(message: string) {
 		if (!this.socket) {
-			console.error('Соединение WebSocket не установлено. Невозможно отправить сообщение.');
-			return;
+			throw new Error('Соединение WebSocket не установлено. Невозможно отправить сообщение.');
 		}
 
 		this.socket.send({

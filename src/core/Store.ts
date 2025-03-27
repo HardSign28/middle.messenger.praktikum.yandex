@@ -4,12 +4,15 @@ export enum StoreEvents {
 	Updated = 'Updated',
 }
 
-export class Store extends EventBus {
-	private state = {};
+export class Store<T extends Record<string, unknown>> extends EventBus<StoreEvents> {
+	// eslint-disable-next-line no-use-before-define
+	private static __instance: Store<Record<string, unknown>> | null = null;
 
-	constructor(defaultState) {
+	private state: T = {} as T;
+
+	constructor(defaultState: T) {
 		if (Store.__instance) {
-			return Store.__instance;
+			return Store.__instance as Store<T>;
 		}
 		super();
 
@@ -19,15 +22,15 @@ export class Store extends EventBus {
 		Store.__instance = this;
 	}
 
-	public getState() {
+	public getState(): T {
 		return this.state;
 	}
 
-	public set(nextState) {
+	public set(nextState: Partial<T>): void {
 		const prevState = { ...this.state };
 
 		this.state = { ...this.state, ...nextState };
 
-		this.emit(StoreEvents.Updated, prevState, nextState);
+		this.emit(StoreEvents.Updated, prevState, this.state);
 	}
 }

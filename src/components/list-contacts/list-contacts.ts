@@ -1,6 +1,6 @@
 import { ContactCard } from '@/components';
 import Block from '@/core/block';
-import { ListContactsProps } from '@/types/chat';
+import { Contact, ListContactsProps } from '@/types/chat';
 import { DefaultProps } from '@/types/props';
 
 export default class ListContacts extends Block {
@@ -21,7 +21,7 @@ export default class ListContacts extends Block {
 		});
 	}
 
-	createContactCard(contact: any, index: number) {
+	createContactCard(contact: Contact, index: number) {
 		return new ContactCard({
 			...contact,
 			onClick: () => {
@@ -35,10 +35,11 @@ export default class ListContacts extends Block {
 
 	componentDidUpdate(oldProps: DefaultProps, newProps: DefaultProps) {
 		if (oldProps.contacts !== newProps.contacts) {
-			const newContactComponents = (newProps.contacts ?? [])
-				.map((contact, index: number) => this.createContactCard(contact, index));
+			const newContactComponents = Array.isArray(newProps.contacts)
+				? newProps.contacts.map((contact, index: number) => this.createContactCard(contact, index))
+				: [];
 
-			this.children.contactComponents = newContactComponents;
+			this.children.contactComponents = newContactComponents as unknown as Block<DefaultProps>[];
 			this.setProps({
 				contactComponents: newContactComponents,
 			});
@@ -50,8 +51,8 @@ export default class ListContacts extends Block {
 		const { activeContactIndex } = this.props;
 		const { contactComponents } = this.children;
 
-		(contactComponents as unknown as ContactCard[] ?? [])
-			.forEach((contact: ContactCard, index: number) => {
+		(contactComponents as Block<DefaultProps>[] ?? [])
+			.forEach((contact: Block<DefaultProps>, index: number) => {
 				if (index === activeContactIndex) {
 					contact.setProps({ active: true });
 					return;

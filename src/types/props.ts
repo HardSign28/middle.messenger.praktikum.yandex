@@ -13,4 +13,3 @@ export type InputProps = {
 	value?: string;
 	placeholder?: string;
 };
-

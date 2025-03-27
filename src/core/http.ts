@@ -63,16 +63,18 @@ export class HTTPTransport {
 	): Promise<TResponse> {
 		const { method, data } = options;
 
-		const headers = data instanceof FormData
-			? {}
-			: { 'Content-Type': 'application/json' };
+		const headers = new Headers();
+
+		if (!(data instanceof FormData)) {
+			headers.set('Content-Type', 'application/json');
+		}
 
 		const response = await fetch(url, {
 			method,
 			credentials: 'include',
 			mode: 'cors',
 			headers,
-			body: data instanceof FormData ? data : data ? JSON.stringify(data) : null,
+			body: data instanceof FormData ? data : JSON.stringify(data) || null,
 		});
 
 		let resultData: TResponse | null = null;

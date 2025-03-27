@@ -6,6 +6,7 @@ import { DefaultProps } from '@/types/props';
 import { connect } from '@/utils/connect';
 import * as authServices from '@/services/auth';
 import { ROUTER } from '@/constants';
+import { LoginModelType } from '@/types/api';
 
 class LoginPage extends Block {
 	constructor(props: DefaultProps) {
@@ -69,7 +70,7 @@ class LoginPage extends Block {
 					);
 					validateAll(this.props.formState as Record<string, string>, childrenBlocks, 'login', 'password');
 
-					authServices.login(this.props.formState);
+					authServices.login(this.props.formState as LoginModelType);
 				},
 			}),
 			SignUpButton: new Button({
@@ -102,12 +103,7 @@ class LoginPage extends Block {
     	`;
 	}
 }
-interface AppState {
-	isLoading: boolean;
-	loginError: string | null;
-}
-
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: Record<string, unknown>) => ({
 	isLoading: state.isLoading,
 	loginError: state.loginError,
 });

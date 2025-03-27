@@ -1,4 +1,5 @@
 import ChatApi from '@/api/chat';
+import { CreateChatData } from '@/types/chat';
 
 const chatApi = new ChatApi();
 
@@ -7,7 +8,7 @@ export const getChats = async () => {
 	try {
 		return await chatApi.getChats();
 	} catch (responseError) {
-		const { data } = responseError;
+		const { data } = responseError as { data: { reason: string } };
 		window.store.set({ getChats: data?.reason });
 		throw responseError;
 	} finally {
@@ -15,12 +16,12 @@ export const getChats = async () => {
 	}
 };
 
-export const createChat = async (data) => {
+export const createChat = async (createChatData: CreateChatData) => {
 	window.store.set({ isLoading: true });
 	try {
-		return await chatApi.createChat(data);
+		return await chatApi.createChat(createChatData);
 	} catch (responseError) {
-		const { data } = responseError;
+		const { data } = responseError as { data: { reason: string } };
 		window.store.set({ createChat: data?.reason });
 		throw responseError;
 	} finally {
@@ -33,7 +34,7 @@ export const getChatToken = async (id: number) => {
 	try {
 		return await chatApi.getChatToken(id);
 	} catch (responseError) {
-		const { data } = responseError;
+		const { data } = responseError as { data: { reason: string } };
 		window.store.set({ getChatToken: data?.reason });
 		throw responseError;
 	} finally {
@@ -46,7 +47,7 @@ export const getChatUsers = async (id: number) => {
 	try {
 		return await chatApi.getChatUsers(id);
 	} catch (responseError) {
-		const { data } = responseError;
+		const { data } = responseError as { data: { reason: string } };
 		window.store.set({ getChats: data?.reason });
 		throw responseError;
 	} finally {

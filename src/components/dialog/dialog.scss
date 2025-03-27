@@ -50,4 +50,13 @@
     display: flex;
     gap: 10px;
   }
+
+  &__error {
+    margin: 10px 0;
+    color: var(--error-color);
+    font-size: 12px;
+    text-align: center;
+    min-height: 14px;
+    line-height: 14px;
+  }
 }

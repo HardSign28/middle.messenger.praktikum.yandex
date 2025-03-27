@@ -1,9 +1,9 @@
-export type PasswordModel = {
+export type PasswordModelType = {
 	old_password: string;
 	new_password: string;
 }
 
-export type ProfileModel = {
+export type ProfileModelType = {
 	first_name: string;
 	second_name: string;
 	login: string;
@@ -20,7 +20,7 @@ export type responseErrorType = {
 	status: number
 }
 
-export type loginModel = {
+export type LoginModelType = {
 	login: string,
 	password: string,
 }

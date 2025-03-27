@@ -3,6 +3,8 @@ import { Button } from '@/components';
 import { DialogType } from '@/types/dialog';
 
 export default class Dialog extends Block {
+	private errorTimeout: ReturnType<typeof setTimeout> | null = null;
+
 	constructor(props: DialogType) {
 		super('div', {
 			...props,
@@ -28,13 +30,31 @@ export default class Dialog extends Block {
 		});
 	}
 
+	public setError(message: string, timeout = 3000) {
+		this.setProps({ error: message });
+
+		if (this.errorTimeout) {
+			clearTimeout(this.errorTimeout);
+		}
+
+		this.errorTimeout = setTimeout(() => {
+			this.setProps({ error: null });
+			this.errorTimeout = null;
+		}, timeout);
+	}
+
 	public render(): string {
 		return `
 			<div class="dialog__close"></div>
 			<div class="dialog__header">
 				<h2 class="dialog__title">{{ title }}</h2>
 			</div>
-			<div class="dialog__body">{{{ Body }}}</div>
+			<div class="dialog__body">
+				{{{ Body }}}
+				<div class="error-message dialog__error">
+					{{ error }}
+				</div>
+			</div>
 			<div class="dialog__footer">
 				{{#if labelCancel}}
 					{{{ CancelButton }}}

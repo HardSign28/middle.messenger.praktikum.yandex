@@ -1,7 +1,16 @@
+import Block from '@/core/block';
 import { RouteInterface } from './Router';
 
 class Route implements RouteInterface {
-	constructor(pathname, view, props) {
+	private _pathname: string;
+
+	private _blockClass: typeof Block;
+
+	private _block: Block | null; // Укажите более конкретный тип, если возможно
+
+	private _props: { rootQuery: string };
+
+	constructor(pathname: string, view: typeof Block, props: { rootQuery: string }) {
 		this._pathname = pathname;
 		this._blockClass = view;
 		this._block = null;
@@ -21,19 +30,30 @@ class Route implements RouteInterface {
 		}
 	}
 
-	match(pathname) {
+	match(pathname: string) {
 		return pathname === this._pathname;
 	}
 
-	_renderDom(query, block) {
+	_renderDom(query: string, block: Block) {
 		const root = document.querySelector(query);
-		root.innerHTML = '';
-		root.append(block.getContent());
+
+		if (root) {
+			root.innerHTML = '';
+			const content = block.getContent();
+
+			if (content instanceof Node) {
+				root.append(content); // Безопасное добавление контента
+			} else {
+				throw new Error('Invalid content type returned by block.getContent()');
+			}
+		} else {
+			throw new Error(`Element not found for query: ${query}`);
+		}
 	}
 
 	render() {
 		if (!this._block) {
-			this._block = new this._blockClass({});
+			this._block = new this._blockClass();
 		}
 
 		// this._block.show();

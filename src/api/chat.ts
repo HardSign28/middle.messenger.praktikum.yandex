@@ -3,6 +3,7 @@ import {
 	APIError,
 } from './type';
 
+type ChatTokenResponse = { token: string };
 const chatApi = new HTTPTransport('/chats');
 
 export default class ChatApi {
@@ -14,7 +15,7 @@ export default class ChatApi {
 		return chatApi.post('', { data });
 	}
 
-	async getChatToken(id: number): Promise<void | APIError> {
+	async getChatToken(id: number): Promise<ChatTokenResponse | APIError> {
 		return chatApi.post(`/token/${id}`, { id });
 	}
 

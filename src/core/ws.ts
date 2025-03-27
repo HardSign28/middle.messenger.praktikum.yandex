@@ -1,23 +1,20 @@
 type WebSocketEvents = {
 	open?: () => void;
 	close?: (event: CloseEvent) => void;
-	message?: (data: any) => void;
+	message?: (data: unknown) => void;
 	error?: (event: Event) => void;
 };
 
 export class WSTransport {
 	private socket: WebSocket;
 
-	private url: string;
-
 	private isConnected: boolean = false;
 
 	private eventHandlers: WebSocketEvents = {};
 
-	private keepAliveInterval = null;
+	private keepAliveInterval: number | null = null;
 
 	constructor(url: string) {
-		this.url = url;
 		this.socket = new WebSocket(url);
 		this.initEventListeners();
 	}
@@ -25,7 +22,7 @@ export class WSTransport {
 	private initEventListeners() {
 		this.socket.addEventListener('open', () => {
 			this.isConnected = true;
-			console.log('Соединение установлено');
+			// console.log('Соединение установлено');
 			this.startKeepAlive();
 			if (this.eventHandlers.open) this.eventHandlers.open();
 		});
@@ -34,11 +31,11 @@ export class WSTransport {
 			this.isConnected = false;
 			this.stopKeepAlive();
 			if (event.wasClean) {
-				console.log('Соединение закрыто чисто');
+				// console.log('Соединение закрыто чисто');
 			} else {
-				console.log('Обрыв соединения');
+				// console.log('Обрыв соединения');
 			}
-			console.log(`Код: ${event.code} | Причина: ${event.reason}`);
+			// console.log(`Код: ${event.code} | Причина: ${event.reason}`);
 			if (this.eventHandlers.close) this.eventHandlers.close(event);
 		});
 
@@ -47,13 +44,13 @@ export class WSTransport {
 		});
 
 		this.socket.addEventListener('error', (event) => {
-			console.log('Ошибка', event);
+			// console.log('Ошибка', event);
 			if (this.eventHandlers.error) this.eventHandlers.error(event);
 		});
 	}
 
 	private startKeepAlive(interval: number = 30000): void {
-		this.stopKeepAlive(); // Очищаем предыдущий таймер, если он есть
+		this.stopKeepAlive();
 		this.keepAliveInterval = setInterval(() => {
 			if (this.isConnected) {
 				this.send({ type: 'ping' });
@@ -70,7 +67,7 @@ export class WSTransport {
 
 	public send(data: Record<string, unknown>): void {
 		if (!this.isConnected) {
-			console.error('Соединение WebSocket не установлено. Невозможно отправить сообщение.');
+			// console.error('Соединение WebSocket не установлено. Невозможно отправить сообщение.');
 			return;
 		}
 		this.socket.send(JSON.stringify(data));
@@ -82,9 +79,10 @@ export class WSTransport {
 		}
 	}
 
-	public on(event: keyof WebSocketEvents, handler: WebSocketEvents[keyof WebSocketEvents]) {
-		if (handler) {
-			this.eventHandlers[event] = handler;
-		}
+	public on<Event extends keyof WebSocketEvents>(
+		event: Event,
+		handler: WebSocketEvents[Event],
+	): void {
+		this.eventHandlers[event] = handler;
 	}
 }

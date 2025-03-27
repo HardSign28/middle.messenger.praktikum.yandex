@@ -2,7 +2,7 @@ import './style.scss';
 import '@/helpers/handlebars';
 import Router from '@/core/Router';
 import { ROUTER } from '@/constants';
-import { Store, StoreEvents } from '@/core/Store';
+import { Store } from '@/core/Store';
 import * as authServices from '@/services/auth';
 import * as Pages from './pages';
 
@@ -13,15 +13,6 @@ window.store = new Store({
 	changeAvatarError: null,
 	changePasswordError: null,
 	selectedFile: null,
-});
-
-store.on(StoreEvents.Updated, (prevState, newState) => {
-	if (prevState !== newState) {
-		// console.log('prevState', prevState);
-	}
-
-	// console.log('prevState', prevState);
-	// console.log('newState', newState);
 });
 
 authServices.checkLoginUser();
