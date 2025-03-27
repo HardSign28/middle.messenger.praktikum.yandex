@@ -6,6 +6,7 @@ import { DefaultProps } from '@/types/props';
 import { ROUTER } from '@/constants';
 import * as authServices from '@/services/auth';
 import { connect } from '@/utils/connect';
+import { RegisterModel } from '@/types/api';
 
 class RegisterPage extends Block {
 	constructor(props: DefaultProps) {
@@ -167,7 +168,7 @@ class RegisterPage extends Block {
 					);
 					validateAll(this.props.formState as Record<string, string>, childrenBlocks, 'login', 'password', 'first_name', 'second_name', 'phone', 'email');
 
-					authServices.register(this.props.formState);
+					authServices.register(this.props.formState as RegisterModel);
 				},
 			}),
 		});
@@ -199,7 +200,7 @@ class RegisterPage extends Block {
 	}
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: Record<string, unknown>) => ({
 	isLoading: state.isLoading,
 	registerError: state.registerError,
 });

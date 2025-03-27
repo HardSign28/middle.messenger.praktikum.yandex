@@ -12,3 +12,24 @@ export type ProfileModel = {
 	email: string;
 	password: string;
 }
+
+export type responseErrorType = {
+	data: {
+		reason: string
+	}
+	status: number
+}
+
+export type loginModel = {
+	login: string,
+	password: string,
+}
+
+export type RegisterModel = {
+	login: string,
+	password: string,
+	first_name: string,
+	second_name: string,
+	email: string,
+	phone: string,
+}
