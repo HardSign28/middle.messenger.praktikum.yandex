@@ -7,6 +7,17 @@ import { DefaultProps } from '@/types/props';
 import { DialogPasswordProps } from '@/types/dialog';
 import { connect } from '@/utils/connect';
 
+interface FormState {
+	oldPassword: string;
+	newPassword: string;
+}
+
+interface State {
+	isLoading: boolean;
+	changePasswordError: string | null;
+	user: Record<string, unknown> | null;
+}
+
 class DialogBody extends Block {
 	constructor(props: DefaultProps) {
 		super('div', {
@@ -63,7 +74,7 @@ class DialogBody extends Block {
 	}
 }
 
-const mapStateToPropsForBody = (state: AppState) => ({
+const mapStateToPropsForBody = (state: Record<string, unknown>) => ({
 	changePasswordError: state.changePasswordError,
 });
 
@@ -89,10 +100,13 @@ class DialogPassword extends Block {
 	}
 
 	getFormData() {
-		const { formState } = (this.children.Dialog.children.Body as Block).props;
+		const dialog = this.children.Dialog as Block<DefaultProps>;
+		const body = dialog.children.Body as Block;
+
+		const { formState } = body.props;
 		return {
-			oldPassword: formState?.oldPassword,
-			newPassword: formState?.newPassword,
+			oldPassword: (formState as FormState).oldPassword,
+			newPassword: (formState as FormState).newPassword,
 		};
 	}
 
@@ -103,7 +117,7 @@ class DialogPassword extends Block {
 	}
 }
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: State) => ({
 	isLoading: state.isLoading,
 	changePasswordError: state.changePasswordError,
 	userName: state.user?.name,

@@ -22,7 +22,6 @@ export const groupMessages = (
 	userId: number,
 	timeThreshold: number = 10,
 ): Record<string, MessageGroup[]> => {
-
 	const groupedByDate: Record<string, MessageGroup[]> = {};
 	let currentGroup: MessageGroup | null = null;
 
@@ -50,10 +49,10 @@ export const groupMessages = (
 
 		// Проверяем условия для начала новой группы
 		if (
-			!currentGroup ||
-			currentGroup.sender !== sender ||
-			(prevTime &&
-				(msgTime.getTime() - prevTime.getTime()) / 60000 > timeThreshold)
+			!currentGroup
+			|| currentGroup.sender !== sender
+			|| (prevTime
+				&& (msgTime.getTime() - prevTime.getTime()) / 60000 > timeThreshold)
 		) {
 			// Создаем новую группу сообщений
 			currentGroup = { sender, messages: [] };

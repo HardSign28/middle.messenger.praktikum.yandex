@@ -250,12 +250,13 @@ class ProfilePage extends Block {
 	}
 
 	onDialogUploadClose() {
-		const DialogUpload = this.children.DialogUpload;
-		const Dialog = DialogUpload.children.Dialog;
-		const Body = Dialog.children.Body;
-		const FileUpload = Body.children.FileUpload;
+		const { DialogUpload } = this.children;
+		const { Dialog } = DialogUpload.children;
+		const { Body } = Dialog.children;
+		const { FileUpload } = Body.children;
 		FileUpload.resetPreview();
 	}
+
 	componentDidMount() {
 		this.loadData(this?.props?.user as Record<string, unknown>);
 	}

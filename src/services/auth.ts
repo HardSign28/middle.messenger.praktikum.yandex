@@ -48,7 +48,7 @@ export const checkLoginUser = async () => {
 		const user = await authApi.me();
 		window.store.set({ user });
 		if (window.location.pathname === ROUTER.login || window.location.pathname === ROUTER.register) {
-			window.router.back();
+			window.router.go(ROUTER.chat);
 		}
 	} catch (responseError) {
 		if (responseError?.status === 401 && window.location.pathname !== ROUTER.register) {

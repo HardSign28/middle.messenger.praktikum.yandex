@@ -8,7 +8,8 @@ enum METHOD {
 
 type Options = {
 	method: METHOD;
-	data?: Record<string, unknown>;
+	data?: Record<string, unknown> | FormData;
+	id?: number;
 	timeout?: number;
 };
 
@@ -93,5 +94,4 @@ export class HTTPTransport {
 
 		return resultData as TResponse;
 	}
-
 }

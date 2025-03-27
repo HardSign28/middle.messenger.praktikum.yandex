@@ -4,7 +4,11 @@ import InputField from '@/components/input/inputField';
 import { validateField } from '@/utils/validateField';
 import { InputFieldProps } from '@/types/inputField';
 import { DefaultProps } from '@/types/props';
-import { DialogAddProps } from '@/types/dialog';
+import { DialogAddChatProps } from '@/types/dialog';
+
+interface FormState {
+	title: string;
+}
 
 class DialogBody extends Block {
 	constructor(props: DefaultProps) {
@@ -39,7 +43,7 @@ class DialogBody extends Block {
 }
 
 export default class DialogAddChat extends Block {
-	constructor(props: DialogAddProps) {
+	constructor(props: DialogAddChatProps) {
 		super('div', {
 			...props,
 			className: 'dialog-container',
@@ -58,9 +62,15 @@ export default class DialogAddChat extends Block {
 	}
 
 	getFormData() {
-		const { formState } = (this.children.Dialog.children.Body as Block).props;
+		const dialog = this.children.Dialog;
+
+		if (Array.isArray(dialog)) {
+			throw new Error('Unexpected structure: Dialog is an array');
+		}
+
+		const { formState } = (dialog.children.Body as Block<DefaultProps>).props;
 		return {
-			title: formState?.title,
+			title: (formState as FormState).title,
 		};
 	}
 

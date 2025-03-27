@@ -3,6 +3,11 @@ export type DialogAddProps = {
 	onCancel?: () => void;
 }
 
+export type DialogAddChatProps = {
+	onOk: (callback: unknown) => void;
+	onCancel?: () => void;
+}
+
 export type DialogRemoveProps = {
 	onOk?: () => void;
 	onCancel?: () => void;
@@ -15,7 +20,7 @@ export type DialogUploadProps = {
 }
 
 export type DialogPasswordProps = {
-	onOk?: (callback: unknown) => void;
+	onOk: (callback: unknown) => void;
 	onCancel?: () => void;
 }
 

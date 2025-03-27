@@ -48,7 +48,7 @@ class ContactCard extends Block {
 	}
 }
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: Record<string, unknown>) => ({
 	isLoading: state.isLoading,
 	user: state.user,
 });

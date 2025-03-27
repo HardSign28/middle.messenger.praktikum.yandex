@@ -1,6 +1,6 @@
 import Block from '@/core/block';
 import { ChatMessagesProps } from '@/types/chat';
-import {InputProps} from '@/types/input.ts';
+import { DefaultProps } from '@/types/props';
 
 export default class ChatMessages extends Block {
 	constructor(props: ChatMessagesProps) {
@@ -12,14 +12,13 @@ export default class ChatMessages extends Block {
 		});
 	}
 
-	static getAttributes(props: InputProps) {
+	static getAttributes(props: DefaultProps) {
 		return {
 			...(props.id ? { id: props.id } : {}),
 		};
 	}
 
 	public render(): string {
-		console.log('chatGroups', this.props.chatGroups);
 		return `
 			{{#each chatGroups }}
 				<time class="chat__messages-date">

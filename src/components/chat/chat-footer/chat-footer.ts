@@ -12,13 +12,13 @@ export default class ChatFooter extends Block {
 				className: 'chat__footer-message-input',
 				placeholder: 'Сообщение',
 				events: {
-					input: (e) => {
-						const { value } = e.target;
-						this.children.Input.setProps({
+					input: (e: InputEvent) => {
+						const { value } = e.target as HTMLInputElement;
+						(this.children.Input as Block).setProps({
 							value,
 						});
 					},
-					keydown: (e) => {
+					keydown: (e: KeyboardEvent) => {
 						if (e.key === 'Enter') {
 							// Выполняем onClick для кнопки отправки
 							this.children.SendButton.props.onClick(e);

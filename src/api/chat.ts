@@ -25,6 +25,4 @@ export default class ChatApi {
 	async changePassword(data: Record<string, string>): Promise<void | APIError> {
 		return chatApi.put('/password', { data });
 	}
-
-
 }

@@ -12,17 +12,16 @@ export function formatDateChatList(inputDate: string): string | undefined {
 
 	if (diffInMinutes < 1) {
 		return 'только что';
-	} else if (diffInMinutes < 60) {
+	} if (diffInMinutes < 60) {
 		return `${diffInMinutes} мин`;
-	} else if (isSameDay) {
+	} if (isSameDay) {
 		return `${Math.floor(diffInMinutes / 60)}ч назад`;
-	} else if (isYesterday) {
+	} if (isYesterday) {
 		return 'вчера';
-	} else {
-		const day = date.getDate().toString().padStart(2, '0');
-		const month = (date.getMonth() + 1).toString().padStart(2, '0');
-		return `${day}.${month}`;
 	}
+	const day = date.getDate().toString().padStart(2, '0');
+	const month = (date.getMonth() + 1).toString().padStart(2, '0');
+	return `${day}.${month}`;
 }
 
 export function formatDateChatMessage(inputDate: string): string | undefined {

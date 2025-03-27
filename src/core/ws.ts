@@ -7,9 +7,13 @@ type WebSocketEvents = {
 
 export class WSTransport {
 	private socket: WebSocket;
+
 	private url: string;
+
 	private isConnected: boolean = false;
+
 	private eventHandlers: WebSocketEvents = {};
+
 	private keepAliveInterval = null;
 
 	constructor(url: string) {

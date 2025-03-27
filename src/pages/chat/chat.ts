@@ -21,7 +21,6 @@ class ChatPage extends Block<ChatPageProps> {
 	private socket: WSTransport | null = null;
 
 	constructor(props: Partial<ChatPageProps>) {
-
 		super('main', {
 			...props,
 			className: 'page-chat',
@@ -105,7 +104,6 @@ class ChatPage extends Block<ChatPageProps> {
 
 					// Подключаемся к чату по WS
 					this.chatConnect(chatConnectData);
-
 
 					this.setProps({
 						...this.props,
@@ -321,7 +319,7 @@ class ChatPage extends Block<ChatPageProps> {
 	}
 }
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: Record<string, unknown>) => ({
 	isLoading: state.isLoading,
 	user: state.user,
 });
