@@ -33,7 +33,8 @@ export const groupMessages = (
 
 	messagesCopy.forEach((msg) => {
 		const msgTime = new Date(msg.time);
-		const dateKey = formatDateChatList(msgTime.toISOString().split('T')[0]); // Формат: YYYY-MM-DD
+		const rawDate = msgTime.toISOString().split('T')[0];
+		const dateKey = formatDateChatList(rawDate) || rawDate;
 		const prevTime = currentGroup
 			? new Date(currentGroup.messages[currentGroup.messages.length - 1].time)
 			: null;
@@ -62,8 +63,8 @@ export const groupMessages = (
 		// Форматируем время сообщения
 		const formattedMessage = {
 			...msg,
-			sender,
-			time: formatDateChatMessage(msg.time),
+			sender: sender as 'me' | 'other', // Приведение типа
+			time: formatDateChatMessage(msg.time) || '',
 			content: escapeHTML(msg.content), // Экранирование текста сообщения
 		};
 
