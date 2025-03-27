@@ -2,38 +2,34 @@ import { StoreEvents } from '@/core/Store';
 import { DefaultProps } from '@/types/props';
 import isEqual from './isEqual';
 
-export function connect(mapStateToProps) {
-	return function (Component) {
+type MapStateToProps<T> = (state: Record<string, unknown>) => Partial<T>;
+
+export function connect<T extends DefaultProps>(mapStateToProps: MapStateToProps<T>) {
+	return function <P extends T & DefaultProps> (
+		Component: new (props: P) => {
+			setProps: (nextProps: Partial<P>) => void;
+		},
+	) {
 		return class extends Component {
 			private onChangeStoreCallback: () => void;
 
-			constructor(props: DefaultProps) {
+			constructor(props: P) {
 				const { store } = window;
-				// сохраняем начальное состояние
 				let state = mapStateToProps(store.getState());
 
 				super({ ...props, ...state });
 
 				this.onChangeStoreCallback = () => {
-					// при обновлении получаем новое состояние
 					const newState = mapStateToProps(store.getState());
 
-					// если что-то из используемых данных поменялось, обновляем компонент
 					if (!isEqual(state, newState)) {
-						this.setProps({ ...newState });
+						this.setProps({ ...newState } as Partial<P>);
 					}
 
-					// не забываем сохранить новое состояние
 					state = newState;
 				};
 
-				// подписываемся на событие
 				store.on(StoreEvents.Updated, this.onChangeStoreCallback);
-			}
-
-			componentWillUnmount() {
-				super.componentWillUnmount();
-				window.store.off(StoreEvents.Updated, this.onChangeStoreCallback);
 			}
 		};
 	};
