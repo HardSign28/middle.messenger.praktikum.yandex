@@ -29,7 +29,7 @@ export default class ChatMessages extends Block {
 					<article class="chat__message-group chat__message-group--{{ sender }}">
 						{{#each messages }}
 							<div class="chat__message chat__message--{{ sender }} {{#if img }}chat__message_img{{/if}}">
-								{{{ content }}}
+								{{ content }}
 								<div class="chat__message-meta">
 									{{#if (eq sender 'me') }}
 										{{#if is_read }}
