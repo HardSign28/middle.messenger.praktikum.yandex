@@ -12,12 +12,6 @@ interface FormState {
 	newPassword: string;
 }
 
-interface State {
-	isLoading: boolean;
-	changePasswordError: string | null;
-	user: Record<string, unknown> | null;
-}
-
 class DialogBody extends Block {
 	constructor(props: DefaultProps) {
 		super('div', {
@@ -117,10 +111,9 @@ class DialogPassword extends Block {
 	}
 }
 
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = (state: Record<string, unknown>) => ({
 	isLoading: state.isLoading,
 	changePasswordError: state.changePasswordError,
-	userName: state.user?.name,
 });
 
 export default connect(mapStateToProps)(DialogPassword);
