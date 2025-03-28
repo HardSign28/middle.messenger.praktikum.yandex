@@ -68,3 +68,17 @@ export const deleteChat = async (chatId: number) => {
 		window.store.set({ isLoading: false });
 	}
 };
+
+export const findChatUser = async (login: string) => {
+	if (!login) return undefined;
+	window.store.set({ isLoading: true });
+	try {
+		return await chatApi.findChatUser({ login });
+	} catch (responseError) {
+		const { data } = responseError as { data: { reason: string } };
+		window.store.set({ deleteChatError: data?.reason });
+		throw responseError;
+	} finally {
+		window.store.set({ isLoading: false });
+	}
+};

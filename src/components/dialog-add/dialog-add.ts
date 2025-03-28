@@ -14,7 +14,6 @@ class DialogBody extends Block {
 			formState: {
 				login: '',
 			},
-			userName: props.userName || '',
 			InputLogin: new InputField({
 				label: 'Логин',
 				class: 'mb-20',
@@ -47,11 +46,27 @@ export default class DialogAdd extends Block {
 				title: 'Добавить пользователя',
 				labelOk: 'Добавить',
 				labelCancel: 'Отмена',
-				onOk: props.onOk,
+				onOk: () => {
+					const formData = this.getFormData();
+					props.onOk(formData);
+				},
 				onCancel: props.onCancel,
 				Body: new DialogBody(props),
 			}),
 		});
+	}
+
+	getFormData() {
+		const dialog = this.children.Dialog;
+
+		if (Array.isArray(dialog)) {
+			throw new Error('Unexpected structure: Dialog is an array');
+		}
+
+		const { formState } = (dialog.children.Body as Block<DefaultProps>).props;
+		return {
+			login: (formState as FormState).login,
+		};
 	}
 
 	public render(): string {

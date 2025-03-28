@@ -23,6 +23,10 @@ export default class ChatApi {
 		return chatApi.get(`/${id}/users`);
 	}
 
+	async findChatUser(data): Promise<void | APIError> {
+		return chatApi.post('/search', { data });
+	}
+
 	async deleteChat(data): Promise<void | APIError> {
 		return chatApi.delete('', { data });
 	}

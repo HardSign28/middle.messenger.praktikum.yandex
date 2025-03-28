@@ -20,7 +20,7 @@ export type MessageGroup = {
 };
 
 export type ChatHeaderProps = {
-	onUserAddClick?: () => void;
+	onUserAddClick?: (login: string) => void;
 	onUserDeleteClick?: () => void;
 	onUserDeleteChatClick?: (chatId: number) => void;
 	activeChatImg?: string;

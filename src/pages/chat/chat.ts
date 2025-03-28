@@ -48,9 +48,11 @@ class ChatPage extends Block {
 
 			ChatHeader: new ChatHeader({
 				onUserAddClick: () => {
+					/*
 					(this.children.DialogAdd as Block).setProps({
 						userName: 'ADD',
 					});
+					*/
 					this.setProps({
 						...this.props,
 						showDialog: 'add',
@@ -153,7 +155,8 @@ class ChatPage extends Block {
 				},
 			}),
 			DialogAdd: new DialogAdd({
-				onOk: () => {
+				onOk: (login) => {
+					console.log('login', login);
 					this.setProps({
 						...this.props,
 						showDialog: null,

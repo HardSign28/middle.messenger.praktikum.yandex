@@ -1,5 +1,5 @@
 export type DialogAddProps = {
-	onOk?: () => void;
+	onOk?: (callback: unknown) => void;
 	onCancel?: () => void;
 }
 
