@@ -19,6 +19,7 @@ export default class ChatHeader extends Block {
 					}
 				},
 			},
+			chatUsers: [],
 			Avatar: new Avatar({
 				class: 'chat__header-avatar',
 				imgUrl: props.activeChatImg,
@@ -43,10 +44,14 @@ export default class ChatHeader extends Block {
 							<i class="chat__menu__icon _add"></i>
 							Добавить пользователя
 						</li>
-						<li class="chat__menu__list-item js_dialog-delete">
-							<i class="chat__menu__icon _delete"></i>
-							Удалить пользователя
+						{{#each chatUsers }}
+						<li class="chat__menu__list-item">
+							<img class="chat__menu__list-item-img" src="https://ya-praktikum.tech/api/v2/resources{{ avatar }}">
+							{{ first_name }}
+							<i class="chat__menu__icon _delete js_dialog-delete"></i>
 						</li>
+						{{/each}}
+						
 					</ul>
 				</div>
 			</div>

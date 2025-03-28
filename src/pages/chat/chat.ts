@@ -100,7 +100,13 @@ class ChatPage extends Block {
 
 					// Получаем список участников чата
 					try {
-						await chatServices.getChatUsers(Number(selectedContact?.id));
+						const chatUsers = await chatServices.getChatUsers(Number(selectedContact?.id));
+						console.log('chatUsers', chatUsers);
+						(this.children.ChatHeader as Block).setProps({
+							chatUsers,
+							// name: selectedContactName,
+							// activeChatImg: (this.props.contacts as Contact[] | undefined)?.[index]?.avatar,
+						});
 					} catch (error) {
 						throw new Error(`Ошибка getChatUsers: ${error}}`);
 					}
