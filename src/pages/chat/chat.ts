@@ -16,6 +16,7 @@ import { ROUTER } from '@/constants';
 import * as chatServices from '@/services/chat';
 import { WSTransport } from '@/core/ws';
 import { connect } from '@/utils/connect';
+import * as authServices from '@/services/auth';
 
 class ChatPage extends Block {
 	private socket: WSTransport | null = null;
@@ -278,6 +279,11 @@ class ChatPage extends Block {
 			content: message,
 			type: 'message',
 		});
+	}
+
+	// TODO: костыль, поправить
+	componentDidMount() {
+		authServices.checkLoginUser();
 	}
 
 	public render(): string {

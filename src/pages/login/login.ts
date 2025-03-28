@@ -27,13 +27,18 @@ class LoginPage extends Block {
 				onChange: (e: InputEvent) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'login');
-					(this.children.InputLogin as Block).setProps({ error });
+					(this.children.InputLogin as Block).setProps({
+						error,
+						value,
+					});
+					/*
 					this.setProps({
 						formState: {
 							...this.props.formState ?? {},
 							login: value,
 						},
 					});
+					*/
 				},
 			}),
 			InputPassword: new InputField({
@@ -45,14 +50,17 @@ class LoginPage extends Block {
 					const error = validateField(value, 'password');
 					(this.children.InputPassword as Block).setProps({
 						error,
+						value,
 					});
 
+					/*
 					this.setProps({
 						formState: {
 							...this.props.formState ?? {},
 							password: value,
 						},
 					});
+					*/
 				},
 			}),
 			SignInButton: new Button({
@@ -68,7 +76,20 @@ class LoginPage extends Block {
 							.filter(([_, child]) => !Array.isArray(child))
 							.map(([key, child]) => [key, child as Block]),
 					);
-					validateAll(this.props.formState as Record<string, string>, childrenBlocks, 'login', 'password');
+
+					const formData = {
+						login: (this.children.InputLogin as Block).props.value,
+						password: (this.children.InputPassword as Block).props.value,
+					};
+
+					validateAll(formData as Record<string, string>, childrenBlocks, 'login', 'password');
+					const formDataErrors = [
+						!!(this.children.InputLogin as Block).props.error.length,
+						!!(this.children.InputPassword as Block).props.error.length,
+					];
+
+					// Если есть ошибки в форме - не отправляем запрос
+					if (formDataErrors.some(Boolean)) return;
 
 					authServices.login(this.props.formState as LoginModelType);
 				},

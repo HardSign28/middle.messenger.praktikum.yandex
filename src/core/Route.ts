@@ -6,7 +6,7 @@ class Route implements RouteInterface {
 
 	private _blockClass: typeof Block;
 
-	private _block: Block | null; // Укажите более конкретный тип, если возможно
+	private _block: Block | null;
 
 	private _props: { rootQuery: string };
 
