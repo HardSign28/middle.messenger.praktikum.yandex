@@ -91,7 +91,7 @@ class LoginPage extends Block {
 					// Если есть ошибки в форме - не отправляем запрос
 					if (formDataErrors.some(Boolean)) return;
 
-					authServices.login(this.props.formState as LoginModelType);
+					authServices.login(formData as LoginModelType);
 				},
 			}),
 			SignUpButton: new Button({

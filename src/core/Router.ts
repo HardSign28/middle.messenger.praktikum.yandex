@@ -9,7 +9,7 @@ export interface RouteInterface {
 class Router {
 	public routes: RouteInterface[] = [];
 
-	constructor(rootQuery) {
+	constructor(rootQuery: string) {
 		if (Router.__instance) {
 			return Router.__instance;
 		}
@@ -22,20 +22,20 @@ class Router {
 		Router.__instance = this;
 	}
 
-	use(pathname, block) {
+	use(pathname: string, block: unknown) {
 		const route = new Route(pathname, block, { rootQuery: this._rootQuery });
 		this.routes.push(route);
 		return this;
 	}
 
 	start() {
-		window.onpopstate = ((event) => {
+		window.onpopstate = ((event: PopStateEvent) => {
 			this._onRoute(event.currentTarget.location.pathname);
 		});
 		this._onRoute(window.location.pathname);
 	}
 
-	_onRoute(pathname) {
+	_onRoute(pathname: string) {
 		const route = this.getRoute(pathname);
 
 		if (!route) {
@@ -50,7 +50,7 @@ class Router {
 		route.render(route, pathname);
 	}
 
-	go(pathname) {
+	go(pathname: string) {
 		this.history.pushState({}, '', pathname);
 		this._onRoute(pathname);
 	}

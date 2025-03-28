@@ -186,7 +186,7 @@ class ChatPage extends Block {
 				label: 'Создать чат',
 				type: 'outline-primary',
 				size: 'xs',
-				class: 'mb-10',
+				class: 'mb-10 mt-10',
 				onClick: () => {
 					this.setProps({
 						...this.props,
