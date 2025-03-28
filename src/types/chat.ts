@@ -27,6 +27,7 @@ export type ChatHeaderProps = {
 }
 
 export type ChatMessagesProps = {
+	id?: string;
 	chatGroups?: [],
 	messages?: [],
 }

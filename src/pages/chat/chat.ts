@@ -73,7 +73,7 @@ class ChatPage extends Block {
 					});
 				},
 			}),
-			ChatMessages: new ChatMessages({}),
+			ChatMessages: new ChatMessages({ id: 'js_chatMessages' }),
 			ListContacts: new ListContacts({
 				onSelectContact: async (index) => {
 					const selectedContact = (this.props.contacts as Contact[] | undefined)?.[index];
@@ -221,7 +221,7 @@ class ChatPage extends Block {
 	}
 
 	scrollChatToBottom() {
-		const chatMessages = document.getElementById('test');
+		const chatMessages = document.getElementById('js_chatMessages');
 		if (chatMessages) {
 			chatMessages.scrollTop = chatMessages.scrollHeight;
 		}
@@ -301,7 +301,7 @@ class ChatPage extends Block {
 				{{{ AddChat }}}
 				{{{ ListContacts }}}
 			</aside>
-			<section id="js_chatMessages" class="chat__content {{#if hasActiveContact }}chat__content_bg{{/if }}">
+			<section class="chat__content {{#if hasActiveContact }}chat__content_bg{{/if }}">
 				{{#if hasActiveContact }}
 					{{{ ChatHeader }}}
 					{{{ ChatMessages }}}
