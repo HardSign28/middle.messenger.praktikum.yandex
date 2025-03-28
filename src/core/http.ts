@@ -50,7 +50,7 @@ export class HTTPTransport {
 	}
 
 	delete(url: string, options: OptionsWithoutMethod = {}) {
-		return this.request(url, { ...options, method: METHOD.DELETE });
+		return this.request(`${this.apiUrl}${url}`, { ...options, method: METHOD.DELETE });
 	}
 
 	patch(url: string, options: OptionsWithoutMethod = {}) {

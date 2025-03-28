@@ -22,6 +22,7 @@ export type MessageGroup = {
 export type ChatHeaderProps = {
 	onUserAddClick?: () => void;
 	onUserDeleteClick?: () => void;
+	onUserDeleteChatClick?: (chatId: number) => void;
 	activeChatImg?: string;
 	name?: string;
 }

@@ -17,6 +17,13 @@ export default class ChatHeader extends Block {
 					if (target.classList.contains('js_dialog-delete') && typeof this.props.onUserDeleteClick === 'function') {
 						this.props.onUserDeleteClick?.();
 					}
+					if (target.classList.contains('js_dialog-delete-chat') && typeof this.props.onUserDeleteClick === 'function') {
+						if (this.props?.chatId) {
+							this.props.onUserDeleteChatClick?.(this.props?.chatId);
+						} else {
+							throw new Error('Не удалось удалить чат');
+						}
+					}
 				},
 			},
 			chatUsers: [],
@@ -51,7 +58,10 @@ export default class ChatHeader extends Block {
 							<i class="chat__menu__icon _delete js_dialog-delete"></i>
 						</li>
 						{{/each}}
-						
+						<li class="chat__menu__list-item">
+							Удалить чат
+							<i class="chat__menu__icon _delete js_dialog-delete-chat"></i>
+						</li>
 					</ul>
 				</div>
 			</div>

@@ -62,6 +62,13 @@ class ChatPage extends Block {
 						showDialog: 'remove',
 					});
 				},
+				onUserDeleteChatClick: async (chatId) => {
+					if (chatId) {
+						await chatServices.deleteChat(chatId);
+					} else {
+						throw new Error('Не удалось удалить чат');
+					}
+				},
 			}),
 			ChatFooter: new ChatFooter({
 				onSendButtonClick: (message: string) => {
@@ -101,9 +108,9 @@ class ChatPage extends Block {
 					// Получаем список участников чата
 					try {
 						const chatUsers = await chatServices.getChatUsers(Number(selectedContact?.id));
-						console.log('chatUsers', chatUsers);
 						(this.children.ChatHeader as Block).setProps({
 							chatUsers,
+							chatId: Number(selectedContact?.id),
 							// name: selectedContactName,
 							// activeChatImg: (this.props.contacts as Contact[] | undefined)?.[index]?.avatar,
 						});
