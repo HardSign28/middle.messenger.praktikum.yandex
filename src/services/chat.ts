@@ -55,11 +55,11 @@ export const getChatUsers = async (id: number) => {
 	}
 };
 
-export const deleteChat = async (chatId: number) => {
-	if (!chatId) return undefined;
+export const addChatUsers = async (userData: Record<string, unknown>) => {
+	if (!userData) return undefined;
 	window.store.set({ isLoading: true });
 	try {
-		return await chatApi.deleteChat({ chatId });
+		return await chatApi.addChatUsers(userData);
 	} catch (responseError) {
 		const { data } = responseError as { data: { reason: string } };
 		window.store.set({ deleteChatError: data?.reason });
@@ -69,11 +69,11 @@ export const deleteChat = async (chatId: number) => {
 	}
 };
 
-export const findChatUser = async (login: string) => {
-	if (!login) return undefined;
+export const deleteChat = async (chatId: number) => {
+	if (!chatId) return undefined;
 	window.store.set({ isLoading: true });
 	try {
-		return await chatApi.findChatUser({ login });
+		return await chatApi.deleteChat({ chatId });
 	} catch (responseError) {
 		const { data } = responseError as { data: { reason: string } };
 		window.store.set({ deleteChatError: data?.reason });

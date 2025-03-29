@@ -41,3 +41,17 @@ export const changePassword = async (model: PasswordModelType) => {
 		window.store.set({ isLoading: false });
 	}
 };
+
+export const findChatUser = async (login: Record<string, string>) => {
+	if (!login) return undefined;
+	window.store.set({ isLoading: true });
+	try {
+		return await usersApi.findChatUser(login);
+	} catch (responseError) {
+		const { data } = responseError as { data: { reason: string } };
+		window.store.set({ deleteChatError: data?.reason });
+		throw responseError;
+	} finally {
+		window.store.set({ isLoading: false });
+	}
+};

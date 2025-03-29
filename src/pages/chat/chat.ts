@@ -30,6 +30,7 @@ class ChatPage extends Block {
 			activeContactIndex: -1,
 			hasActiveContact: false,
 			showDialog: null,
+			selectedChatId: null,
 			ChatSearch: new ChatSearch({
 				label: 'Поиск',
 				type: 'outline-primary',
@@ -66,7 +67,9 @@ class ChatPage extends Block {
 				},
 				onUserDeleteChatClick: async (chatId) => {
 					if (chatId) {
+						// TODO: Добавить модалку подтверждение
 						await chatServices.deleteChat(chatId);
+						await this.fetchChats();
 					} else {
 						throw new Error('Не удалось удалить чат');
 					}
@@ -129,10 +132,6 @@ class ChatPage extends Block {
 						hasActiveContact: index >= 0,
 					});
 
-					(this.children.DialogRemove as Block).setProps({
-						userName: selectedContactName,
-					});
-
 					(this.children.ChatHeader as Block).setProps({
 						name: selectedContactName,
 						activeChatImg: (this.props.contacts as Contact[] | undefined)?.[index]?.avatar,
@@ -140,7 +139,6 @@ class ChatPage extends Block {
 				},
 			}),
 			DialogRemove: new DialogRemove({
-				userName: 'Иоанн',
 				onOk: () => {
 					this.setProps({
 						...this.props,
@@ -155,8 +153,18 @@ class ChatPage extends Block {
 				},
 			}),
 			DialogAdd: new DialogAdd({
-				onOk: (login) => {
-					console.log('login', login);
+				onOk: async (userId: number) => {
+					const addUserData = {
+						users: [userId],
+						chatId: this.props.selectedChatId,
+					};
+
+					await chatServices.addChatUsers(addUserData);
+					const chatUsers = await chatServices.getChatUsers(Number(this.props.selectedChatId));
+					(this.children.ChatHeader as Block).setProps({
+						chatUsers,
+					});
+					// TODO: Обновить список пользователей
 					this.setProps({
 						...this.props,
 						showDialog: null,
@@ -173,6 +181,7 @@ class ChatPage extends Block {
 				onOk: async (formData) => {
 					try {
 						await chatServices.createChat(formData as CreateChatData);
+						await this.fetchChats();
 						this.setProps({
 							...this.props,
 							showDialog: null,
@@ -242,6 +251,11 @@ class ChatPage extends Block {
 	 */
 	async chatConnect({ userId, chatId, token }:{ userId: number, chatId: number, token:string }) {
 		if (!userId || !chatId || !token) return;
+
+		this.setProps({
+			...this.props,
+			selectedChatId: chatId,
+		});
 
 		this.socket = new WSTransport(
 			`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`,

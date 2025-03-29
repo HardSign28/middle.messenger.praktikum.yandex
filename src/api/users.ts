@@ -22,4 +22,8 @@ export default class UsersApi {
 	async changePassword(data: PasswordModelType): Promise<void | APIError> {
 		return usersApi.put('/password', { data });
 	}
+
+	async findChatUser(data: Record<string, string>): Promise<void | APIError> {
+		return usersApi.post('/search', { data });
+	}
 }

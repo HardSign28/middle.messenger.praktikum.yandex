@@ -59,4 +59,20 @@
     min-height: 14px;
     line-height: 14px;
   }
+
+  .user-list {
+    max-height: 200px;
+    overflow-y: scroll;
+
+    &__item {
+      display: flex;
+      gap: 20px;
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--color-border);
+
+      &-radio {
+        margin-left: -20px;
+      }
+    }
+  }
 }

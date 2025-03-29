@@ -8,7 +8,7 @@ enum METHOD {
 
 type Options = {
 	method: METHOD;
-	data?: Record<string, unknown> | FormData;
+	data?: string | number | Record<string, unknown> | FormData;
 	id?: number;
 	timeout?: number;
 };
@@ -49,7 +49,10 @@ export class HTTPTransport {
 		return this.request<TResponse>(`${this.apiUrl}${url}`, { ...options, method: METHOD.PUT });
 	}
 
-	delete(url: string, options: OptionsWithoutMethod = {}) {
+	delete<TResponse>(
+		url: string,
+		options: OptionsWithoutMethod = {},
+	): Promise<TResponse> {
 		return this.request(`${this.apiUrl}${url}`, { ...options, method: METHOD.DELETE });
 	}
 

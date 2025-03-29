@@ -1,4 +1,5 @@
 import { HTTPTransport } from '@/core/http';
+
 import {
 	APIError,
 } from './type';
@@ -23,11 +24,11 @@ export default class ChatApi {
 		return chatApi.get(`/${id}/users`);
 	}
 
-	async findChatUser(data): Promise<void | APIError> {
-		return chatApi.post('/search', { data });
+	async addChatUsers(data: Record<string, unknown>): Promise<void | APIError> {
+		return chatApi.put('/users', { data });
 	}
 
-	async deleteChat(data): Promise<void | APIError> {
+	async deleteChat(data: Record<string, number>): Promise<void | APIError> {
 		return chatApi.delete('', { data });
 	}
 }
