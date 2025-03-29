@@ -31,14 +31,6 @@ class LoginPage extends Block {
 						error,
 						value,
 					});
-					/*
-					this.setProps({
-						formState: {
-							...this.props.formState ?? {},
-							login: value,
-						},
-					});
-					*/
 				},
 			}),
 			InputPassword: new InputField({
@@ -52,15 +44,6 @@ class LoginPage extends Block {
 						error,
 						value,
 					});
-
-					/*
-					this.setProps({
-						formState: {
-							...this.props.formState ?? {},
-							password: value,
-						},
-					});
-					*/
 				},
 			}),
 			SignInButton: new Button({
@@ -84,8 +67,10 @@ class LoginPage extends Block {
 
 					validateAll(formData as Record<string, string>, childrenBlocks, 'login', 'password');
 					const formDataErrors = [
-						!!(this.children.InputLogin as Block).props.error.length,
-						!!(this.children.InputPassword as Block).props.error.length,
+						!!(this.children.InputLogin as unknown as Block<{ error: string }>)
+							.props?.error?.length,
+						!!(this.children.InputPassword as unknown as Block<{ error: string }>)
+							.props?.error?.length,
 					];
 
 					// Если есть ошибки в форме - не отправляем запрос

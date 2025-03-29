@@ -11,7 +11,12 @@ import {
 } from '@/components';
 import { groupMessages } from '@/utils/groupMessages';
 import Block from '@/core/block';
-import { ChatPageProps, Contact, CreateChatData } from '@/types/chat';
+import {
+	ChatPageProps,
+	Contact,
+	CreateChatData,
+	Message,
+} from '@/types/chat';
 import { ROUTER } from '@/constants';
 import * as chatServices from '@/services/chat';
 import { WSTransport } from '@/core/ws';
@@ -90,8 +95,11 @@ class ChatPage extends Block {
 				onSelectContact: async (index) => {
 					const selectedContact = (this.props.contacts as Contact[] | undefined)?.[index];
 					const selectedContactName = selectedContact?.title;
+
+					const user = this.props?.user as { id: number };
+					const userId = user?.id;
 					const chatConnectData = {
-						userId: this.props.user.id,
+						userId,
 						chatId: Number(selectedContact?.id),
 						token: '',
 					};
@@ -271,21 +279,21 @@ class ChatPage extends Block {
 
 		this.socket.on('message', async (data) => {
 			// await this.fetchChats(); // Скачет чат
-			const newMessage = JSON.parse(data);
+			const newMessage = JSON.parse(data as string);
 
 			if (!Array.isArray(newMessage) && newMessage?.type !== 'message') return;
 
 			this.setProps({
 				...this.props,
 				messages: [
-					...(this.props.messages || []),
+					...(this.props?.messages || []) as Message[],
 					...(Array.isArray(newMessage) ? newMessage : [newMessage]),
 				],
 			});
 
 			(this.children.ChatMessages as Block).setProps({
 				// TODO: JSON.parse в try/catch
-				chatGroups: groupMessages(this.props.messages, this.props.user.id),
+				chatGroups: groupMessages((this.props?.messages as Message[]), userId),
 			});
 
 			this.scrollChatToBottom();

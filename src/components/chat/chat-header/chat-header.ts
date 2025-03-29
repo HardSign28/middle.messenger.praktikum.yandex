@@ -18,7 +18,7 @@ export default class ChatHeader extends Block {
 						this.props.onUserDeleteClick?.();
 					}
 					if (target.classList.contains('js_dialog-delete-chat') && typeof this.props.onUserDeleteClick === 'function') {
-						if (this.props?.chatId) {
+						if (this.props?.chatId && typeof this.props?.onUserDeleteChatClick === 'function') {
 							this.props.onUserDeleteChatClick?.(this.props?.chatId);
 						} else {
 							throw new Error('Не удалось удалить чат');
