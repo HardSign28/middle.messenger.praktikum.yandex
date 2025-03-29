@@ -2,10 +2,12 @@ import Block from '@/core/block';
 import { Dialog } from '@/components';
 import InputField from '@/components/input/inputField';
 import { validateField } from '@/utils/validateField';
-import { InputFieldProps } from '@/types/inputField';
 import { DefaultProps } from '@/types/props';
 import { DialogAddProps } from '@/types/dialog';
 
+interface FormState {
+	login: string;
+}
 class DialogBody extends Block {
 	constructor(props: DefaultProps) {
 		super('div', {
@@ -20,7 +22,7 @@ class DialogBody extends Block {
 				onChange: (e: InputEvent) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'login');
-					(this.children.InputLogin as Block<InputFieldProps>).setProps({ error });
+					(this.children.InputLogin as Block).setProps({ error });
 					this.setProps({
 						formState: {
 							...this.props.formState ?? {},
@@ -63,7 +65,7 @@ export default class DialogAdd extends Block {
 			throw new Error('Unexpected structure: Dialog is an array');
 		}
 
-		const { formState } = (dialog.children.Body as Block<DefaultProps>).props;
+		const { formState } = (dialog.children.Body as Block).props;
 		return {
 			login: (formState as FormState).login,
 		};

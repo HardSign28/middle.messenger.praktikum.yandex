@@ -1,3 +1,4 @@
+import Block from '@/core/block';
 import Route from './Route';
 
 export interface RouteInterface {
@@ -8,6 +9,15 @@ export interface RouteInterface {
 
 class Router {
 	public routes: RouteInterface[] = [];
+
+	private history: History | undefined;
+
+	private _rootQuery!: string;
+
+	private _currentRoute: RouteInterface | null = null;
+
+	// eslint-disable-next-line no-use-before-define
+	private static __instance: Router | null = null;
 
 	constructor(rootQuery: string) {
 		if (Router.__instance) {
@@ -22,16 +32,21 @@ class Router {
 		Router.__instance = this;
 	}
 
-	use(pathname: string, block: unknown) {
-		const route = new Route(pathname, block, { rootQuery: this._rootQuery });
+	use(pathname: string, block: typeof Block) {
+		const route = new Route(pathname, block, {
+			rootQuery: this._rootQuery,
+		});
 		this.routes.push(route);
 		return this;
 	}
 
 	start() {
-		window.onpopstate = ((event: PopStateEvent) => {
-			this._onRoute(event.currentTarget.location.pathname);
-		});
+		window.onpopstate = (event: PopStateEvent) => {
+			const currentTarget = event.currentTarget as Window | null;
+			if (currentTarget) {
+				this._onRoute(currentTarget.location.pathname);
+			}
+		};
 		this._onRoute(window.location.pathname);
 	}
 
@@ -47,20 +62,32 @@ class Router {
 		}
 
 		this._currentRoute = route;
-		route.render(route, pathname);
+		route.render();
 	}
 
 	go(pathname: string) {
-		this.history.pushState({}, '', pathname);
+		if (this.history) {
+			this.history.pushState({}, '', pathname);
+		} else {
+			throw new Error('History is undefined');
+		}
 		this._onRoute(pathname);
 	}
 
 	back() {
-		this.history.back();
+		if (this.history) {
+			this.history.back();
+		} else {
+			throw new Error('History is undefined');
+		}
 	}
 
 	forward() {
-		this.history.forward();
+		if (this.history) {
+			this.history.forward();
+		} else {
+			throw new Error('History is undefined');
+		}
 	}
 
 	getRoute(pathname: string) {

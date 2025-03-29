@@ -94,7 +94,7 @@ class DialogPassword extends Block {
 	}
 
 	getFormData() {
-		const dialog = this.children.Dialog as Block<DefaultProps>;
+		const dialog = this.children.Dialog as Block;
 		const body = dialog.children.Body as Block;
 
 		const { formState } = body.props;

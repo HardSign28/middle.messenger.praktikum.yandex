@@ -39,7 +39,7 @@ export default class ListContacts extends Block {
 				? newProps.contacts.map((contact, index: number) => this.createContactCard(contact, index))
 				: [];
 
-			this.children.contactComponents = newContactComponents as unknown as Block<DefaultProps>[];
+			this.children.contactComponents = newContactComponents as unknown as Block[];
 			this.setProps({
 				contactComponents: newContactComponents,
 			});
@@ -51,8 +51,8 @@ export default class ListContacts extends Block {
 		const { activeContactIndex } = this.props;
 		const { contactComponents } = this.children;
 
-		(contactComponents as Block<DefaultProps>[] ?? [])
-			.forEach((contact: Block<DefaultProps>, index: number) => {
+		(contactComponents as Block[] ?? [])
+			.forEach((contact: Block, index: number) => {
 				if (index === activeContactIndex) {
 					contact.setProps({ active: true });
 					return;

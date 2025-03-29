@@ -8,9 +8,7 @@ type MapStateToProps<PropsFromState> = (state: Record<string, unknown>) => Parti
 export function connect<PropsFromState>(
 	mapStateToProps: MapStateToProps<PropsFromState>,
 ) {
-	return function <
-		ComponentProps extends DefaultProps, // Свойства компонента должны включать состояние
-	> (
+	return function <ComponentProps extends DefaultProps> (
 		Component: new (props: ComponentProps) => Block,
 	) {
 		return class extends Component {

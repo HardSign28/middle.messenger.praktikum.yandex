@@ -8,7 +8,7 @@ export default class Block<P extends DefaultProps = DefaultProps> {
 	// eslint-disable-next-line no-use-before-define
 	children: Record<string, Block<DefaultProps> | Block<DefaultProps>[]> = {};
 
-	static EVENTS = {
+	static EVENTS: Record<string, string> = {
 		INIT: 'init',
 		FLOW_CDM: 'flow:component-did-mount',
 		FLOW_CDU: 'flow:component-did-update',

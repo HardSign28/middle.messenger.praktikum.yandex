@@ -68,7 +68,7 @@ export default class DialogAddChat extends Block {
 			throw new Error('Unexpected structure: Dialog is an array');
 		}
 
-		const { formState } = (dialog.children.Body as Block<DefaultProps>).props;
+		const { formState } = (dialog.children.Body as Block).props;
 		return {
 			title: (formState as FormState).title,
 		};
