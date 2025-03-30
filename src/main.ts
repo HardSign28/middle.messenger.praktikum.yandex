@@ -5,6 +5,7 @@ import { ROUTER } from '@/constants';
 import { Store } from '@/core/Store';
 import * as authServices from '@/services/auth';
 import Block from '@/core/block';
+import { Alert } from '@/components';
 import * as Pages from './pages';
 
 window.store = new Store({
@@ -17,6 +18,9 @@ window.store = new Store({
 });
 
 authServices.checkLoginUser();
+
+const alert = new Alert({});
+document.body.appendChild(alert.getContent()!);
 
 const APP_ROOT_ELEMENT = '#app';
 window.router = new Router(APP_ROOT_ELEMENT);

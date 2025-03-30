@@ -15,3 +15,4 @@ export { ChatSearch } from './chat/chat-search';
 export { ChatHeader } from './chat/chat-header';
 export { ChatFooter } from './chat/chat-footer';
 export { ChatMessages } from './chat/chat-messages';
+export { Alert } from './alert';

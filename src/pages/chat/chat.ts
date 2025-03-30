@@ -54,11 +54,6 @@ class ChatPage extends Block {
 
 			ChatHeader: new ChatHeader({
 				onUserAddClick: () => {
-					/*
-					(this.children.DialogAdd as Block).setProps({
-						userName: 'ADD',
-					});
-					*/
 					this.setProps({
 						...this.props,
 						showDialog: 'add',
@@ -124,8 +119,6 @@ class ChatPage extends Block {
 						(this.children.ChatHeader as Block).setProps({
 							chatUsers,
 							chatId: Number(selectedContact?.id),
-							// name: selectedContactName,
-							// activeChatImg: (this.props.contacts as Contact[] | undefined)?.[index]?.avatar,
 						});
 					} catch (error) {
 						throw new Error(`Ошибка getChatUsers: ${error}}`);
@@ -172,7 +165,6 @@ class ChatPage extends Block {
 					(this.children.ChatHeader as Block).setProps({
 						chatUsers,
 					});
-					// TODO: Обновить список пользователей
 					this.setProps({
 						...this.props,
 						showDialog: null,

@@ -1,0 +1,44 @@
+.alert {
+  &__wrapper {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 11px 15px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 400;
+  background: var(--color-white);
+  box-shadow: 0 5px 10px var(--chat-default-shadow);
+  max-width: 440px;
+
+  &__close {
+    display: contents;
+
+    svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+
+      * {
+        stroke: var(--color-white);
+      }
+    }
+  }
+}
+
+.alert--success {
+  background: var(--success-color);
+}
+
+.alert--error {
+  background: var(--error-color);
+}

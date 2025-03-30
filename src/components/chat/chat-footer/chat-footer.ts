@@ -33,6 +33,7 @@ export default class ChatFooter extends Block {
 					e.preventDefault();
 					const input = this.children.Input as Block<InputProps>;
 					const message = input.props.value || '';
+					if (!message) return;
 					if (typeof this.props.onSendButtonClick === 'function') {
 						this.props.onSendButtonClick(message);
 					}
