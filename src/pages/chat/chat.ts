@@ -59,7 +59,12 @@ class ChatPage extends Block {
 						showDialog: 'add',
 					});
 				},
-				onUserDeleteClick: () => {
+				onUserDeleteClick: (userName: string) => {
+					(this.children.DialogRemove).children.Dialog.children.Body.setProps({
+						userId: 1,
+						userName,
+					});
+
 					this.setProps({
 						...this.props,
 						showDialog: 'remove',
@@ -140,7 +145,18 @@ class ChatPage extends Block {
 				},
 			}),
 			DialogRemove: new DialogRemove({
-				onOk: () => {
+				onOk: async (userId: number) => {
+					if (!userId) return;
+					// Удаляем пользователя из чата
+					const deleteUserData = {
+						users: [userId],
+						chatId: this.props.selectedChatId,
+					};
+					await chatServices.deleteChatUsers(deleteUserData);
+					const chatUsers = await chatServices.getChatUsers(Number(this.props.selectedChatId));
+					(this.children.ChatHeader as Block).setProps({
+						chatUsers,
+					});
 					this.setProps({
 						...this.props,
 						showDialog: null,

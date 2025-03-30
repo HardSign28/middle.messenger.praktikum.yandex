@@ -9,7 +9,7 @@ export type DialogAddChatProps = {
 }
 
 export type DialogRemoveProps = {
-	onOk?: () => void;
+	onOk?: (callback: number) => void;
 	onCancel?: () => void;
 	userName?: string;
 }

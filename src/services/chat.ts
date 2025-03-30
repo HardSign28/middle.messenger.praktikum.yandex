@@ -69,6 +69,20 @@ export const addChatUsers = async (userData: Record<string, unknown>) => {
 	}
 };
 
+export const deleteChatUsers = async (userData: Record<string, unknown>) => {
+	if (!userData) return undefined;
+	window.store.set({ isLoading: true });
+	try {
+		return await chatApi.deleteChatUsers(userData);
+	} catch (responseError) {
+		const { data } = responseError as { data: { reason: string } };
+		window.store.set({ deleteChatError: data?.reason });
+		throw responseError;
+	} finally {
+		window.store.set({ isLoading: false });
+	}
+};
+
 export const deleteChat = async (chatId: number) => {
 	if (!chatId) return undefined;
 	window.store.set({ isLoading: true });

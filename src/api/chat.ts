@@ -28,6 +28,10 @@ export default class ChatApi {
 		return chatApi.put('/users', { data });
 	}
 
+	async deleteChatUsers(data: Record<string, unknown>): Promise<void | APIError> {
+		return chatApi.delete('/users', { data });
+	}
+
 	async deleteChat(data: Record<string, number>): Promise<void | APIError> {
 		return chatApi.delete('', { data });
 	}
