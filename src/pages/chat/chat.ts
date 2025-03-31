@@ -345,7 +345,14 @@ class ChatPage extends Block {
 
 		this.socket.on('message', async (data) => {
 			// await this.fetchChats(); // Скачет чат
-			const newMessage = JSON.parse(data as string);
+
+			let newMessage;
+			try {
+				newMessage = JSON.parse(data as string);
+			} catch (error) {
+				newMessage = null;
+				throw new Error(`Ошибка парсинга JSON: ${error}`);
+			}
 
 			if (!Array.isArray(newMessage) && newMessage?.type !== 'message') return;
 
@@ -358,7 +365,6 @@ class ChatPage extends Block {
 			});
 
 			(this.children.ChatMessages as Block).setProps({
-				// TODO: JSON.parse в try/catch
 				chatGroups: groupMessages((this.props?.messages as Message[]), userId),
 			});
 
