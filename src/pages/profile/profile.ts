@@ -14,6 +14,7 @@ import { connect } from '@/utils/connect';
 import * as authServices from '@/services/auth';
 import * as usersServices from '@/services/users';
 import { PasswordModelType, ProfileModelType } from '@/types/api';
+import { RESOURCES_URL } from '@/constants';
 
 class ProfilePage extends Block {
 	constructor(props: DefaultProps) {
@@ -226,7 +227,7 @@ class ProfilePage extends Block {
 							this.setProps({ showDialog: null });
 							this.setProps({ previewSrc: '' });
 							(this.children.Avatar as Block).setProps({
-								imgUrl: `https://ya-praktikum.tech/api/v2/resources${response.avatar}`,
+								imgUrl: `${RESOURCES_URL}${response.avatar}`,
 							});
 							this.onDialogUploadClose();
 						}
@@ -276,7 +277,7 @@ class ProfilePage extends Block {
 		if (source?.avatar) {
 			(this.children.Avatar as Block).setProps({
 				imgUrl:
-					`https://ya-praktikum.tech/api/v2/resources/${source.avatar}`
+					`${RESOURCES_URL}/${source.avatar}`
 					|| '',
 			});
 		}

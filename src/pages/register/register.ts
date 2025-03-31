@@ -191,6 +191,9 @@ class RegisterPage extends Block {
 				{{/if}}
 			<div class="mt-20">
 				{{{ SignUpButton }}}
+				<div class="hr">
+					  <span>или</span>
+					</div>
 				{{{ SignInButton }}}
 			</div>
 			</form>

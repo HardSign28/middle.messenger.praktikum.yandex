@@ -76,7 +76,10 @@ class ChatPage extends Block {
 						await chatServices.deleteChat(chatId);
 						await this.fetchChats();
 					} else {
-						throw new Error('Не удалось удалить чат');
+						window.store.setAlertMessage({
+							status: 'error',
+							message: 'Не удалось удалить чат',
+						});
 					}
 				},
 			}),
@@ -112,7 +115,10 @@ class ChatPage extends Block {
 							const { token } = response; // Безопасно извлекаем token
 							chatConnectData.token = token;
 						} else {
-							throw new Error(`Ошибка при получении токена: ${response}`);
+							window.store.setAlertMessage({
+								status: 'error',
+								message: `Ошибка при получении токена: ${response}`,
+							});
 						}
 					} catch (error) {
 						throw new Error(`Ошибка getChatToken: ${error}}`);

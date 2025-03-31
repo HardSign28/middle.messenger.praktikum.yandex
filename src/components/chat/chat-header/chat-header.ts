@@ -2,6 +2,7 @@ import Block from '@/core/block';
 import { Avatar } from '@/components';
 import { AvatarProps } from '@/types/avatar';
 import { ChatHeaderProps } from '@/types/chat';
+import { RESOURCES_URL } from '@/constants';
 
 export default class ChatHeader extends Block {
 	constructor(props: ChatHeaderProps) {
@@ -19,10 +20,13 @@ export default class ChatHeader extends Block {
 						this.props.onUserDeleteClick?.(dataName);
 					}
 					if (target.classList.contains('js_dialog-delete-chat') && typeof this.props.onUserDeleteClick === 'function') {
-						if (this.props?.chatId && typeof this.props?.onUserDeleteChatClick === 'function') {
-							this.props.onUserDeleteChatClick?.(this.props?.chatId);
+						if (this.props?.chatId && typeof this.props?.onDeleteChatClick === 'function') {
+							this.props.onDeleteChatClick?.(this.props?.chatId);
 						} else {
-							throw new Error('Не удалось удалить чат');
+							window.store.setAlertMessage({
+								status: 'error',
+								message: 'Не удалось удалить чат',
+							});
 						}
 					}
 				},
@@ -60,7 +64,7 @@ export default class ChatHeader extends Block {
 									itemtype="https://schema.org/ImageObject"
 									>
 									{{#if avatar }}
-										<img src="https://ya-praktikum.tech/api/v2/resources{{ avatar }}"
+										<img src="${RESOURCES_URL}{{ avatar }}"
 											alt="Аватар пользователя"
 											itemprop="contentUrl"
 											class="avatar__photo">

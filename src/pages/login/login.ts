@@ -50,7 +50,7 @@ class LoginPage extends Block {
 				label: 'Войти',
 				size: 'lg',
 				type: 'primary',
-				class: 'mb-10',
+				class: 'mb-10 mt-20',
 				onClick: (e) => {
 					e.preventDefault();
 					const childrenBlocks = Object.fromEntries(
@@ -93,6 +93,11 @@ class LoginPage extends Block {
 	public render(): string {
 		return `
 		<div class="container w-100">
+			<div class="chat-logo">
+				<img class="chat-logo__img" width="50" src="public/icq.png" alt="Chat Logo">
+				Yandex Practicum<br>Chat
+			</div>
+		
 			<section class="card">
 				<h1 id="login-title" class="card__title text-center">Авторизация</h1>
 				<form action="/login" method="POST" aria-labelledby="login-title">
@@ -102,6 +107,9 @@ class LoginPage extends Block {
 					<p>{{loginError}}</p>
 					{{/if}}
 					{{{ SignInButton }}}
+					<div class="hr">
+					  <span>или</span>
+					</div>
 					{{{ SignUpButton }}}
 				</form>
 			</section>
