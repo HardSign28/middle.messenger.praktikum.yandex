@@ -394,11 +394,6 @@ class ChatPage extends Block {
 		});
 	}
 
-	// TODO: костыль, поправить
-	componentDidMount() {
-		authServices.checkLoginUser();
-	}
-
 	public render(): string {
 		return `
 		<section class="chat">

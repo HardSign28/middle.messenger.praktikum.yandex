@@ -17,8 +17,6 @@ window.store = new Store({
 	selectedFile: null,
 });
 
-authServices.checkLoginUser();
-
 const alert = new Alert({});
 document.body.appendChild(alert.getContent()!);
 
