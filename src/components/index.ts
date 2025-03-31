@@ -5,6 +5,7 @@ export { ListContacts } from './list-contacts';
 export { ContactCard } from './contact-card';
 export { Dialog } from './dialog';
 export { DialogRemove } from './dialog-remove';
+export { DialogRemoveChat } from './dialog-remove-chat';
 export { DialogUpload } from './dialog-upload';
 export { DialogAdd } from './dialog-add';
 export { DialogAddChat } from './dialog-add-chat';

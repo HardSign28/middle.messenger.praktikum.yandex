@@ -7,6 +7,7 @@ import {
 	DialogAdd,
 	DialogAddChat,
 	DialogRemove,
+	DialogRemoveChat,
 	ListContacts,
 } from '@/components';
 import { groupMessages } from '@/utils/groupMessages';
@@ -74,11 +75,17 @@ class ChatPage extends Block {
 						showDialog: 'remove',
 					});
 				},
-				onUserDeleteChatClick: async (chatId) => {
+				onUserDeleteChatClick: (chatId) => {
 					if (chatId) {
-						// TODO: Добавить модалку подтверждение
-						await chatServices.deleteChat(chatId);
-						await this.fetchChats();
+						const chatName = this.props.contacts.find(chat => chat.id === chatId)?.title ?? null;
+						(this.children.DialogDeleteChat).children.Dialog.children.Body.setProps({
+							chatId,
+							chatName,
+						});
+						this.setProps({
+							...this.props,
+							showDialog: 'deleteChat',
+						});
 					} else {
 						throw new Error('Не удалось удалить чат');
 					}
@@ -213,6 +220,24 @@ class ChatPage extends Block {
 					} catch (error) {
 						throw new Error(`Ошибка Создания чата: ${error}}`);
 					}
+				},
+				onCancel: () => {
+					this.setProps({
+						...this.props,
+						showDialog: null,
+					});
+				},
+			}),
+			DialogDeleteChat: new DialogRemoveChat({
+				onOk: async (chatId: number) => {
+					if (!chatId) return;
+					// Удаляем чат
+					await chatServices.deleteChat(chatId);
+					await this.fetchChats();
+					this.setProps({
+						...this.props,
+						showDialog: null,
+					});
 				},
 				onCancel: () => {
 					this.setProps({
@@ -370,6 +395,9 @@ class ChatPage extends Block {
 		
 		{{#if (eq showDialog "addChat") }}
 			{{{ DialogAddChat }}}
+		{{/if}}
+		{{#if (eq showDialog "deleteChat") }}
+			{{{ DialogDeleteChat }}}
 		{{/if}}
     	`;
 	}

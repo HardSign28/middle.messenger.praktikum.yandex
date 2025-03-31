@@ -12,7 +12,7 @@ class DialogBody extends Block {
 	}
 
 	public setText() {
-		this.getContent().innerHTML = `Вы точно хотите удалить пользователя ${this.props.userName}?`;
+		this.getContent().innerHTML = `Вы точно хотите удалить чат ${this.props.chatName}?`;
 	}
 
 	render(): string {
@@ -21,28 +21,27 @@ class DialogBody extends Block {
 	}
 }
 
-export default class DialogRemove extends Block {
+export default class DialogRemoveChat extends Block {
 	constructor(props: DialogRemoveProps) {
 		super('div', {
 			...props,
 			className: 'dialog-container',
 			Dialog: new Dialog({
-				title: 'Удалить пользователя',
+				title: 'Удалить чат',
 				labelOk: 'Удалить',
 				labelCancel: 'Отмена',
 				onOk: () => {
-					console.log('userId', this.children.Dialog.children.Body.props.userId);
-					const userId = Number(
-						this.children.Dialog.children.Body.props.userId,
+					const chatId = Number(
+						this.children.Dialog.children.Body.props.chatId,
 					);
 
-					if (!userId) {
-						(this.children.Dialog as Dialog).setError('Пользователь не выбран');
+					if (!chatId) {
+						(this.children.Dialog as Dialog).setError('Чат не выбран');
 						return;
 					}
 
 					if (props.onOk) {
-						props.onOk(userId);
+						props.onOk(chatId);
 					}
 				},
 				onCancel: props.onCancel,
