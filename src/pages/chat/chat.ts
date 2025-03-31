@@ -104,6 +104,8 @@ class ChatPage extends Block {
 			ChatMessages: new ChatMessages({ id: 'js_chatMessages' }),
 			ListContacts: new ListContacts({
 				onSelectContact: async (index) => {
+					if (index === this.props.activeContactIndex) return;
+
 					const selectedContact = (this.props.contacts as Contact[] | undefined)?.[index];
 					const selectedContactName = selectedContact?.title;
 
