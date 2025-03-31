@@ -108,45 +108,24 @@ class ChatPage extends Block {
 
 					const selectedContact = (this.props.contacts as Contact[] | undefined)?.[index];
 					const selectedContactName = selectedContact?.title;
+					const chatId = Number(selectedContact?.id);
 
 					const user = this.props?.user as { id: number };
 					const userId = user?.id;
 					const chatConnectData = {
 						userId,
-						chatId: Number(selectedContact?.id),
+						chatId,
 						token: '',
 					};
 
-					// TODO: вынести в функцию
 					// Получаем токен для чата
-					try {
-						const response = await chatServices.getChatToken(Number(selectedContact?.id));
-						if ('token' in response) {
-							const { token } = response; // Безопасно извлекаем token
-							chatConnectData.token = token;
-						} else {
-							throw new Error(`Ошибка при получении токена: ${response}`);
-						}
-					} catch (error) {
-						throw new Error(`Ошибка getChatToken: ${error}}`);
-					}
+					await this.getToken(chatConnectData, chatId);
 
 					// Получаем список участников чата
-					try {
-						const chatUsers = await chatServices.getChatUsers(Number(selectedContact?.id));
-						(this.children.ChatHeader as Block).setProps({
-							chatUsers,
-							chatId: Number(selectedContact?.id),
-						});
-						this.setProps({
-							chatUsers,
-						});
-					} catch (error) {
-						throw new Error(`Ошибка getChatUsers: ${error}}`);
-					}
+					await this.getChatUsers(chatId);
 
 					// Подключаемся к чату по WS
-					this.chatConnect(chatConnectData);
+					await this.chatConnect(chatConnectData);
 
 					this.setProps({
 						...this.props,
@@ -275,6 +254,9 @@ class ChatPage extends Block {
 		this.fetchChats();
 	}
 
+	/**
+	 * Получаем список чатов
+	 */
 	async fetchChats() {
 		try {
 			const contacts = await chatServices.getChats();
@@ -290,6 +272,47 @@ class ChatPage extends Block {
 		}
 	}
 
+	/**
+	 * Получаем токен чата
+	 * @param chatConnectData
+	 * @param chatId
+	 */
+	async getToken(chatConnectData, chatId) {
+		try {
+			const response = await chatServices.getChatToken(chatId);
+			if ('token' in response) {
+				const { token } = response;
+				chatConnectData.token = token;
+			} else {
+				throw new Error(`Ошибка при получении токена: ${response}`);
+			}
+		} catch (error) {
+			throw new Error(`Ошибка getChatToken: ${error}}`);
+		}
+	}
+
+	/**
+	 * Получаем список участников чата
+	 * @param chatId
+	 */
+	async getChatUsers(chatId) {
+		try {
+			const chatUsers = await chatServices.getChatUsers(chatId);
+			(this.children.ChatHeader as Block).setProps({
+				chatUsers,
+				chatId,
+			});
+			this.setProps({
+				chatUsers,
+			});
+		} catch (error) {
+			throw new Error(`Ошибка getChatUsers: ${error}}`);
+		}
+	}
+
+	/**
+	 * Скролл чата в низ к последнему сообщению
+	 */
 	scrollChatToBottom() {
 		const chatMessages = document.getElementById('js_chatMessages');
 		if (chatMessages) {
