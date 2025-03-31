@@ -33,8 +33,7 @@ export const groupMessages = (
 
 	messagesCopy.forEach((msg) => {
 		const msgTime = new Date(msg.time);
-		const rawDate = msgTime.toISOString().split('T')[0];
-		const dateKey = formatDateChatList(rawDate) || rawDate;
+		const dateKey = formatDateChatList(msgTime) || msgTime;
 		const prevTime = currentGroup
 			? new Date(currentGroup.messages[currentGroup.messages.length - 1].time)
 			: null;
