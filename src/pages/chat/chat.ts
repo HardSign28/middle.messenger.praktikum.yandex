@@ -6,6 +6,7 @@ import {
 	ChatSearch,
 	DialogAdd,
 	DialogAddChat,
+	DialogChatUsers,
 	DialogRemove,
 	DialogRemoveChat,
 	ListContacts,
@@ -57,7 +58,7 @@ class ChatPage extends Block {
 				onUserAddClick: () => {
 					this.setProps({
 						...this.props,
-						showDialog: 'add',
+						showDialog: 'DialogAdd',
 					});
 				},
 				onUserDeleteClick: (userId: number) => {
@@ -72,7 +73,7 @@ class ChatPage extends Block {
 
 					this.setProps({
 						...this.props,
-						showDialog: 'remove',
+						showDialog: 'DialogRemove',
 					});
 				},
 				onUserDeleteChatClick: (chatId) => {
@@ -84,12 +85,27 @@ class ChatPage extends Block {
 						});
 						this.setProps({
 							...this.props,
-							showDialog: 'deleteChat',
+							showDialog: 'DialogDeleteChat',
 						});
 					} else {
 						throw new Error('Не удалось удалить чат');
 					}
 				},
+				/*
+				onShowDialogChatUsers: () => {
+					const chatUsers = this.children.ChatHeader.props.chatUsers
+					console.log('chatUsers', chatUsers);
+
+					(this.children.DialogChatUsers as Block).children.Dialog.children.Body.setProps({
+						chatUsers,
+					});
+
+					this.setProps({
+						...this.props,
+						showDialog: 'DialogChatUsers',
+					});
+				}
+				*/
 			}),
 			ChatFooter: new ChatFooter({
 				onSendButtonClick: (message: string) => {
@@ -227,6 +243,16 @@ class ChatPage extends Block {
 					});
 				},
 			}),
+			/*
+			DialogChatUsers: new DialogChatUsers({
+				onCancel: () => {
+					this.setProps({
+						...this.props,
+						showDialog: 'DialogRemove',
+					});
+				},
+			}),
+			*/
 			SettingsButton: new Button({
 				label: 'Настройки',
 				type: 'outline-primary',
@@ -236,7 +262,6 @@ class ChatPage extends Block {
 					window.router.go(ROUTER.profile);
 				},
 			}),
-
 			AddChat: new Button({
 				label: 'Создать чат',
 				type: 'outline-primary',
@@ -413,20 +438,20 @@ class ChatPage extends Block {
 				{{/if}}
 			</section>
 		</section>
-
-		{{#if (eq showDialog "remove") }}
+		{{#if (eq showDialog "DialogRemove") }}
 			{{{ DialogRemove }}}
 		{{/if}}
-
-		{{#if (eq showDialog "add") }}
+		{{#if (eq showDialog "DialogAdd") }}
 			{{{ DialogAdd }}}
 		{{/if}}
-		
 		{{#if (eq showDialog "addChat") }}
 			{{{ DialogAddChat }}}
 		{{/if}}
-		{{#if (eq showDialog "deleteChat") }}
+		{{#if (eq showDialog "DialogDeleteChat") }}
 			{{{ DialogDeleteChat }}}
+		{{/if}}
+		{{#if (eq showDialog "DialogChatUsers") }}
+			{{{ DialogChatUsers }}}
 		{{/if}}
     	`;
 	}

@@ -59,7 +59,9 @@ export default class Dialog extends Block {
 				{{#if labelCancel}}
 					{{{ CancelButton }}}
 				{{/if}}
-				{{{ OkButton }}}
+				{{#if labelOk}}
+					{{{ OkButton }}}
+				{{/if}}
 			</div>
     	`;
 	}

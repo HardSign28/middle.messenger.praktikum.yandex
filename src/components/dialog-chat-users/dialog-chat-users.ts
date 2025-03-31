@@ -1,8 +1,5 @@
 import Block from '@/core/block';
 import { Dialog } from '@/components';
-import InputField from '@/components/input/inputField';
-import { validateField } from '@/utils/validateField';
-import { InputFieldProps } from '@/types/inputField';
 import { DefaultProps } from '@/types/props';
 import { DialogAddChatProps } from '@/types/dialog';
 
@@ -14,46 +11,51 @@ class DialogBody extends Block {
 	constructor(props: DefaultProps) {
 		super('div', {
 			...props,
-
-			formState: {
-				title: '',
-			},
-			InputTitle: new InputField({
-				label: 'Название чата',
-				class: 'mb-20',
-				onChange: (e: InputEvent) => {
-					const { value } = e.target as HTMLInputElement;
-					const error = validateField(value, 'message');
-					(this.children.InputTitle as Block<InputFieldProps>).setProps({ error });
-					this.setProps({
-						formState: {
-							...this.props.formState ?? {},
-							title: value,
-						},
-					});
-				},
-			}),
 		});
 	}
 
 	render(): string {
-		return '{{{ InputTitle }}}';
+		return `
+			<ul>
+			{{#each chatUsers }}
+			<li class="chat__menu__list-item">
+				<div class="chat__menu__list-item-content">
+					<figure class="avatar__image"
+						itemscope
+						itemtype="https://schema.org/ImageObject"
+						>
+						{{#if avatar }}
+							<img src="https://ya-praktikum.tech/api/v2/resources{{ avatar }}"
+								alt="Аватар пользователя"
+								itemprop="contentUrl"
+								class="avatar__photo">
+						{{ else }}
+							{{{ defaultAvatar }}}
+						{{/if}}
+						{{#if edit }}
+							<div class="avatar__overlay">
+								<span class="avatar__text">Поменять аватар</span>
+							</div>
+						{{/if}}
+					</figure>
+					{{ first_name }}
+				</div>
+				<i class="chat__menu__icon _delete js_dialog-delete" data-id="{{ id }}"></i>
+			</li>
+			{{/each}}
+			</ul>
+		`;
 	}
 }
 
-export default class DialogAddChat extends Block {
+export default class DialogChatUsers extends Block {
 	constructor(props: DialogAddChatProps) {
 		super('div', {
 			...props,
 			className: 'dialog-container',
 			Dialog: new Dialog({
-				title: 'Добавить чат',
-				labelOk: 'Добавить',
+				title: 'Список участников',
 				labelCancel: 'Отмена',
-				onOk: () => {
-					const formData = this.getFormData();
-					props.onOk(formData);
-				},
 				onCancel: props.onCancel,
 				Body: new DialogBody(props),
 			}),

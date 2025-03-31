@@ -23,6 +23,7 @@ export type ChatHeaderProps = {
 	onUserAddClick?: (login: string) => void;
 	onUserDeleteClick?: () => void;
 	onUserDeleteChatClick?: (chatId: number) => void;
+	onShowDialogChatUsers?: () => void;
 	activeChatImg?: string;
 	name?: string;
 }

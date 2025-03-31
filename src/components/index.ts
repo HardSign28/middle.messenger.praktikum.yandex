@@ -9,6 +9,7 @@ export { DialogRemoveChat } from './dialog-remove-chat';
 export { DialogUpload } from './dialog-upload';
 export { DialogAdd } from './dialog-add';
 export { DialogAddChat } from './dialog-add-chat';
+export { DialogChatUsers } from './dialog-chat-users';
 export { DialogPassword } from './dialog-password';
 export { Avatar } from './avatar';
 export { FileUpload } from './file-upload';

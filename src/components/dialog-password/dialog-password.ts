@@ -21,7 +21,6 @@ class DialogBody extends Block {
 				oldPassword: '',
 				newPassword: '',
 			},
-			userName: props.userName || '',
 			InputOldPassword: new InputField({
 				label: 'Старый пароль',
 				class: 'mb-20',
