@@ -59,9 +59,13 @@ class ChatPage extends Block {
 						showDialog: 'add',
 					});
 				},
-				onUserDeleteClick: (userName: string) => {
+				onUserDeleteClick: (userId: number) => {
+					console.log('onUserDeleteClick');
+					console.log('userId', userId);
+					console.log('this.props.chatUsers', this.props.chatUsers);
+					const userName = this.props.chatUsers.find(user => user.id === userId)?.first_name ?? null;
 					(this.children.DialogRemove).children.Dialog.children.Body.setProps({
-						userId: 1,
+						userId,
 						userName,
 					});
 
@@ -124,6 +128,9 @@ class ChatPage extends Block {
 						(this.children.ChatHeader as Block).setProps({
 							chatUsers,
 							chatId: Number(selectedContact?.id),
+						});
+						this.setProps({
+							chatUsers,
 						});
 					} catch (error) {
 						throw new Error(`Ошибка getChatUsers: ${error}}`);

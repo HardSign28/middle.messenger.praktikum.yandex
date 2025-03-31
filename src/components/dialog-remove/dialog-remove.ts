@@ -5,14 +5,19 @@ import { DialogRemoveProps } from '@/types/dialog';
 
 class DialogBody extends Block {
 	constructor(props: DefaultProps) {
-		super('p', {
+		super('div', {
 			...props,
 			className: 'remove-text',
 		});
 	}
 
+	public setText() {
+		this.getContent().innerHTML = `Вы точно хотите удалить пользователя ${this.props.userName} с ID: ${this.props.userId}?`;
+	}
+
 	render(): string {
-		return 'Вы точно хотите удалить переписку с пользователем {{ userName }}?';
+		const dialogRemoveText = this.setText();
+		return '{{ dialogRemoveText }}';
 	}
 }
 
@@ -26,9 +31,9 @@ export default class DialogRemove extends Block {
 				labelOk: 'Удалить',
 				labelCancel: 'Отмена',
 				onOk: () => {
-					console.log('userId', this.props.userId);
+					console.log('userId', this.children.Dialog.children.Body.props.userId);
 					const userId = Number(
-						this.props.userId,
+						this.children.Dialog.children.Body.props.userId,
 					);
 
 					if (!userId) {
