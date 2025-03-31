@@ -338,6 +338,9 @@ class ChatPage extends Block {
 			});
 
 			this.scrollChatToBottom();
+
+			// Ставим фокус на поле ввода
+			(this.element.querySelector('#message') as HTMLInputElement).focus();
 		});
 
 		this.socket.on('close', (event) => {
