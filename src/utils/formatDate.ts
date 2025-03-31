@@ -1,25 +1,25 @@
 export function formatDateChatList(inputDate: string): string | undefined {
 	if (!inputDate) return undefined;
-	const date = new Date(inputDate);
+	const localDate = new Date(inputDate);
 	const now = new Date();
 
-	const diffInMs = now.getTime() - date.getTime();
+	const diffInMs = now.getTime() - localDate.getTime();
 	const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
 
-	const isYesterday = now.getDate() - date.getDate() === 1 && diffInMinutes >= 1440;
-	const isSameDay = now.getDate() === date.getDate();
+	const hours = localDate.getHours().toString().padStart(2, '0');
+	const minutes = localDate.getMinutes().toString().padStart(2, '0');
 
-	if (diffInMinutes < 1) {
-		return 'только что';
-	} if (diffInMinutes < 60) {
-		return `${diffInMinutes} мин`;
-	} if (isSameDay) {
-		return `${Math.floor(diffInMinutes / 60)}ч назад`;
+	const isYesterday = now.getDate() - localDate.getDate() === 1 && diffInMinutes >= 1440;
+	const isSameDay = now.getDate() === localDate.getDate();
+
+	if (isSameDay) {
+		return `${hours}:${minutes}`;
 	} if (isYesterday) {
 		return 'вчера';
 	}
-	const day = date.getDate().toString().padStart(2, '0');
-	const month = (date.getMonth() + 1).toString().padStart(2, '0');
+
+	const day = localDate.getDate().toString().padStart(2, '0');
+	const month = (localDate.getMonth() + 1).toString().padStart(2, '0');
 	return `${day}.${month}`;
 }
 
