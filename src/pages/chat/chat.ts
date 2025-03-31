@@ -6,7 +6,9 @@ import {
 	ChatSearch,
 	DialogAdd,
 	DialogAddChat,
+	DialogChatUsers,
 	DialogRemove,
+	DialogRemoveChat,
 	ListContacts,
 } from '@/components';
 import { groupMessages } from '@/utils/groupMessages';
@@ -56,25 +58,35 @@ class ChatPage extends Block {
 				onUserAddClick: () => {
 					this.setProps({
 						...this.props,
-						showDialog: 'add',
+						showDialog: 'DialogAdd',
 					});
 				},
-				onUserDeleteClick: (userName: string) => {
+				onUserDeleteClick: (userId: number) => {
+					console.log('onUserDeleteClick');
+					console.log('userId', userId);
+					console.log('this.props.chatUsers', this.props.chatUsers);
+					const userName = this.props.chatUsers.find(user => user.id === userId)?.first_name ?? null;
 					(this.children.DialogRemove).children.Dialog.children.Body.setProps({
-						userId: 1,
+						userId,
 						userName,
 					});
 
 					this.setProps({
 						...this.props,
-						showDialog: 'remove',
+						showDialog: 'DialogRemove',
 					});
 				},
-				onUserDeleteChatClick: async (chatId) => {
+				onUserDeleteChatClick: (chatId) => {
 					if (chatId) {
-						// TODO: Добавить модалку подтверждение
-						await chatServices.deleteChat(chatId);
-						await this.fetchChats();
+						const chatName = this.props.contacts.find(chat => chat.id === chatId)?.title ?? null;
+						(this.children.DialogDeleteChat).children.Dialog.children.Body.setProps({
+							chatId,
+							chatName,
+						});
+						this.setProps({
+							...this.props,
+							showDialog: 'DialogDeleteChat',
+						});
 					} else {
 						window.store.setAlertMessage({
 							status: 'error',
@@ -82,6 +94,21 @@ class ChatPage extends Block {
 						});
 					}
 				},
+				/*
+				onShowDialogChatUsers: () => {
+					const chatUsers = this.children.ChatHeader.props.chatUsers
+					console.log('chatUsers', chatUsers);
+
+					(this.children.DialogChatUsers as Block).children.Dialog.children.Body.setProps({
+						chatUsers,
+					});
+
+					this.setProps({
+						...this.props,
+						showDialog: 'DialogChatUsers',
+					});
+				}
+				*/
 			}),
 			ChatFooter: new ChatFooter({
 				onSendButtonClick: (message: string) => {
@@ -96,52 +123,34 @@ class ChatPage extends Block {
 			ChatMessages: new ChatMessages({ id: 'js_chatMessages' }),
 			ListContacts: new ListContacts({
 				onSelectContact: async (index) => {
+					if (index === this.props.activeContactIndex) return;
+
 					const selectedContact = (this.props.contacts as Contact[] | undefined)?.[index];
 					const selectedContactName = selectedContact?.title;
+					const chatId = Number(selectedContact?.id);
 
 					const user = this.props?.user as { id: number };
 					const userId = user?.id;
 					const chatConnectData = {
 						userId,
-						chatId: Number(selectedContact?.id),
+						chatId,
 						token: '',
 					};
 
-					// TODO: вынести в функцию
 					// Получаем токен для чата
-					try {
-						const response = await chatServices.getChatToken(Number(selectedContact?.id));
-						if ('token' in response) {
-							const { token } = response; // Безопасно извлекаем token
-							chatConnectData.token = token;
-						} else {
-							window.store.setAlertMessage({
-								status: 'error',
-								message: `Ошибка при получении токена: ${response}`,
-							});
-						}
-					} catch (error) {
-						throw new Error(`Ошибка getChatToken: ${error}}`);
-					}
+					await this.getToken(chatConnectData, chatId);
 
 					// Получаем список участников чата
-					try {
-						const chatUsers = await chatServices.getChatUsers(Number(selectedContact?.id));
-						(this.children.ChatHeader as Block).setProps({
-							chatUsers,
-							chatId: Number(selectedContact?.id),
-						});
-					} catch (error) {
-						throw new Error(`Ошибка getChatUsers: ${error}}`);
-					}
+					await this.getChatUsers(chatId);
 
 					// Подключаемся к чату по WS
-					this.chatConnect(chatConnectData);
+					await this.chatConnect(chatConnectData);
 
 					this.setProps({
 						...this.props,
 						activeContactIndex: index,
 						hasActiveContact: index >= 0,
+						messages: [],
 					});
 
 					(this.children.ChatHeader as Block).setProps({
@@ -219,6 +228,34 @@ class ChatPage extends Block {
 					});
 				},
 			}),
+			DialogDeleteChat: new DialogRemoveChat({
+				onOk: async (chatId: number) => {
+					if (!chatId) return;
+					// Удаляем чат
+					await chatServices.deleteChat(chatId);
+					await this.fetchChats();
+					this.setProps({
+						...this.props,
+						showDialog: null,
+					});
+				},
+				onCancel: () => {
+					this.setProps({
+						...this.props,
+						showDialog: null,
+					});
+				},
+			}),
+			/*
+			DialogChatUsers: new DialogChatUsers({
+				onCancel: () => {
+					this.setProps({
+						...this.props,
+						showDialog: 'DialogRemove',
+					});
+				},
+			}),
+			*/
 			SettingsButton: new Button({
 				label: 'Настройки',
 				type: 'outline-primary',
@@ -228,7 +265,6 @@ class ChatPage extends Block {
 					window.router.go(ROUTER.profile);
 				},
 			}),
-
 			AddChat: new Button({
 				label: 'Создать чат',
 				type: 'outline-primary',
@@ -246,6 +282,9 @@ class ChatPage extends Block {
 		this.fetchChats();
 	}
 
+	/**
+	 * Получаем список чатов
+	 */
 	async fetchChats() {
 		try {
 			const contacts = await chatServices.getChats();
@@ -261,6 +300,47 @@ class ChatPage extends Block {
 		}
 	}
 
+	/**
+	 * Получаем токен чата
+	 * @param chatConnectData
+	 * @param chatId
+	 */
+	async getToken(chatConnectData, chatId) {
+		try {
+			const response = await chatServices.getChatToken(chatId);
+			if ('token' in response) {
+				const { token } = response;
+				chatConnectData.token = token;
+			} else {
+				throw new Error(`Ошибка при получении токена: ${response}`);
+			}
+		} catch (error) {
+			throw new Error(`Ошибка getChatToken: ${error}}`);
+		}
+	}
+
+	/**
+	 * Получаем список участников чата
+	 * @param chatId
+	 */
+	async getChatUsers(chatId) {
+		try {
+			const chatUsers = await chatServices.getChatUsers(chatId);
+			(this.children.ChatHeader as Block).setProps({
+				chatUsers,
+				chatId,
+			});
+			this.setProps({
+				chatUsers,
+			});
+		} catch (error) {
+			throw new Error(`Ошибка getChatUsers: ${error}}`);
+		}
+	}
+
+	/**
+	 * Скролл чата в низ к последнему сообщению
+	 */
 	scrollChatToBottom() {
 		const chatMessages = document.getElementById('js_chatMessages');
 		if (chatMessages) {
@@ -293,7 +373,14 @@ class ChatPage extends Block {
 
 		this.socket.on('message', async (data) => {
 			// await this.fetchChats(); // Скачет чат
-			const newMessage = JSON.parse(data as string);
+
+			let newMessage;
+			try {
+				newMessage = JSON.parse(data as string);
+			} catch (error) {
+				newMessage = null;
+				throw new Error(`Ошибка парсинга JSON: ${error}`);
+			}
 
 			if (!Array.isArray(newMessage) && newMessage?.type !== 'message') return;
 
@@ -306,11 +393,13 @@ class ChatPage extends Block {
 			});
 
 			(this.children.ChatMessages as Block).setProps({
-				// TODO: JSON.parse в try/catch
 				chatGroups: groupMessages((this.props?.messages as Message[]), userId),
 			});
 
 			this.scrollChatToBottom();
+
+			// Ставим фокус на поле ввода
+			(this.element.querySelector('#message') as HTMLInputElement).focus();
 		});
 
 		this.socket.on('close', (event) => {
@@ -333,11 +422,6 @@ class ChatPage extends Block {
 		});
 	}
 
-	// TODO: костыль, поправить
-	componentDidMount() {
-		authServices.checkLoginUser();
-	}
-
 	public render(): string {
 		return `
 		<section class="chat">
@@ -357,17 +441,20 @@ class ChatPage extends Block {
 				{{/if}}
 			</section>
 		</section>
-
-		{{#if (eq showDialog "remove") }}
+		{{#if (eq showDialog "DialogRemove") }}
 			{{{ DialogRemove }}}
 		{{/if}}
-
-		{{#if (eq showDialog "add") }}
+		{{#if (eq showDialog "DialogAdd") }}
 			{{{ DialogAdd }}}
 		{{/if}}
-		
 		{{#if (eq showDialog "addChat") }}
 			{{{ DialogAddChat }}}
+		{{/if}}
+		{{#if (eq showDialog "DialogDeleteChat") }}
+			{{{ DialogDeleteChat }}}
+		{{/if}}
+		{{#if (eq showDialog "DialogChatUsers") }}
+			{{{ DialogChatUsers }}}
 		{{/if}}
     	`;
 	}

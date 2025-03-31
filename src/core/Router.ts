@@ -1,4 +1,5 @@
 import Block from '@/core/block';
+import * as authServices from '@/services/auth';
 import Route from './Route';
 
 export interface RouteInterface {
@@ -50,12 +51,14 @@ class Router {
 		this._onRoute(window.location.pathname);
 	}
 
-	_onRoute(pathname: string) {
+	async _onRoute(pathname: string) {
 		const route = this.getRoute(pathname);
 
 		if (!route) {
 			return;
 		}
+
+		await authServices.checkLoginUser();
 
 		if (this._currentRoute && this._currentRoute !== route) {
 			this._currentRoute.leave();

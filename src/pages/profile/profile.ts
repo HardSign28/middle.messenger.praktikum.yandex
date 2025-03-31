@@ -28,7 +28,7 @@ class ProfilePage extends Block {
 				class: 'mb-20',
 				edit: true,
 				onClick: () => {
-					this.setProps({ showDialog: 'upload' });
+					this.setProps({ showDialog: 'DialogUploadComponent' });
 				},
 			}),
 			InputFirstName: new InputField({
@@ -187,7 +187,7 @@ class ProfilePage extends Block {
 				class: 'mb-10',
 				onClick: (e) => {
 					e.preventDefault();
-					this.setProps({ showDialog: 'password' });
+					this.setProps({ showDialog: 'DialogPassword' });
 				},
 			}),
 			LogoutButton: new Button({
@@ -326,10 +326,10 @@ class ProfilePage extends Block {
 				</div>
 			</form>
 		</div>
-		{{#if (eq showDialog "upload") }}
+		{{#if (eq showDialog "DialogUploadComponent") }}
 			{{{ DialogUploadComponent }}}
 		{{/if}}
-		{{#if (eq showDialog "password") }}
+		{{#if (eq showDialog "DialogPassword") }}
 			{{{ DialogPassword }}}
 		{{/if}}
     	`;

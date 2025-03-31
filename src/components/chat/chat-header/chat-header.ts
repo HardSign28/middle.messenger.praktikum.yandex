@@ -16,12 +16,12 @@ export default class ChatHeader extends Block {
 						this.props.onUserAddClick?.();
 					}
 					if (target.classList.contains('js_dialog-delete') && typeof this.props.onUserDeleteClick === 'function') {
-						const dataName = target.dataset.name;
-						this.props.onUserDeleteClick?.(dataName);
+						const dataId = Number(target.dataset.id);
+						this.props.onUserDeleteClick?.(dataId);
 					}
-					if (target.classList.contains('js_dialog-delete-chat') && typeof this.props.onUserDeleteClick === 'function') {
-						if (this.props?.chatId && typeof this.props?.onDeleteChatClick === 'function') {
-							this.props.onDeleteChatClick?.(this.props?.chatId);
+					if (target.classList.contains('js_dialog-delete-chat') && typeof this.props.onUserDeleteChatClick === 'function') {
+						if (this.props?.chatId) {
+							this.props.onUserDeleteChatClick?.(this.props?.chatId);
 						} else {
 							window.store.setAlertMessage({
 								status: 'error',
@@ -54,7 +54,7 @@ export default class ChatHeader extends Block {
 					<ul class="chat__menu__list">
 						<li class="chat__menu__list-item js_dialog-add">
 							<i class="chat__menu__icon _add"></i>
-							Добавить пользователя
+							Добавить участника
 						</li>
 						{{#each chatUsers }}
 						<li class="chat__menu__list-item">
@@ -79,12 +79,12 @@ export default class ChatHeader extends Block {
 								</figure>
 								{{ first_name }}
 							</div>
-							<i class="chat__menu__icon _delete js_dialog-delete" data-name="{{ first_name }}"></i>
+							<i class="chat__menu__icon _delete js_dialog-delete" data-id="{{ id }}"></i>
 						</li>
 						{{/each}}
-						<li class="chat__menu__list-item">
+						<li class="chat__menu__list-item js_dialog-delete-chat">
+							<i class="chat__menu__icon _delete"></i>
 							Удалить чат
-							<i class="chat__menu__icon _delete js_dialog-delete-chat"></i>
 						</li>
 					</ul>
 				</div>

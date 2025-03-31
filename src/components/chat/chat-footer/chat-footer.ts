@@ -11,6 +11,7 @@ export default class ChatFooter extends Block {
 			Input: new Input({
 				name: 'message',
 				className: 'chat__footer-message-input',
+				id: 'message',
 				placeholder: 'Сообщение',
 				events: {
 					input: (e: InputEvent) => {

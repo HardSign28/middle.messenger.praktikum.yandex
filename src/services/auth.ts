@@ -53,7 +53,9 @@ export const checkLoginUser = async () => {
 		}
 	} catch (responseError) {
 		const { status } = responseError as responseErrorType;
-		if (status === 401 && window.location.pathname !== ROUTER.register) {
+		if (status === 401
+			&& window.location.pathname !== ROUTER.register
+			&& window.location.pathname !== ROUTER.login) {
 			window.router.go(ROUTER.login);
 		}
 	} finally {
