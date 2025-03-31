@@ -143,6 +143,7 @@ class ChatPage extends Block {
 						...this.props,
 						activeContactIndex: index,
 						hasActiveContact: index >= 0,
+						messages: [],
 					});
 
 					(this.children.ChatHeader as Block).setProps({

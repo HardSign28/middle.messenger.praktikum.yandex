@@ -1,9 +1,8 @@
 export function formatDateChatList(inputDate: string): string | undefined {
 	if (!inputDate) return undefined;
-	const date = new Date(inputDate); // Парсим дату из строки
-	const now = new Date(); // Текущая дата в локальном часовом поясе
+	const date = new Date(inputDate);
+	const now = new Date();
 
-	// Приводим обе даты к одной временной зоне
 	const diffInMs = now.getTime() - date.getTime();
 	const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
 
@@ -32,4 +31,33 @@ export function formatDateChatMessage(inputDate: string): string | undefined {
 	const minutes = localDate.getMinutes().toString().padStart(2, '0');
 
 	return `${hours}:${minutes}`;
+}
+
+export function formatDateByDay(date: string | Date): string {
+	const msgDate = new Date(date);
+	const now = new Date();
+
+	const isToday =
+		msgDate.getDate() === now.getDate() &&
+		msgDate.getMonth() === now.getMonth() &&
+		msgDate.getFullYear() === now.getFullYear();
+
+	if (isToday) return 'сегодня';
+
+	const months = [
+		'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+		'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря',
+	];
+
+	const day = msgDate.getDate();
+	const month = months[msgDate.getMonth()];
+	const year = msgDate.getFullYear();
+
+	if (year < now.getFullYear()) {
+		return `${day.toString().padStart(2, '0')}.${(msgDate.getMonth() + 1)
+			.toString()
+			.padStart(2, '0')}.${year}`;
+	}
+
+	return `${day} ${month}`;
 }
