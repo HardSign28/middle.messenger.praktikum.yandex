@@ -34,6 +34,7 @@ class ChatPage extends Block {
 			contacts: [],
 			messages: [],
 			activeContactIndex: -1,
+			activeChatId: null,
 			hasActiveContact: false,
 			showDialog: null,
 			selectedChatId: null,
@@ -135,6 +136,7 @@ class ChatPage extends Block {
 					this.setProps({
 						...this.props,
 						activeContactIndex: index,
+						activeChatId: chatId,
 						hasActiveContact: index >= 0,
 						messages: [],
 					});
@@ -352,6 +354,9 @@ class ChatPage extends Block {
 	 */
 	async chatConnect({ userId, chatId, token }:{ userId: number, chatId: number, token:string }) {
 		if (!userId || !chatId || !token) return;
+
+		// Закрываем другой чат
+		this.socket?.close();
 
 		this.setProps({
 			...this.props,
