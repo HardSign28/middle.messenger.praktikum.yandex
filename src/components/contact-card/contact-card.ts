@@ -36,7 +36,7 @@ class ContactCard extends Block {
 							{{#if (eq last_message.user.login user.login) }}
 								<strong class="contact-card-text-highlight">Вы:</strong>
 							{{/if}}
-							{{{ last_message.content }}}
+							{{ last_message.content }}
 						</div>
 						{{#if unread_count }}
 							<div class="contact-card-unread">{{ unread_count }}</div>

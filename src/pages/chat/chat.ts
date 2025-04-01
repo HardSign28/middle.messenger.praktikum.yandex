@@ -24,6 +24,11 @@ import * as chatServices from '@/services/chat';
 import { WSTransport } from '@/core/ws';
 import { connect } from '@/utils/connect';
 
+/* eslint-disable import/no-unresolved */
+import profileIcon from '@/assets/icons/profile.svg?raw';
+import addChatIcon from '@/assets/icons/add-icon.svg?raw';
+/* eslint-enable import/no-unresolved */
+
 class ChatPage extends Block {
 	private socket: WSTransport | null = null;
 
@@ -257,7 +262,8 @@ class ChatPage extends Block {
 				},
 			}),
 			SettingsButton: new Button({
-				label: 'Настройки',
+				label: 'Мой профиль',
+				icon: profileIcon,
 				type: 'outline-primary',
 				size: 'xs',
 				class: 'mb-10',
@@ -267,6 +273,7 @@ class ChatPage extends Block {
 			}),
 			AddChat: new Button({
 				label: 'Создать чат',
+				icon: addChatIcon,
 				type: 'outline-primary',
 				size: 'xs',
 				class: 'mb-10 mt-10',

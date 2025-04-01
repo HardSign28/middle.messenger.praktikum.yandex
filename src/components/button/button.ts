@@ -21,7 +21,14 @@ export default class Button extends Block {
 
 	public render(): string {
 		return `
-      {{{ label }}}
+		{{#if icon }}
+		<div class="button__icon">
+			{{{ icon }}}
+		</div>
+		{{/if }}
+		{{#if label }}
+      	{{ label }}
+      	{{/if }}
     `;
 	}
 }

@@ -25,10 +25,10 @@ class DialogBody extends Block {
 
 	render(): string {
 		return `
-			<ul>
+			<ul class="dialog-chat-users__list">
 			{{#each chatUsers }}
-			<li class="chat__menu__list-item">
-				<div class="chat__menu__list-item-content">
+			<li class="dialog-chat-users__list-item">
+				<div class="dialog-chat-users__list-item-content">
 					<figure class="avatar__image"
 						itemscope
 						itemtype="https://schema.org/ImageObject"
@@ -49,7 +49,7 @@ class DialogBody extends Block {
 					</figure>
 					{{ first_name }}
 				</div>
-				<i class="chat__menu__icon _delete js_dialog-delete" data-id="{{ id }}"></i>
+				<div class="chat__menu__icon icon-delete js_dialog-delete" data-id="{{ id }}"></div>
 			</li>
 			{{/each}}
 			</ul>

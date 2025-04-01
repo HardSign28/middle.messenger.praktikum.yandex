@@ -20,7 +20,7 @@ class Alert extends Block {
 			},
 			CloseButton: new Button({
 				class: 'alert__close',
-				label: closeIcon,
+				icon: closeIcon,
 				onClick: (e) => {
 					e.preventDefault();
 					window.store.set({ alertMessage: null });

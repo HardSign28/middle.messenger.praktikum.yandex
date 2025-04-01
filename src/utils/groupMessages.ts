@@ -1,15 +1,6 @@
 import { Message, MessageGroup } from '@/types/chat';
 import { formatDateByDay, formatDateChatMessage } from '@/utils/formatDate';
 
-function escapeHTML(input: string): string {
-	return input
-		.replace(/&/g, '&amp;') // Экранирует &
-		.replace(/</g, '&lt;') // Экранирует <
-		.replace(/>/g, '&gt;') // Экранирует >
-		.replace(/"/g, '&quot;') // Экранирует "
-		.replace(/'/g, '&#039;'); // Экранирует '
-}
-
 /**
  * Группирует сообщения по дате, отправителю и времени.
  * Если новая дата, отправитель или превышен лимит времени — создаем новую группу.
@@ -54,10 +45,10 @@ export const groupMessages = (
 
 		const formattedMessage = {
 			...msg,
-			sender: sender as 'me' | 'other', // Приведение типа
+			sender: sender as 'me' | 'other',
 			time: formatDateChatMessage(msg.time) || '',
 			rawTime: msg.time,
-			content: escapeHTML(msg.content), // Экранирование текста сообщения
+			content: msg.content,
 		};
 
 		currentGroup.messages.push(formattedMessage);

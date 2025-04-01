@@ -67,7 +67,6 @@
       &-item {
         display: flex;
         align-items: center;
-        justify-content: space-between;
         gap: 15px;
         border: 1px solid transparent;
         border-radius: 8px;
@@ -80,13 +79,22 @@
           gap: 20px;
         }
 
-        &:hover {
+        &:hover,
+        &:active {
           border: 1px solid var(--color-gray);
+
+          &:not(:has(.icon-delete)) {
+            color: var(--main-color);
+
+            svg {
+              fill: var(--main-color);
+            }
+          }
         }
 
-        .avatar__image {
-          width: 50px;
-          height: 50px;
+        &:has(.icon-delete) {
+          color: var(--alert-error);
+          fill: var(--alert-error);
         }
       }
     }
@@ -95,14 +103,6 @@
       display: block;
       width: 22px;
       height: 22px;
-
-      &._add {
-        background: url("@/assets/icons/chat-add-user.svg") center no-repeat;
-      }
-
-      &._delete {
-        background: url("@/assets/icons/chat-delete-user.svg") center no-repeat;
-      }
     }
 
     &__container {
