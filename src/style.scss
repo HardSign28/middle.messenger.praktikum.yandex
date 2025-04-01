@@ -83,6 +83,10 @@
           -2px 0 0 var(--color-white),
           0 -2px 0 var(--color-white);
  margin-bottom: 30px;
+
+  &__img {
+    width: 50px;
+  }
 }
 
 .container {

@@ -94,7 +94,7 @@ class LoginPage extends Block {
 		return `
 		<div class="container w-100">
 			<div class="chat-logo">
-				<img class="chat-logo__img" width="50" src="public/icq.png" alt="Chat Logo">
+				<img class="chat-logo__img" src="/icq.png" alt="Chat Logo">
 				Yandex Practicum<br>Chat
 			</div>
 		
