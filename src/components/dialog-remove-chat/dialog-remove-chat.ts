@@ -12,12 +12,14 @@ class DialogBody extends Block {
 	}
 
 	public setText() {
-		this.getContent().innerHTML = `Вы точно хотите удалить чат ${this.props.chatName}?`;
+		const content = this.getContent();
+		if (!content) return;
+		content.innerHTML = `Вы точно хотите удалить чат ${this.props.chatName}?`;
 	}
 
 	render(): string {
-		const dialogRemoveText = this.setText();
-		return '{{ dialogRemoveText }}';
+		this.setText();
+		return '';
 	}
 }
 
@@ -31,9 +33,8 @@ export default class DialogRemoveChat extends Block {
 				labelOk: 'Удалить',
 				labelCancel: 'Отмена',
 				onOk: () => {
-					const chatId = Number(
-						this.children.Dialog.children.Body.props.chatId,
-					);
+					const dialog = (this.children.Dialog as Block);
+					const chatId = Number((dialog.children.Body as Block).props.chatId);
 
 					if (!chatId) {
 						(this.children.Dialog as Dialog).setError('Чат не выбран');

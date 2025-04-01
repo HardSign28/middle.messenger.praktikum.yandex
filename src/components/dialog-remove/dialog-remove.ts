@@ -12,12 +12,14 @@ class DialogBody extends Block {
 	}
 
 	public setText() {
-		this.getContent().innerHTML = `Вы точно хотите удалить пользователя ${this.props.userName}?`;
+		const content = this.getContent();
+		if (!content) return;
+		content.innerHTML = `Вы точно хотите удалить пользователя ${this.props.userName}?`;
 	}
 
 	render(): string {
-		const dialogRemoveText = this.setText();
-		return '{{ dialogRemoveText }}';
+		this.setText();
+		return '';
 	}
 }
 
@@ -31,9 +33,8 @@ export default class DialogRemove extends Block {
 				labelOk: 'Удалить',
 				labelCancel: 'Отмена',
 				onOk: () => {
-					console.log('userId', this.children.Dialog.children.Body.props.userId);
 					const userId = Number(
-						this.children.Dialog.children.Body.props.userId,
+						((this.children.Dialog as Block).children.Body as Block).props.userId,
 					);
 
 					if (!userId) {

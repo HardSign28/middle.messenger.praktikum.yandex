@@ -3,7 +3,6 @@ import '@/helpers/handlebars';
 import Router from '@/core/Router';
 import { ROUTER } from '@/constants';
 import { Store } from '@/core/Store';
-import * as authServices from '@/services/auth';
 import Block from '@/core/block';
 import { Alert } from '@/components';
 import * as Pages from './pages';

@@ -62,14 +62,13 @@ class ChatPage extends Block {
 					});
 				},
 				onUserDeleteClick: (userId: number) => {
-					console.log('onUserDeleteClick');
-					console.log('userId', userId);
-					console.log('this.props.chatUsers', this.props.chatUsers);
-					const userName = this.props.chatUsers.find(user => user.id === userId)?.first_name ?? null;
-					(this.children.DialogRemove).children.Dialog.children.Body.setProps({
-						userId,
-						userName,
-					});
+					const userName = (this.props.chatUsers as Record<string, unknown>[])
+						.find((user: Record<string, unknown>) => user.id === userId)?.first_name ?? null;
+					(((this.children.DialogRemove as Block).children.Dialog as Block).children.Body as Block)
+						.setProps({
+							userId,
+							userName,
+						});
 
 					this.setProps({
 						...this.props,
@@ -78,11 +77,14 @@ class ChatPage extends Block {
 				},
 				onUserDeleteChatClick: (chatId) => {
 					if (chatId) {
-						const chatName = this.props.contacts.find(chat => chat.id === chatId)?.title ?? null;
-						(this.children.DialogDeleteChat).children.Dialog.children.Body.setProps({
-							chatId,
-							chatName,
-						});
+						const chatName = (this.props.contacts as Record<string, unknown>[])
+							.find((chat) => chat.id === chatId)?.title ?? null;
+						(((this.children.DialogDeleteChat as Block).children.Dialog as Block)
+							.children.Body as Block)
+							.setProps({
+								chatId,
+								chatName,
+							});
 						this.setProps({
 							...this.props,
 							showDialog: 'DialogDeleteChat',
@@ -186,16 +188,17 @@ class ChatPage extends Block {
 			}),
 			DialogAdd: new DialogAdd({
 				onOk: async (userId: number) => {
+					const chatId = Number(this.props.selectedChatId);
 					const addUserData = {
 						users: [userId],
-						chatId: this.props.selectedChatId,
+						chatId,
 					};
 
 					await chatServices.addChatUsers(addUserData);
-					const chatUsers = await chatServices.getChatUsers(Number(this.props.selectedChatId));
-					(this.children.ChatHeader as Block).setProps({
-						chatUsers,
-					});
+					// const chatUsers = await chatServices.getChatUsers(Number(this.props.selectedChatId));
+
+					await this.getChatUsers(chatId);
+
 					this.setProps({
 						...this.props,
 						showDialog: null,
@@ -305,7 +308,7 @@ class ChatPage extends Block {
 	 * @param chatConnectData
 	 * @param chatId
 	 */
-	async getToken(chatConnectData, chatId) {
+	async getToken(chatConnectData: Record<string, unknown>, chatId: number) {
 		try {
 			const response = await chatServices.getChatToken(chatId);
 			if ('token' in response) {
@@ -323,7 +326,7 @@ class ChatPage extends Block {
 	 * Получаем список участников чата
 	 * @param chatId
 	 */
-	async getChatUsers(chatId) {
+	async getChatUsers(chatId: number) {
 		try {
 			const chatUsers = await chatServices.getChatUsers(chatId);
 			(this.children.ChatHeader as Block).setProps({
@@ -333,6 +336,7 @@ class ChatPage extends Block {
 			this.setProps({
 				chatUsers,
 			});
+			window.store.set({ chatUsers });
 		} catch (error) {
 			throw new Error(`Ошибка getChatUsers: ${error}}`);
 		}
@@ -399,7 +403,9 @@ class ChatPage extends Block {
 			this.scrollChatToBottom();
 
 			// Ставим фокус на поле ввода
-			(this.element.querySelector('#message') as HTMLInputElement).focus();
+			if (this.element) {
+				(this.element.querySelector('#message') as HTMLInputElement).focus();
+			}
 		});
 
 		this.socket.on('close', (event) => {

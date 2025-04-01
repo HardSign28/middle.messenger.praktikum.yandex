@@ -37,10 +37,9 @@ export function formatDateByDay(date: string | Date): string {
 	const msgDate = new Date(date);
 	const now = new Date();
 
-	const isToday =
-		msgDate.getDate() === now.getDate() &&
-		msgDate.getMonth() === now.getMonth() &&
-		msgDate.getFullYear() === now.getFullYear();
+	const isToday = msgDate.getDate() === now.getDate()
+		&& msgDate.getMonth() === now.getMonth()
+		&& msgDate.getFullYear() === now.getFullYear();
 
 	if (isToday) return 'сегодня';
 
