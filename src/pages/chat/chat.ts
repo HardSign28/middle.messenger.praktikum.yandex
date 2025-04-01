@@ -23,7 +23,6 @@ import { ROUTER } from '@/constants';
 import * as chatServices from '@/services/chat';
 import { WSTransport } from '@/core/ws';
 import { connect } from '@/utils/connect';
-import * as authServices from '@/services/auth';
 
 class ChatPage extends Block {
 	private socket: WSTransport | null = null;
@@ -61,20 +60,6 @@ class ChatPage extends Block {
 						showDialog: 'DialogAdd',
 					});
 				},
-				onUserDeleteClick: (userId: number) => {
-					const userName = (this.props.chatUsers as Record<string, unknown>[])
-						.find((user: Record<string, unknown>) => user.id === userId)?.first_name ?? null;
-					(((this.children.DialogRemove as Block).children.Dialog as Block).children.Body as Block)
-						.setProps({
-							userId,
-							userName,
-						});
-
-					this.setProps({
-						...this.props,
-						showDialog: 'DialogRemove',
-					});
-				},
 				onUserDeleteChatClick: (chatId) => {
 					if (chatId) {
 						const chatName = (this.props.contacts as Record<string, unknown>[])
@@ -96,12 +81,12 @@ class ChatPage extends Block {
 						});
 					}
 				},
-				/*
 				onShowDialogChatUsers: () => {
-					const chatUsers = this.children.ChatHeader.props.chatUsers
-					console.log('chatUsers', chatUsers);
+					const chatUsers = (this.children.ChatHeader as Block)
+						.props.chatUsers as Record<string, unknown>[];
 
-					(this.children.DialogChatUsers as Block).children.Dialog.children.Body.setProps({
+					(((this.children.DialogChatUsers as Block).children.Dialog as Block)
+						.children.Body as Block).setProps({
 						chatUsers,
 					});
 
@@ -109,8 +94,7 @@ class ChatPage extends Block {
 						...this.props,
 						showDialog: 'DialogChatUsers',
 					});
-				}
-				*/
+				},
 			}),
 			ChatFooter: new ChatFooter({
 				onSendButtonClick: (message: string) => {
@@ -182,7 +166,7 @@ class ChatPage extends Block {
 				onCancel: () => {
 					this.setProps({
 						...this.props,
-						showDialog: null,
+						showDialog: 'DialogChatUsers',
 					});
 				},
 			}),
@@ -249,16 +233,27 @@ class ChatPage extends Block {
 					});
 				},
 			}),
-			/*
 			DialogChatUsers: new DialogChatUsers({
-				onCancel: () => {
+				onOk: (userId: number) => {
+					const userName = (this.props.chatUsers as Record<string, unknown>[])
+						.find((user: Record<string, unknown>) => user.id === userId)?.first_name ?? null;
+					(((this.children.DialogRemove as Block).children.Dialog as Block)
+						.children.Body as Block).setProps({
+						userId,
+						userName,
+					});
 					this.setProps({
 						...this.props,
 						showDialog: 'DialogRemove',
 					});
 				},
+				onCancel: () => {
+					this.setProps({
+						...this.props,
+						showDialog: null,
+					});
+				},
 			}),
-			*/
 			SettingsButton: new Button({
 				label: 'Настройки',
 				type: 'outline-primary',

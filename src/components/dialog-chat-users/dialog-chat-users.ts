@@ -1,7 +1,7 @@
 import Block from '@/core/block';
 import { Dialog } from '@/components';
 import { DefaultProps } from '@/types/props';
-import { DialogAddChatProps } from '@/types/dialog';
+import { DialogChatUsersProps } from '@/types/dialog';
 
 interface FormState {
 	title: string;
@@ -11,6 +11,15 @@ class DialogBody extends Block {
 	constructor(props: DefaultProps) {
 		super('div', {
 			...props,
+			events: {
+				click: (e: MouseEvent) => {
+					const target = e.target as HTMLElement;
+					if (target.classList.contains('js_dialog-delete') && typeof this.props.onOk === 'function') {
+						const dataId = Number(target.dataset.id);
+						this.props.onOk?.(dataId);
+					}
+				},
+			},
 		});
 	}
 
@@ -49,7 +58,7 @@ class DialogBody extends Block {
 }
 
 export default class DialogChatUsers extends Block {
-	constructor(props: DialogAddChatProps) {
+	constructor(props: DialogChatUsersProps) {
 		super('div', {
 			...props,
 			className: 'dialog-container',

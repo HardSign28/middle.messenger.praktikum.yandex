@@ -8,6 +8,7 @@ export type Message = {
 	sender: 'me' | 'other';
 	text: string;
 	time: string;
+	rawTime: string;
 	seen?: boolean;
 	img?: boolean;
 	chatId: number;
@@ -21,7 +22,6 @@ export type MessageGroup = {
 
 export type ChatHeaderProps = {
 	onUserAddClick?: (login: string) => void;
-	onUserDeleteClick?: (userId: number) => void;
 	onUserDeleteChatClick?: (chatId: number) => void;
 	onShowDialogChatUsers?: () => void;
 	activeChatImg?: string;

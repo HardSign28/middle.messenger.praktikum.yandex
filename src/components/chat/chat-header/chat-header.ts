@@ -2,7 +2,6 @@ import Block from '@/core/block';
 import { Avatar } from '@/components';
 import { AvatarProps } from '@/types/avatar';
 import { ChatHeaderProps } from '@/types/chat';
-import { RESOURCES_URL } from '@/constants';
 
 export default class ChatHeader extends Block {
 	constructor(props: ChatHeaderProps) {
@@ -15,9 +14,9 @@ export default class ChatHeader extends Block {
 					if (target.classList.contains('js_dialog-add') && typeof this.props.onUserAddClick === 'function') {
 						this.props.onUserAddClick?.();
 					}
-					if (target.classList.contains('js_dialog-delete') && typeof this.props.onUserDeleteClick === 'function') {
+					if (target.classList.contains('js_dialog-users') && typeof this.props.onShowDialogChatUsers === 'function') {
 						const dataId = Number(target.dataset.id);
-						this.props.onUserDeleteClick?.(dataId);
+						this.props.onShowDialogChatUsers?.(dataId);
 					}
 					if (target.classList.contains('js_dialog-delete-chat') && typeof this.props.onUserDeleteChatClick === 'function') {
 						if (this.props?.chatId) {
@@ -56,32 +55,10 @@ export default class ChatHeader extends Block {
 							<i class="chat__menu__icon _add"></i>
 							Добавить участника
 						</li>
-						{{#each chatUsers }}
-						<li class="chat__menu__list-item">
-							<div class="chat__menu__list-item-content">
-								<figure class="avatar__image"
-									itemscope
-									itemtype="https://schema.org/ImageObject"
-									>
-									{{#if avatar }}
-										<img src="${RESOURCES_URL}{{ avatar }}"
-											alt="Аватар пользователя"
-											itemprop="contentUrl"
-											class="avatar__photo">
-									{{ else }}
-										{{{ defaultAvatar }}}
-									{{/if}}
-									{{#if edit }}
-										<div class="avatar__overlay">
-											<span class="avatar__text">Поменять аватар</span>
-										</div>
-									{{/if}}
-								</figure>
-								{{ first_name }}
-							</div>
-							<i class="chat__menu__icon _delete js_dialog-delete" data-id="{{ id }}"></i>
+						<li class="chat__menu__list-item js_dialog-users">
+							<i class="chat__menu__icon _add"></i>
+							Список участников
 						</li>
-						{{/each}}
 						<li class="chat__menu__list-item js_dialog-delete-chat">
 							<i class="chat__menu__icon _delete"></i>
 							Удалить чат
