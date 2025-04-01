@@ -1,8 +1,10 @@
 import Block from '@/core/block';
 import { Avatar } from '@/components';
 import { ContactCardProps } from '@/types/chat';
+import { formatDateChatList } from '@/utils/formatDate';
+import { connect } from '@/utils/connect';
 
-export default class ContactCard extends Block {
+class ContactCard extends Block {
 	constructor(props: ContactCardProps) {
 		super('div', {
 			...props,
@@ -14,6 +16,9 @@ export default class ContactCard extends Block {
 			events: {
 				click: props.onClick,
 			},
+			formatDateChatList: props?.last_message?.time
+				? formatDateChatList(props.last_message.time)
+				: '',
 		});
 	}
 
@@ -23,18 +28,18 @@ export default class ContactCard extends Block {
 				{{{ Avatar }}}
 				<div class="contact-card-content">
 					<div class="contact-card-head">
-						<div class="contact-card-head__name">{{ name }}</div>
-						<div class="contact-card-head__meta">{{ date }}</div>
+						<div class="contact-card-head__name">{{ title }}</div>
+						<div class="contact-card-head__meta">{{ formatDateChatList }}</div>
 					</div>
 					<div class="contact-card-body">
 						<div class="contact-card-text">
-							{{#if you }}
+							{{#if (eq last_message.user.login user.login) }}
 								<strong class="contact-card-text-highlight">Вы:</strong>
 							{{/if}}
-							{{{ text }}}
+							{{ last_message.content }}
 						</div>
-						{{#if unread }}
-							<div class="contact-card-unread">{{ unread }}</div>
+						{{#if unread_count }}
+							<div class="contact-card-unread">{{ unread_count }}</div>
 						{{/if}}
 					</div>
 				</div>
@@ -42,3 +47,10 @@ export default class ContactCard extends Block {
     	`;
 	}
 }
+
+const mapStateToProps = (state: Record<string, unknown>) => ({
+	isLoading: state.isLoading,
+	user: state.user,
+});
+
+export default connect(mapStateToProps)(ContactCard);

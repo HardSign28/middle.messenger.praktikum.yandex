@@ -1,84 +1,102 @@
-enum METHODS {
-	GET= 'GET',
+enum METHOD {
+	GET = 'GET',
 	POST = 'POST',
 	PUT = 'PUT',
 	PATCH = 'PATCH',
 	DELETE = 'DELETE',
 }
 
-interface RequestOptions {
-	headers?: Record<string, string>;
-	data?: Record<string, unknown>;
+type Options = {
+	method: METHOD;
+	data?: string | number | Record<string, unknown> | FormData;
+	id?: number;
 	timeout?: number;
-}
-
-interface RequestOptionsWithMethod extends RequestOptions {
-	method: METHODS;
-}
-
-const queryStringify = (data: Record<string, unknown>) => {
-	// Можно делать трансформацию GET-параметров в отдельной функции
-	if (!data || typeof data !== 'object') return '';
-	return (
-		`?${
-			Object.entries(data)
-				.map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`)
-				.join('&')}`
-	);
 };
 
-export default class HTTPTransport {
-	get(url: string, options: RequestOptions = {}) {
-		return this.request(
-			url + queryStringify(options.data ?? {}),
-			{ ...options, method: METHODS.GET },
-			options.timeout,
-		);
+type OptionsWithoutMethod = Omit<Options, 'method'>;
+
+export class HTTPTransport {
+	private apiUrl: string = '';
+
+	constructor(apiPath: string) {
+		this.apiUrl = `https://ya-praktikum.tech/api/v2${apiPath}`;
 	}
 
-	post(url: string, options: RequestOptions = {}) {
-		return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
-	}
-
-	put(url: string, options: RequestOptions = {}) {
-		return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
-	}
-
-	delete(url: string, options: RequestOptions = {}) {
-		return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
-	}
-
-	patch(url: string, options: RequestOptions = {}) {
-		return this.request(url, { ...options, method: METHODS.PATCH }, options.timeout);
-	}
-
-	// options:
-	// headers — obj
-	// data — obj
-	request = (
+	get<TResponse>(
 		url: string,
-		options: RequestOptionsWithMethod,
-		timeout = 5000,
-	) => new Promise((resolve, reject) => {
-		const xhr = new XMLHttpRequest();
-		xhr.open(options.method, url);
+		options: OptionsWithoutMethod = {},
+	): Promise<TResponse> {
+		return this.request<TResponse>(`${this.apiUrl}${url}`, {
+			...options,
+			method: METHOD.GET,
+		});
+	}
 
-		xhr.timeout = timeout;
+	post<TResponse>(
+		url: string,
+		options: OptionsWithoutMethod = {},
+	): Promise<TResponse> {
+		return this.request<TResponse>(`${this.apiUrl}${url}`, {
+			...options,
+			method: METHOD.POST,
+		});
+	}
 
-		if (options.headers) {
-			Object.entries(options.headers).forEach(([key, value]) => {
-				xhr.setRequestHeader(key, value);
-			});
+	put<TResponse>(
+		url: string,
+		options: OptionsWithoutMethod = {},
+	): Promise<TResponse> {
+		return this.request<TResponse>(`${this.apiUrl}${url}`, { ...options, method: METHOD.PUT });
+	}
+
+	delete<TResponse>(
+		url: string,
+		options: OptionsWithoutMethod = {},
+	): Promise<TResponse> {
+		return this.request(`${this.apiUrl}${url}`, { ...options, method: METHOD.DELETE });
+	}
+
+	patch(url: string, options: OptionsWithoutMethod = {}) {
+		return this.request(url, { ...options, method: METHOD.PATCH });
+	}
+
+	async request<TResponse>(
+		url: string,
+		options: Options = { method: METHOD.GET },
+	): Promise<TResponse> {
+		const { method, data } = options;
+
+		const headers = new Headers();
+
+		if (!(data instanceof FormData)) {
+			headers.set('Content-Type', 'application/json');
 		}
 
-		xhr.onload = () => resolve(xhr);
-		xhr.onerror = () => reject(new Error(`Network error on ${url}`));
-		xhr.ontimeout = () => reject(new Error(`Timeout exceeded: ${timeout}ms on ${url}`));
+		const response = await fetch(url, {
+			method,
+			credentials: 'include',
+			mode: 'cors',
+			headers,
+			body: data instanceof FormData ? data : JSON.stringify(data) || null,
+		});
 
-		if (options.method === METHODS.GET || !options.data) {
-			xhr.send();
-		} else {
-			xhr.send(JSON.stringify(options.data));
+		let resultData: TResponse | null = null;
+
+		const contentType = response.headers.get('content-type');
+		const isJson = contentType?.includes('application/json');
+
+		if (isJson) {
+			resultData = await response.json();
 		}
-	});
+
+		if (!response.ok) {
+			throw {
+				status: response.status,
+				statusText: response.statusText,
+				data: resultData,
+			};
+		}
+
+		return resultData as TResponse;
+	}
 }

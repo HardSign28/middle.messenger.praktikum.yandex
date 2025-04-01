@@ -1,7 +1,8 @@
 import Block from '@/core/block';
 import { AvatarProps } from '@/types/avatar';
+import { connect } from '@/utils/connect';
 
-export default class Avatar extends Block {
+class Avatar extends Block {
 	constructor(props: AvatarProps) {
 		super('div', {
 			...props,
@@ -24,7 +25,7 @@ export default class Avatar extends Block {
 				itemtype="https://schema.org/ImageObject"
 				>
 				{{#if imgUrl }}
-					<img src="{{{ imgUrl }}}"
+					<img src="{{ imgUrl }}"
 						alt="Аватар пользователя"
 						itemprop="contentUrl"
 						class="avatar__photo">
@@ -40,3 +41,6 @@ export default class Avatar extends Block {
     	`;
 	}
 }
+
+const mapStateToProps = () => ({});
+export default connect(mapStateToProps)(Avatar);

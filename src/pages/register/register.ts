@@ -3,8 +3,12 @@ import Block from '@/core/block';
 import InputField from '@/components/input/inputField';
 import { validateAll, validateField } from '@/utils/validateField';
 import { DefaultProps } from '@/types/props';
+import { ROUTER } from '@/constants';
+import * as authServices from '@/services/auth';
+import { connect } from '@/utils/connect';
+import { RegisterModel } from '@/types/api';
 
-export default class RegisterPage extends Block {
+class RegisterPage extends Block {
 	constructor(props: DefaultProps) {
 		super('main', {
 			...props,
@@ -146,6 +150,7 @@ export default class RegisterPage extends Block {
 
 				onClick: (e) => {
 					e.preventDefault();
+					window.router.go(ROUTER.login);
 				},
 			}),
 			SignUpButton: new Button({
@@ -161,9 +166,9 @@ export default class RegisterPage extends Block {
 							.filter(([_, child]) => !Array.isArray(child))
 							.map(([key, child]) => [key, child as Block]),
 					);
-					validateAll(this.props.formState as Record<string, string>, childrenBlocks, 'login', 'password', 'firstName', 'secondName', 'phone', 'email');
-					// eslint-disable-next-line no-console
-					console.log(this.props.formState);
+					validateAll(this.props.formState as Record<string, string>, childrenBlocks, 'login', 'password', 'first_name', 'second_name', 'phone', 'email');
+
+					authServices.register(this.props.formState as RegisterModel);
 				},
 			}),
 		});
@@ -181,8 +186,14 @@ export default class RegisterPage extends Block {
 				{{{ InputPhone }}}
 				{{{ InputEmail }}}
 				{{{ InputPassword }}}
+				{{#if registerError }}
+					<p>{{registerError}}</p>
+				{{/if}}
 			<div class="mt-20">
 				{{{ SignUpButton }}}
+				<div class="hr">
+					  <span>или</span>
+					</div>
 				{{{ SignInButton }}}
 			</div>
 			</form>
@@ -191,3 +202,10 @@ export default class RegisterPage extends Block {
     	`;
 	}
 }
+
+const mapStateToProps = (state: Record<string, unknown>) => ({
+	isLoading: state.isLoading,
+	registerError: state.registerError,
+});
+
+export default connect(mapStateToProps)(RegisterPage);

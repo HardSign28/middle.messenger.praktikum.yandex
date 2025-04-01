@@ -10,7 +10,7 @@ export const validateField = (value:string, field:string) => {
 
 	// Валидация поля login
 	if (field === 'login') {
-		if (value.length < 3 || value.length > 20) {
+		if (!value || value.length < 3 || value.length > 20) {
 			error = 'Длина должна быть от 3 до 20 символов';
 			return error;
 		}

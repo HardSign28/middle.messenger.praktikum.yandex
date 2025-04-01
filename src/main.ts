@@ -1,45 +1,30 @@
 import './style.scss';
-import Handlebars from 'handlebars';
 import '@/helpers/handlebars';
-import { pages } from '@/data/pages';
+import Router from '@/core/Router';
+import { ROUTER } from '@/constants';
+import { Store } from '@/core/Store';
 import Block from '@/core/block';
-import * as Components from './components';
-import renderDOM from './core/renderDom';
+import { Alert } from '@/components';
+import * as Pages from './pages';
 
-Object.entries(Components).forEach(([name, template]) => {
-	if (typeof template === 'function') {
-		return;
-	}
-	Handlebars.registerPartial(name, template);
+window.store = new Store({
+	isLoading: false,
+	user: null,
+	loginError: null,
+	changeAvatarError: null,
+	changePasswordError: null,
+	selectedFile: null,
 });
 
-/**
- * Навигация по страницам
- * @param page
- */
-const navigate = (page: keyof typeof pages) => {
-	const { name, template, context } = pages[page];
-	if (typeof template === 'function' && template.prototype instanceof Block) {
-		// eslint-disable-next-line new-cap
-		renderDOM(new (template as new (props: unknown) => Block)({ pages }));
-		return;
-	}
-	const container = document.getElementById('app')!;
-	const fullContext = { ...context, pages, currentPage: name };
-	const templatingFunction = Handlebars.compile(template);
-	container.innerHTML = templatingFunction(fullContext);
-};
+const alert = new Alert({});
+document.body.appendChild(alert.getContent()!);
 
-document.addEventListener('DOMContentLoaded', () => navigate('nav'));
-document.addEventListener('click', (e) => {
-	const target = e.target as HTMLElement | null;
-
-	if (target && target.hasAttribute('page')) {
-		const page = target.getAttribute('page') as keyof typeof pages;
-
-		navigate(page);
-
-		e.preventDefault();
-		e.stopImmediatePropagation();
-	}
-});
+const APP_ROOT_ELEMENT = '#app';
+window.router = new Router(APP_ROOT_ELEMENT);
+window.router
+	.use(ROUTER.login, Pages.LoginPage as unknown as typeof Block)
+	.use(ROUTER.register, Pages.RegisterPage as unknown as typeof Block)
+	.use(ROUTER.profile, Pages.ProfilePage as unknown as typeof Block)
+	.use(ROUTER.chat, Pages.ChatPage as unknown as typeof Block)
+	.use(ROUTER.notFound, Pages.NotFoundPage as unknown as typeof Block)
+	.start();

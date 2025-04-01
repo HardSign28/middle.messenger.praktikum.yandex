@@ -7,6 +7,7 @@
     justify-content: space-between;
     padding: 5px 10px;
     box-shadow: 4px 1px 5px 1px rgba(0, 0, 0, .2);
+    z-index: 1;
 
     &-left-side {
       display: flex;
@@ -71,8 +72,29 @@
         border-radius: 8px;
         padding: 10px;
 
-        &:hover {
+        &-content {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+        }
+
+        &:hover,
+        &:active {
           border: 1px solid var(--color-gray);
+
+          &:not(:has(.icon-delete)) {
+            color: var(--main-color);
+
+            svg {
+              fill: var(--main-color);
+            }
+          }
+        }
+
+        &:has(.icon-delete) {
+          color: var(--alert-error);
+          fill: var(--alert-error);
         }
       }
     }
@@ -81,14 +103,6 @@
       display: block;
       width: 22px;
       height: 22px;
-
-      &._add {
-        background: url("@/assets/icons/chat-add-user.svg") center no-repeat;
-      }
-
-      &._delete {
-        background: url("@/assets/icons/chat-delete-user.svg") center no-repeat;
-      }
     }
 
     &__container {

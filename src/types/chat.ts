@@ -1,9 +1,14 @@
 import { groupMessages } from '@/utils/groupMessages';
 
 export type Message = {
+	id: number;
+	user_id: number;
+	title: string;
+	content: string;
 	sender: 'me' | 'other';
 	text: string;
 	time: string;
+	rawTime: string;
 	seen?: boolean;
 	img?: boolean;
 	chatId: number;
@@ -16,13 +21,15 @@ export type MessageGroup = {
 };
 
 export type ChatHeaderProps = {
-	onUserAddClick?: () => void;
-	onUserDeleteClick?: () => void;
+	onUserAddClick?: (login: string) => void;
+	onUserDeleteChatClick?: (chatId: number) => void;
+	onShowDialogChatUsers?: () => void;
 	activeChatImg?: string;
 	name?: string;
 }
 
 export type ChatMessagesProps = {
+	id?: string;
 	chatGroups?: [],
 	messages?: [],
 }
@@ -35,12 +42,20 @@ export type ChatSearchProps = {
 
 export type ContactCardProps = {
 	avatar?: string;
+	last_message?: {
+		user?: Record<string, unknown>,
+		time?: string,
+	};
 	onClick?: () => void;
 }
 
 export type Contact = {
-	name: string;
-	avatar?: string;
+	id: string; // Уникальный идентификатор контакта
+	name: string; // Имя контакта
+	avatarUrl?: string; // (опционально) URL аватара
+	lastMessage?: string; // (опционально) Последнее сообщение
+	title: string;
+	avatar: string;
 };
 
 export type ChatPageProps = {
@@ -53,6 +68,10 @@ export type ChatPageProps = {
 };
 
 export type ListContactsProps = {
-	contacts?: object[];
+	contacts?: Contact[]; // Массив контактов
 	onSelectContact?: (index: number) => void;
+}
+
+export type CreateChatData = {
+	title: string;
 }

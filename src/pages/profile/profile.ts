@@ -3,35 +3,32 @@ import {
 	BackButton,
 	Avatar,
 	DialogUpload,
+	DialogPassword,
+	Dialog, FileUpload,
 } from '@/components';
 import Block from '@/core/block';
 import InputField from '@/components/input/inputField';
 import { validateField } from '@/utils/validateField';
 import { DefaultProps } from '@/types/props';
+import { connect } from '@/utils/connect';
+import * as authServices from '@/services/auth';
+import * as usersServices from '@/services/users';
+import { PasswordModelType, ProfileModelType } from '@/types/api';
+import { RESOURCES_URL } from '@/constants';
 
-export default class ProfilePage extends Block {
+class ProfilePage extends Block {
 	constructor(props: DefaultProps) {
 		super('main', {
 			...props,
-			formState: {
-				login: '',
-				password: '',
-				first_name: '',
-				second_name: '',
-				display_name: '',
-				phone: '',
-				email: '',
-			},
-
+			formState: {},
 			className: 'page page-profile',
+			showDialog: null,
 			Avatar: new Avatar({
 				size: 'md',
 				class: 'mb-20',
-				name: 'Иван',
 				edit: true,
-				imgUrl: '',
 				onClick: () => {
-					this.setProps({ showDialog: 'upload' });
+					this.setProps({ showDialog: 'DialogUploadComponent' });
 				},
 			}),
 			InputFirstName: new InputField({
@@ -39,7 +36,6 @@ export default class ProfilePage extends Block {
 				label: 'Имя',
 				class: 'mb-10',
 				name: 'first_name',
-				value: 'Иван',
 				readonly: true,
 
 				onChange: (e) => {
@@ -49,7 +45,7 @@ export default class ProfilePage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState ?? {},
+							...(this.props.formState ?? {}),
 							first_name: value,
 						},
 					});
@@ -60,16 +56,17 @@ export default class ProfilePage extends Block {
 				label: 'Фамилия',
 				class: 'mb-10',
 				name: 'second_name',
-				value: 'Иванов',
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'secondName');
-					(this.children.InputSecondName as Block).setProps({ error });
+					(this.children.InputSecondName as Block).setProps({
+						error,
+					});
 
 					this.setProps({
 						formState: {
-							...this.props.formState ?? {},
+							...(this.props.formState ?? {}),
 							second_name: value,
 						},
 					});
@@ -80,7 +77,6 @@ export default class ProfilePage extends Block {
 				label: 'Логин',
 				class: 'mb-10',
 				name: 'login',
-				value: 'ivanivanov',
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
@@ -89,7 +85,7 @@ export default class ProfilePage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState ?? {},
+							...(this.props.formState ?? {}),
 							login: value,
 						},
 					});
@@ -100,16 +96,17 @@ export default class ProfilePage extends Block {
 				label: 'Имя в чате',
 				class: 'mb-10',
 				name: 'display_name',
-				value: 'Иван',
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'firstName');
-					(this.children.InputDisplayName as Block).setProps({ error });
+					(this.children.InputDisplayName as Block).setProps({
+						error,
+					});
 
 					this.setProps({
 						formState: {
-							...this.props.formState ?? {},
+							...(this.props.formState ?? {}),
 							display_name: value,
 						},
 					});
@@ -121,7 +118,6 @@ export default class ProfilePage extends Block {
 				class: 'mb-10',
 				name: 'phone',
 				type: 'tel',
-				value: '+7 (909) 967 30 30',
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
@@ -130,7 +126,7 @@ export default class ProfilePage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState ?? {},
+							...(this.props.formState ?? {}),
 							phone: value,
 						},
 					});
@@ -142,7 +138,6 @@ export default class ProfilePage extends Block {
 				class: 'mb-10',
 				name: 'email',
 				type: 'email',
-				value: 'pochta@yandex.kz',
 				readonly: true,
 				onChange: (e) => {
 					const { value } = e.target as HTMLInputElement;
@@ -151,7 +146,7 @@ export default class ProfilePage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState ?? {},
+							...(this.props.formState ?? {}),
 							email: value,
 						},
 					});
@@ -169,21 +164,20 @@ export default class ProfilePage extends Block {
 
 					this.setProps({
 						formState: {
-							...this.props.formState ?? {},
+							...(this.props.formState ?? {}),
 							password: value,
 						},
 					});
 				},
 			}),
 			EditButton: new Button({
-				label: 'Изменить данные',
+				label: 'Сохранить данные',
 				size: 'lg',
 				type: 'primary',
 				class: 'mb-10',
 				onClick: (e) => {
 					e.preventDefault();
-					// eslint-disable-next-line no-console
-					console.log(this.props.formState);
+					usersServices.changeProfile(this.props.formState as ProfileModelType);
 				},
 			}),
 			EditPasswordButton: new Button({
@@ -193,27 +187,118 @@ export default class ProfilePage extends Block {
 				class: 'mb-10',
 				onClick: (e) => {
 					e.preventDefault();
-					// eslint-disable-next-line no-console
-					console.log(this.props.formState);
+					this.setProps({ showDialog: 'DialogPassword' });
 				},
 			}),
 			LogoutButton: new Button({
 				label: 'Выйти',
 				type: 'outline-primary',
 				size: 'lg',
-			}),
-			BackButton: new BackButton({
-				// href: '#',
 				onClick: (e) => {
 					e.preventDefault();
+					authServices.logout();
 				},
 			}),
-			DialogUpload: new DialogUpload({
+			BackButton: new BackButton({
+				onClick: (e) => {
+					e.preventDefault();
+					window.router.back();
+				},
+			}),
+			DialogUploadComponent: new DialogUpload({
+				onCancel: () => {
+					this.setProps({ showDialog: null });
+					this.onDialogUploadClose();
+				},
+				onOk: async () => {
+					const file = this.props.selectedFile;
+					if (!(file instanceof File)) {
+						const dialog = (this.children.DialogUploadComponent as Block).children.Dialog as Dialog;
+						dialog.setError('Файл не выбран или выбран неверный тип файла');
+						return;
+					}
+
+					const formData = new FormData();
+					formData.append('avatar', file);
+
+					try {
+						const response = await usersServices.changeAvatar(formData);
+						if ('avatar' in response) {
+							this.setProps({ showDialog: null });
+							this.setProps({ previewSrc: '' });
+							(this.children.Avatar as Block).setProps({
+								imgUrl: `${RESOURCES_URL}${response.avatar}`,
+							});
+							this.onDialogUploadClose();
+						}
+					} catch {
+						const dialog = (this.children.DialogUploadComponent as Block).children.Dialog as Dialog;
+						dialog.setError('Ошибка загрузки аватара');
+					}
+				},
+			}),
+			DialogPassword: new DialogPassword({
 				onCancel: () => {
 					this.setProps({ showDialog: null });
 				},
+				onOk: async (formData) => {
+					try {
+						await usersServices.changePassword(formData as PasswordModelType);
+						this.setProps({ showDialog: null });
+					} catch {
+						const dialog = (this.children.DialogPassword as Block).children.Dialog as Dialog;
+						dialog.setError('Ошибка смены пароля');
+					}
+				},
 			}),
-			showDialog: null,
+		});
+	}
+
+	onDialogUploadClose() {
+		const dialog = (this.children.DialogUploadComponent as Block).children.Dialog as Dialog;
+		const fileUpload = (dialog.children.Body as Block).children.FileUpload as FileUpload;
+		fileUpload.resetPreview();
+	}
+
+	componentDidMount() {
+		this.loadData(this?.props?.user as Record<string, unknown>);
+	}
+
+	componentDidUpdate(oldProps: DefaultProps, newProps: DefaultProps) {
+		if (oldProps.user !== newProps.user) {
+			this.loadData(newProps.user as Record<string, unknown>);
+		}
+		return true;
+	}
+
+	loadData(source: Record<string, unknown>) {
+		if (!source) return;
+
+		if (source?.avatar) {
+			(this.children.Avatar as Block).setProps({
+				imgUrl:
+					`${RESOURCES_URL}/${source.avatar}`
+					|| '',
+			});
+		}
+
+		(this.children.InputLogin as Block).setProps({
+			value: source?.login || '',
+		});
+		(this.children.InputPhone as Block).setProps({
+			value: source?.phone || '',
+		});
+		(this.children.InputEmail as Block).setProps({
+			value: source?.email || '',
+		});
+		(this.children.InputFirstName as Block).setProps({
+			value: source?.first_name || '',
+		});
+		(this.children.InputSecondName as Block).setProps({
+			value: source?.second_name || '',
+		});
+		(this.children.InputDisplayName as Block).setProps({
+			value: source?.display_name || '',
 		});
 	}
 
@@ -223,8 +308,10 @@ export default class ProfilePage extends Block {
 		<div class="container w-100">
 			<form class="card w-100">
 				<div class="profile__avatar mb-20">
-					{{{ Avatar  }}}
-					<div class="user-name mb-20">Иван</div>
+					{{{ Avatar }}}
+					{{#if user }}
+						<div class="user-name mb-20">{{ user.first_name }}</div>
+					{{/if}}
 				</div>
 				{{{ InputEmail }}}
 				{{{ InputLogin }}}
@@ -239,9 +326,21 @@ export default class ProfilePage extends Block {
 				</div>
 			</form>
 		</div>
-		{{#if (eq showDialog "upload") }}
-			{{{ DialogUpload }}}
+		{{#if (eq showDialog "DialogUploadComponent") }}
+			{{{ DialogUploadComponent }}}
+		{{/if}}
+		{{#if (eq showDialog "DialogPassword") }}
+			{{{ DialogPassword }}}
 		{{/if}}
     	`;
 	}
 }
+
+const mapStateToProps = (state: Record<string, unknown>) => ({
+	isLoading: state.isLoading,
+	user: state.user,
+	selectedFile: state.selectedFile,
+	selectedFileError: state.selectedFileError,
+});
+
+export default connect(mapStateToProps)(ProfilePage);

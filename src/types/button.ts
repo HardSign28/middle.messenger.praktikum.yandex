@@ -4,6 +4,7 @@ export type ButtonProps = {
 	onClick?: (e: MouseEvent) => void;
 	size?: string;
 	label?: string;
+	icon?: string;
 }
 
 export type BackButtonProps = {

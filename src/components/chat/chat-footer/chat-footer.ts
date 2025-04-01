@@ -1,6 +1,7 @@
 import Block from '@/core/block';
-import { Input } from '@/components';
-import { DefaultProps } from '@/types/props';
+import { Button, Input } from '@/components';
+import { DefaultProps, InputProps } from '@/types/props';
+import { ButtonProps } from '@/types/button';
 
 export default class ChatFooter extends Block {
 	constructor(props: DefaultProps) {
@@ -10,7 +11,34 @@ export default class ChatFooter extends Block {
 			Input: new Input({
 				name: 'message',
 				className: 'chat__footer-message-input',
+				id: 'message',
 				placeholder: 'Сообщение',
+				events: {
+					input: (e: InputEvent) => {
+						const { value } = e.target as HTMLInputElement;
+						(this.children.Input as Block).setProps({
+							value,
+						});
+					},
+					keydown: (e: KeyboardEvent) => {
+						if (e.key === 'Enter') {
+							const sendButton = this.children.SendButton as Block<ButtonProps>;
+							sendButton.props?.onClick?.(e as unknown as MouseEvent);
+						}
+					},
+				},
+			}),
+			SendButton: new Button({
+				class: 'chat__footer-send',
+				onClick: (e: MouseEvent) => {
+					e.preventDefault();
+					const input = this.children.Input as Block<InputProps>;
+					const message = input.props.value || '';
+					if (!message) return;
+					if (typeof this.props.onSendButtonClick === 'function') {
+						this.props.onSendButtonClick(message);
+					}
+				},
 			}),
 		});
 	}
@@ -38,7 +66,7 @@ export default class ChatFooter extends Block {
 		<div class="chat__footer-message-box">
 			{{{ Input }}}
 		</div>
-		<div class="chat__footer-send"></div>
+		{{{ SendButton }}}
     	`;
 	}
 }

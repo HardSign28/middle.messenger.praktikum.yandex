@@ -3,7 +3,10 @@
   border: 1px solid transparent;
   font-weight: 500;
   font-size: 13px;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   width: 100%;
   padding: 12px 0;
   border-radius: 8px;
@@ -12,6 +15,16 @@
   &_lg {
     padding: 16px 0;
     font-size: 16px;
+  }
+
+  &_sm {
+    padding: 10px 0;
+    font-size: 14px;
+  }
+
+  &_xs {
+    padding: 9px 0;
+    font-size: 11px;
   }
 
   &__primary {
@@ -40,5 +53,10 @@
     color: var(--main-color-darken);
     font-size: 11px;
     text-align: center;
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
   }
 }

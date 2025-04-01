@@ -9,10 +9,34 @@
   align-items: center;
   gap: 5px;
   cursor: pointer;
+  position: relative;
 
   &__icon {
     background: url("@/assets/icons/file-upload.svg") center no-repeat;
     width: 50px;
     height: 50px;
+    margin: 0 auto;
+  }
+
+  &__input {
+    display: none;
+  }
+
+  &__preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+
+    &-img {
+      max-width: 200px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      object-fit: cover;
+    }
   }
 }

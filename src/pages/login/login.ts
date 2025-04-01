@@ -3,8 +3,12 @@ import { Button } from '@/components';
 import Block from '@/core/block';
 import { validateField, validateAll } from '@/utils/validateField';
 import { DefaultProps } from '@/types/props';
+import { connect } from '@/utils/connect';
+import * as authServices from '@/services/auth';
+import { ROUTER } from '@/constants';
+import { LoginModelType } from '@/types/api';
 
-export default class LoginPage extends Block {
+class LoginPage extends Block {
 	constructor(props: DefaultProps) {
 		super('main', {
 			...props,
@@ -23,12 +27,9 @@ export default class LoginPage extends Block {
 				onChange: (e: InputEvent) => {
 					const { value } = e.target as HTMLInputElement;
 					const error = validateField(value, 'login');
-					(this.children.InputLogin as Block).setProps({ error });
-					this.setProps({
-						formState: {
-							...this.props.formState ?? {},
-							login: value,
-						},
+					(this.children.InputLogin as Block).setProps({
+						error,
+						value,
 					});
 				},
 			}),
@@ -41,13 +42,7 @@ export default class LoginPage extends Block {
 					const error = validateField(value, 'password');
 					(this.children.InputPassword as Block).setProps({
 						error,
-					});
-
-					this.setProps({
-						formState: {
-							...this.props.formState ?? {},
-							password: value,
-						},
+						value,
 					});
 				},
 			}),
@@ -55,7 +50,7 @@ export default class LoginPage extends Block {
 				label: 'Войти',
 				size: 'lg',
 				type: 'primary',
-				class: 'mb-10',
+				class: 'mb-10 mt-20',
 				onClick: (e) => {
 					e.preventDefault();
 					const childrenBlocks = Object.fromEntries(
@@ -64,14 +59,33 @@ export default class LoginPage extends Block {
 							.filter(([_, child]) => !Array.isArray(child))
 							.map(([key, child]) => [key, child as Block]),
 					);
-					validateAll(this.props.formState as Record<string, string>, childrenBlocks, 'login', 'password');
-					// eslint-disable-next-line no-console
-					console.log(this.props.formState);
+
+					const formData = {
+						login: (this.children.InputLogin as Block).props.value,
+						password: (this.children.InputPassword as Block).props.value,
+					};
+
+					validateAll(formData as Record<string, string>, childrenBlocks, 'login', 'password');
+					const formDataErrors = [
+						!!(this.children.InputLogin as unknown as Block<{ error: string }>)
+							.props?.error?.length,
+						!!(this.children.InputPassword as unknown as Block<{ error: string }>)
+							.props?.error?.length,
+					];
+
+					// Если есть ошибки в форме - не отправляем запрос
+					if (formDataErrors.some(Boolean)) return;
+
+					authServices.login(formData as LoginModelType);
 				},
 			}),
 			SignUpButton: new Button({
 				label: 'Зарегистрироваться',
 				type: 'outline-primary',
+				onClick: (e) => {
+					e.preventDefault();
+					window.router.go(ROUTER.register);
+				},
 			}),
 		});
 	}
@@ -79,12 +93,23 @@ export default class LoginPage extends Block {
 	public render(): string {
 		return `
 		<div class="container w-100">
+			<div class="chat-logo">
+				<img class="chat-logo__img" src="/icq.png" alt="Chat Logo">
+				Yandex Practicum<br>Chat
+			</div>
+		
 			<section class="card">
 				<h1 id="login-title" class="card__title text-center">Авторизация</h1>
 				<form action="/login" method="POST" aria-labelledby="login-title">
 					{{{ InputLogin }}}
 					{{{ InputPassword }}}
+					{{#if loginError }}
+					<p>{{loginError}}</p>
+					{{/if}}
 					{{{ SignInButton }}}
+					<div class="hr">
+					  <span>или</span>
+					</div>
 					{{{ SignUpButton }}}
 				</form>
 			</section>
@@ -92,3 +117,9 @@ export default class LoginPage extends Block {
     	`;
 	}
 }
+const mapStateToProps = (state: Record<string, unknown>) => ({
+	isLoading: state.isLoading,
+	loginError: state.loginError,
+});
+
+export default connect(mapStateToProps)(LoginPage);
