@@ -25,5 +25,9 @@
       "@/*": ["src/*"]
     }
   },
+  "ts-node": {
+    "experimentalSpecifierResolution": "node",
+    "transpileOnly": true
+  },
   "include": ["src/**/*.ts", "src/**/*.d.ts"]
 }
