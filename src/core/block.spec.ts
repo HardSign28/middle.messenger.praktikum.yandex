@@ -24,6 +24,11 @@ describe('Block', () => {
 		PageComponent = Page;
 	});
 
+	afterEach(() => {
+		sinon.restore();
+		document.body.innerHTML = '';
+	});
+
 	// написать тест на то что комопнент создается с переданными пропсами
 	it('Должен создать компонент с состоянием из конструктора', () => {
 		const text = 'Hello';
