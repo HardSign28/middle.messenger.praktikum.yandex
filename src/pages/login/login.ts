@@ -4,7 +4,7 @@ import Block from '@/core/block';
 import { validateField, validateAll } from '@/utils/validateField';
 import { DefaultProps } from '@/types/props';
 import { connect } from '@/utils/connect';
-import * as authServices from '@/services/auth';
+import { authServices } from '@/services/auth';
 import { ROUTER } from '@/constants';
 import { LoginModelType } from '@/types/api';
 

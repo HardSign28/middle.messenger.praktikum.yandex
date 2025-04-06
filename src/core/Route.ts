@@ -24,6 +24,10 @@ class Route implements RouteInterface {
 		}
 	}
 
+	getPathName(): string {
+		return this._pathname;
+	}
+
 	leave() {
 		if (this._block) {
 			// this._block.hide();

@@ -1,3 +1,5 @@
+import { API_URL } from '@/constants';
+
 enum METHOD {
 	GET = 'GET',
 	POST = 'POST',
@@ -19,7 +21,7 @@ export class HTTPTransport {
 	private apiUrl: string = '';
 
 	constructor(apiPath: string) {
-		this.apiUrl = `https://ya-praktikum.tech/api/v2${apiPath}`;
+		this.apiUrl = `${API_URL}${apiPath}`;
 	}
 
 	get<TResponse>(

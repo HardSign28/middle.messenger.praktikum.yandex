@@ -220,6 +220,15 @@ export default class Block<P extends DefaultProps = DefaultProps> {
 	}
 
 	getContent() {
+		// Хак, чтобы вызвать CDM только после добавления в DOM
+		setTimeout(() => {
+			if (
+				this.element?.nodeType === Node.ELEMENT_NODE
+			) {
+				this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+			}
+		}, 100);
+
 		return this.element;
 	}
 

@@ -4,7 +4,7 @@ import InputField from '@/components/input/inputField';
 import { validateAll, validateField } from '@/utils/validateField';
 import { DefaultProps } from '@/types/props';
 import { ROUTER } from '@/constants';
-import * as authServices from '@/services/auth';
+import { authServices } from '@/services/auth';
 import { connect } from '@/utils/connect';
 import { RegisterModel } from '@/types/api';
 

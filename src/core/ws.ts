@@ -12,7 +12,7 @@ export class WSTransport {
 
 	private eventHandlers: WebSocketEvents = {};
 
-	private keepAliveInterval: number | null = null;
+	private keepAliveInterval: ReturnType<typeof setInterval> | null = null;
 
 	constructor(url: string) {
 		this.socket = new WebSocket(url);
