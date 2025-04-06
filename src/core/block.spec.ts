@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
-import Block from './block';
+import Block from '@/core/block';
 
 describe('Block', () => {
 	let PageComponent;

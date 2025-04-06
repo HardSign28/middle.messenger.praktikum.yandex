@@ -1,11 +1,12 @@
 import Block from '@/core/block';
-import * as authServices from '@/services/auth';
+import { authServices } from '@/services/auth';
 import Route from './Route';
 
 export interface RouteInterface {
 	render: () => void;
 	match: (path: string) => boolean;
 	leave: () => void;
+	getPathName: () => string;
 }
 
 class Router {

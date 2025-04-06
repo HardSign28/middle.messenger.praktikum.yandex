@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { HTTPTransport } from './http';
-import { API_URL } from '../constants';
+import { API_URL } from '@/constants';
 
 describe('HTTPTransport', () => {
 	let fetchStub: sinon.SinonStub;

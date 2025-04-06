@@ -2,5 +2,6 @@
   "extension": ["ts"],
   "spec": "src/**/*.spec.ts",
   "require": ["mochaSetup.js"],
-  "loader": ["ts-node/esm" ]
+  "loader": ["tsx"],
+  "node-option": ["import=tsx"]
 }

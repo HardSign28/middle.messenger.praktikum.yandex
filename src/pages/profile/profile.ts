@@ -11,7 +11,7 @@ import InputField from '@/components/input/inputField';
 import { validateField } from '@/utils/validateField';
 import { DefaultProps } from '@/types/props';
 import { connect } from '@/utils/connect';
-import * as authServices from '@/services/auth';
+import { authServices } from '@/services/auth';
 import * as usersServices from '@/services/users';
 import { PasswordModelType, ProfileModelType } from '@/types/api';
 import { RESOURCES_URL } from '@/constants';
